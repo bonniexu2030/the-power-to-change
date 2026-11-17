@@ -391,15 +391,35 @@ function renderEnding(){
 function chapterTwoRole(){return window.chapterTwoData[state.role];}
 function renderSceneChapter2(){
  const role=chapterTwoRole(),body=storyLayout();
- const callback=role.callbacks[state.choices.ch1]||"The decisions of the first boycott day are still on your mind.";
+ const callback=role.callbacks[state.choices.ch1]||"The decision you made on the first boycott day remains on your mind.";
  const paragraphs=[...role.intro.slice(0,2),callback,...role.intro.slice(2)];
- body.innerHTML='<p class="chapter-eyebrow">DECEMBER 1955 · CHAPTER II OF FIVE</p><h1>'+safeText(role.heading)+'</h1><p class="place-time">'+safeText(role.place)+'</p><div class="story-prose">'+paragraphs.map(p=>'<p>'+safeText(p)+'</p>').join('')+'</div><section class="prompt"><h2>'+safeText(role.prompt)+'</h2><div class="choice-list" id="choices"></div><p class="mini-note">Each response has a cost and a consequence. The journal tracks circumstances, never morality.</p></section>';
- const list=body.querySelector('#choices');
- role.choices.forEach((choice,index)=>{
-   const button=document.createElement('button');button.type='button';button.className='choice';
-   button.innerHTML='<span class="choice-number">'+String.fromCharCode(65+index)+'</span><span>'+safeText(choice.label)+'</span>';
-   button.addEventListener('click',()=>chooseChapter2(choice.id));list.append(button);
- });
+ if(state.role==='daniel' && role.introVariants){
+   paragraphs[0]=role.introVariants[state.choices.ch1] || paragraphs[0];
+ }
+ if(state.role==='marcus' && state.choices.ch2prep){
+   paragraphs.push(role.prepOutcomes?.[state.choices.ch2prep] || '');
+ }
+ let promptHtml='<section class="prompt"><h2>'+safeText(role.prompt)+'</h2><div class="choice-list" id="choices"></div><p class="mini-note">Every decision has practical consequences. The journal describes circumstances, not morality.</p></section>';
+ if(state.role==='marcus' && !state.choices.ch2prep){
+   promptHtml='<section class="prompt"><p class="chapter-eyebrow">AN EXCHANGE WITH LOTTIE MAE</p><h2>How can the rides become more reliable?</h2><p class="mini-note">Some neighbors are waiting too long. Lottie Mae asks Marcus how to make pickup arrangements work better.</p><div class="choice-list" id="prep-choices"></div></section>';
+ }
+ body.innerHTML='<p class="chapter-eyebrow">DECEMBER 1955 · CHAPTER II OF FIVE</p><h1>'+safeText(role.heading)+'</h1><p class="place-time">'+safeText(role.place)+'</p><div class="story-prose">'+paragraphs.filter(Boolean).map(p=>'<p>'+safeText(p)+'</p>').join('')+'</div>'+promptHtml;
+ if(state.role==='marcus' && !state.choices.ch2prep){
+   const list=body.querySelector('#prep-choices');
+   [{id:'confirm',label:'Ask drivers to confirm their availability the evening before.'},{id:'meetpoint',label:'Suggest a shared pickup point for neighbors going the same way.'}].forEach((c,i)=>{
+      const b=document.createElement('button');b.type='button';b.className='choice';
+      b.innerHTML='<span class="choice-number">'+String.fromCharCode(65+i)+'</span><span>'+safeText(c.label)+'</span>';
+      b.addEventListener('click',()=>{state.choices.ch2prep=c.id;store();render();showToast('Lottie Mae considered your suggestion · The journal remembers');});
+      list.append(b);
+   });
+ } else {
+   const list=body.querySelector('#choices');
+   role.choices.forEach((choice,i)=>{
+     const b=document.createElement('button');b.type='button';b.className='choice';
+     b.innerHTML='<span class="choice-number">'+String.fromCharCode(65+i)+'</span><span>'+safeText(choice.label)+'</span>';
+     b.addEventListener('click',()=>chooseChapter2(choice.id));list.append(b);
+   });
+ }
  revealStoryText('.story-prose p','.prompt');
 }
 function chooseChapter2(choiceId){
@@ -415,7 +435,8 @@ function renderResultChapter2(){
  const role=chapterTwoRole(),selected=role.choices.find(c=>c.id===state.choices.ch2);
  if(!selected){screen='scene';render();return;}
  const body=storyLayout();
- body.innerHTML='<p class="chapter-eyebrow">YOUR DECISION / DECEMBER 1955</p><h1>The consequences unfold.</h1><p class="place-time">'+safeText(game[state.role].name.toUpperCase())+' · CHAPTER II</p><div class="story-prose"><p>'+safeText(selected.label)+'</p></div><div class="consequence"><span class="label">WHAT HAPPENS NEXT</span><p>'+safeText(selected.result)+'</p></div><p class="insight">Your first decision influenced this chapter, and your new choice has been saved. Open the journal to see what changed.</p><div class="scene-actions" id="continue-actions"></div>';
+ const outcome=selected.resultVariants?.[state.choices.ch1] || selected.result;
+ body.innerHTML='<p class="chapter-eyebrow">YOUR DECISION / DECEMBER 1955</p><h1>The consequences unfold.</h1><p class="place-time">'+safeText(game[state.role].name.toUpperCase())+' · CHAPTER II</p><div class="story-prose"><p>'+safeText(selected.label)+'</p></div><div class="consequence"><span class="label">WHAT HAPPENS NEXT</span><p>'+safeText(outcome)+'</p></div><p class="insight">Your first decision influenced this chapter, and your new choice has been saved. Open the journal to see what changed.</p><div class="scene-actions" id="continue-actions"></div>';
  body.querySelector('#continue-actions').append(makeButton('Continue the chapter →',()=>{screen='ending';store();render()}));
  revealStoryText('.story-prose p, .consequence p','.insight, .scene-actions');
 }
@@ -438,7 +459,7 @@ function renderJournal(){
  const labels={stability:'Personal Stability',network:'Support Network',contribution:'Movement Contribution'};
  const values=Object.entries(labels).map(([key,label])=>`<div class="meter"><div class="meter-head"><strong>${label}</strong><span>${gaugeLabel(state.stats[key])}</span></div><div class="bar"><div class="bar-fill ${key}" style="width:${clamp(state.stats[key],0,100)}%"></div></div></div>`).join('');
  const rels=Object.entries(data.relationshipNames).map(([key,name])=>`<div class="relationship"><strong>${safeText(name)}</strong><em>${relationshipLabel(state.relationships[key])}</em></div>`).join('');
- journalContent.innerHTML=`<p class="journal-intro">${safeText(data.name)} · Chapter ${currentChapter()} / V<br>Your circumstances and personal connections change as you make decisions.</p><p class="journal-section-label">YOUR CIRCUMSTANCES</p>${values}<p class="journal-section-label">PEOPLE IN YOUR LIFE</p>${rels}<p class="journal-section-label">REMEMBERED DECISIONS</p><div class="journal-note">${selected?safeText(selected.memory):'Your first decision has not been made yet.'}${state.choices.ch2?"<br><br>"+safeText(window.chapterTwoData[state.role].choices.find(c=>c.id===state.choices.ch2)?.memory||""):""}</div><p class="journal-section-label">HISTORICAL SOURCES</p><p class="journal-intro">${state.documentsOpened?'✓ Boycott leaflet examined.':'Boycott leaflet not yet examined.'}<br>${state.carpoolOpened?'✓ Carpool instructions examined.':'Carpool instructions not yet examined.'}</p><p class="journal-section-label">GAME CONTROLS</p><button class="small-action" id="reset-game">Start a new role / reset progress</button>`;
+ journalContent.innerHTML=`<p class="journal-intro">${safeText(data.name)} · Chapter ${currentChapter()} / V<br>Your circumstances and personal connections change as you make decisions.</p><p class="journal-section-label">YOUR CIRCUMSTANCES</p>${values}<p class="journal-section-label">PEOPLE IN YOUR LIFE</p>${rels}<p class="journal-section-label">REMEMBERED DECISIONS</p><div class="journal-note">${selected?safeText(selected.memory):'Your first decision has not been made yet.'}${state.choices.ch2prep?"<br><br>"+safeText("You helped Lottie Mae explore "+(state.choices.ch2prep==="confirm"?"driver confirmations.":"shared pickup points.")):""}${state.choices.ch2?"<br><br>"+safeText(window.chapterTwoData[state.role].choices.find(c=>c.id===state.choices.ch2)?.memory||""):""}</div><p class="journal-section-label">HISTORICAL SOURCES</p><p class="journal-intro">${state.documentsOpened?'✓ Boycott leaflet examined.':'Boycott leaflet not yet examined.'}<br>${state.carpoolOpened?'✓ Carpool instructions examined.':'Carpool instructions not yet examined.'}</p><p class="journal-section-label">GAME CONTROLS</p><button class="small-action" id="reset-game">Start a new role / reset progress</button>`;
  document.getElementById('reset-game').addEventListener('click',()=>{if(confirm('Reset your current run? Your choices will be erased.')){journal.close();state=null;try{localStorage.removeItem(SAVE_KEY)}catch(e){}screen='roles';render()}});
 }
 let toastCount=0;
