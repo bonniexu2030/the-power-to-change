@@ -5,6 +5,17 @@
 'use strict';
 
 const SAVE_KEY = 'power-to-change-381-days-v1';
+const MOTION_KEY = 'power-to-change-animated-text-v1';
+// Respect the reader's accessibility preference initially; they can opt in.
+function getTextRevealSetting() {
+  try {
+    const saved = localStorage.getItem(MOTION_KEY);
+    if (saved === 'on') return true;
+    if (saved === 'off') return false;
+  } catch (error) { /* Storage may be disabled. */ }
+  return !window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+let textRevealEnabled = getTextRevealSetting();
 const game = {
   evelyn: {
     name: 'Evelyn Brooks', descriptor: 'A working mother', age: '36',
@@ -154,8 +165,8 @@ function render(){
 function revealStoryText(paragraphSelector, lockedSelector) {
   const paragraphs = Array.from(app.querySelectorAll(paragraphSelector));
   if (!paragraphs.length) return;
-  const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reducedMotion) return;
+  // Text motion can be enabled or disabled by the reader at any time.
+  if (!textRevealEnabled) return;
 
   const gatedElements = Array.from(app.querySelectorAll(lockedSelector));
   const fullTexts = paragraphs.map(p => p.textContent);
@@ -183,8 +194,8 @@ function revealStoryText(paragraphSelector, lockedSelector) {
   let delayId = null;
   let current = 0;
   let startTime = null;
-  const millisecondsPerCharacter = 5.7; // Fast enough to remain pleasant on repeat plays.
-  const betweenParagraphsMs = 145;
+  const millisecondsPerCharacter = 17; // Visible but skippable cinematic reveal.
+  const betweenParagraphsMs = 220;
 
   const stop = () => {
     cancelled = true;
@@ -270,8 +281,13 @@ function startRole(id){
 }
 function storyLayout(kind){
  const role=roleData();
- app.innerHTML=`<div class="chapter-head"><span class="small-caps">PART I · THE FIRST STEP</span><span class="chapter-progress">01 / 05 CHAPTERS</span></div><div class="chapter-grid"><article class="book-page"><div class="book-content" id="scene-body"></div></article><aside class="chapter-side"><div class="sidebar-card"><p class="side-label">CHARACTER FILE</p><h2>${safeText(role.name)}</h2><p>${safeText(role.roleLabel)}<br>AGE ${safeText(role.age)}</p><p style="margin-top:15px">Your earlier choices will matter later. You can open your journal at any time.</p></div><button class="archive-ticket" id="open-archive" type="button" aria-label="Examine the historical boycott leaflet"><span class="file-icon">▤</span><h3>Found in the archive</h3><p>DOCUMENT NO. 01<br>THE 1955 BOYCOTT LEAFLET<br>CLICK TO EXAMINE ↗</p></button><div class="side-timeline"><strong>DEC 1</strong> · ROSA PARKS ARRESTED<br><strong>DEC 5</strong> · FIRST BOYCOTT DAY<br><strong>DEC 5</strong> · MASS MEETING</div></aside></div>`;
+ app.innerHTML=`<div class="chapter-head"><span class="small-caps">PART I · THE FIRST STEP</span><div class="chapter-tools"><span class="chapter-progress">01 / 05 CHAPTERS</span><button type="button" class="reading-toggle" id="reading-toggle" aria-pressed="${textRevealEnabled}">${textRevealEnabled ? 'TEXT REVEAL: ON' : 'TEXT REVEAL: OFF'}</button></div></div><div class="chapter-grid"><article class="book-page"><div class="book-content" id="scene-body"></div></article><aside class="chapter-side"><div class="sidebar-card"><p class="side-label">CHARACTER FILE</p><h2>${safeText(role.name)}</h2><p>${safeText(role.roleLabel)}<br>AGE ${safeText(role.age)}</p><p style="margin-top:15px">Your earlier choices will matter later. You can open your journal at any time.</p></div><button class="archive-ticket" id="open-archive" type="button" aria-label="Examine the historical boycott leaflet"><span class="file-icon">▤</span><h3>Found in the archive</h3><p>DOCUMENT NO. 01<br>THE 1955 BOYCOTT LEAFLET<br>CLICK TO EXAMINE ↗</p></button><div class="side-timeline"><strong>DEC 1</strong> · ROSA PARKS ARRESTED<br><strong>DEC 5</strong> · FIRST BOYCOTT DAY<br><strong>DEC 5</strong> · MASS MEETING</div></aside></div>`;
  document.getElementById('open-archive').addEventListener('click',()=>{archive.showModal();state.documentsOpened= true;store();renderJournal()});
+ document.getElementById('reading-toggle').addEventListener('click', () => {
+   textRevealEnabled = !textRevealEnabled;
+   try { localStorage.setItem(MOTION_KEY, textRevealEnabled ? 'on' : 'off'); } catch(error) {}
+   render(); // Replay this page with the selected reveal setting.
+ });
  return document.getElementById('scene-body');
 }
 function renderScene(){
