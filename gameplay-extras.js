@@ -47,6 +47,21 @@
       ['paper','First Integrated Bus Notice','A fictional reminder of the new law and the work still ahead.',5]
     ]
   };
+  // The memento itself can differ with the player's earlier decision.
+  const personalKeepsakes={
+    evelyn:{
+      1:{walk:['Worn Shoe Ribbon','A fictional reminder of Evelyn’s long walk on the first boycott day.'],ride:['Lottie Mae’s Ride Note','The ride arrangement Evelyn requested from her neighbor.'],bus:['Monday Pay Stub','A fictional pay stub from the shift Evelyn could not afford to miss.']},
+      2:{employer:['Work-Hours Note','An uncertain arrangement Evelyn discussed with Mrs. Whitmore.'],help:['Neighborhood Ride Card','A ride schedule Evelyn helped coordinate with Lottie Mae.'],bus:['Saved Bus Fare','A reminder of how protecting family income shaped Evelyn’s transportation choices.']}
+    },
+    marcus:{
+      1:{public:['Public Leaflet','The leaflet Marcus helped distribute openly in the community.'],quiet:['Organizing Notes','A small checklist from his behind-the-scenes leaflet work.'],study:['Leaflet on the Desk','The leaflet David left behind while Marcus returned to his studies.']},
+      2:{schedule:['Volunteer Ride Notes','Addresses and schedules from the transportation work Marcus agreed to organize.'],limited:['Study-Time Schedule','The hours Marcus reserved for dependable volunteering and schoolwork.'],supplies:['Volunteer Supply List','A checklist of the supplies and contacts Marcus helped locate.']}
+    },
+    daniel:{
+      1:{agree:['Bennett’s Receipt','A sale Daniel completed while agreeing with his employer’s remarks.'],silent:['Unspoken Sale Slip','The receipt from the moment Daniel stayed silent at the counter.'],question:['Countertop Note','A reminder of Daniel’s first uncomfortable question to Bennett.']},
+      2:{refuse:['Unfinished Sale Slip','The receipt that was never completed when Daniel followed Bennett’s refusal.'],quiet_sale:['Quiet Carbon Copy','A copy of the sale Daniel completed despite Bennett’s wishes.'],open_sale:['Counter Argument Note','A reminder of the day Daniel openly challenged a discriminatory refusal.']}
+    }
+  };
   const challenges={
     route:{
       chapter:2,title:'The Volunteer Route Desk',tag:'FIELD ACTIVITY 01',
@@ -93,7 +108,10 @@
     const rows=[];
     if(!s)return rows;
     for(const [id,title,detail,ch] of (memories[s.role]||[])){
-      if(s.choices&&s.choices['ch'+ch])rows.push({id,title,detail,chapter:ch});
+      if(s.choices&&s.choices['ch'+ch]){
+        const variant=personalKeepsakes[s.role]?.[ch]?.[s.choices['ch'+ch]];
+        rows.push({id,title:variant?.[0]||title,detail:variant?.[1]||detail,chapter:ch});
+      }
     }
     const extra=getExtras(s);
     for(const [key,task] of Object.entries(challenges)){
@@ -226,7 +244,6 @@
   }
   function drawKeepsakes(){
     const items=getMemories(currentState);
-    const all=(memories[currentState.role]||[]).length+3;
     const cards=items.map((m,i)=>
       '<article class="extras-keepsake"><div class="keepsake-symbol" aria-hidden="true">'+(['✉','▤','✎','◈','✳','⌖','▧'][i%7])+'</div>'+
       '<div><p class="extras-eyebrow">KEEPSAKE · CHAPTER '+m.chapter+'</p><h3>'+escape(m.title)+'</h3><p>'+escape(m.detail)+'</p></div></article>'
