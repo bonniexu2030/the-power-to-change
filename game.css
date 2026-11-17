@@ -208,3 +208,19 @@
   .extras-tab{font-size:8px}
   .extras-side-card{padding:15px}
 }
+
+/* Approved visual-novel moment: separate narrator card and fixed portrait sides. */
+.vn-entry{margin:26px 0 26px;padding:22px 24px;border:1px solid #b99f7e;background:linear-gradient(140deg,#f5ead6,#e8dbc5);box-shadow:5px 6px 0 #51433513}
+.vn-entry h3{font:600 clamp(24px,3vw,34px)/1.2 var(--serif);margin:10px 0}
+.vn-entry p:not(.chapter-eyebrow){font:15px/1.7 Georgia,serif;color:#51473e;margin:0 0 17px}
+.vn-entry .btn{margin:3px 0 9px;display:inline-block}
+.vn-entry-status{display:block;font:500 10px/1.6 var(--mono);letter-spacing:.06em;color:#756956}
+.vn-dialog{width:min(1240px,96vw);height:min(940px,94dvh);max-width:none;max-height:none;padding:0;overflow:hidden;border:7px solid #cfba97;background:#ece0ca;box-shadow:0 18px 70px #21181190}
+.vn-dialog::backdrop{background:#1f211cbd;backdrop-filter:blur(3px)}
+.vn-modal-top{padding:9px 17px;display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid #b39a79;background:#ebdec8}
+.vn-modal-top h2{font:600 18px/1.25 var(--serif);margin:2px 0 0;color:#4c3a30}
+.vn-modal-top .small-caps{font-size:8px;color:#805e4e}
+.vn-modal-close{border:1px solid #9f8060;background:#f8edda;padding:10px 12px;color:#684d40;font:600 10px var(--mono);letter-spacing:.05em;cursor:pointer}
+.vn-modal-close:hover,.vn-modal-close:focus-visible{background:#e3cdae}
+.vn-dialog iframe{display:block;width:100%;height:calc(100% - 61px);border:0;background:#e6d9c3}
+@media(max-width:650px){.vn-dialog{width:100vw;height:100dvh;border-width:0}.vn-modal-top{padding:8px 10px}.vn-modal-top h2{font-size:15px}.vn-entry{padding:16px}.vn-dialog iframe{height:calc(100% - 58px)}}
