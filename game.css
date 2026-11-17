@@ -89,3 +89,27 @@
 .evidence-reviewed{font:500 10px/1.5 var(--mono)!important;letter-spacing:.08em;color:#56704d!important;margin-bottom:0!important}
 .casefile-dialog .primary-link{margin-top:12px}
 @media(max-width:760px){.case-folder{transform:none}.chapter-side .casefile-ticket{transform:none}.casefile-dialog .archive-body{gap:15px}}
+
+/* Chapter V: closing newspaper, personal epilogue and historical afterword. */
+.victory-file{background:linear-gradient(145deg,#ddd0b7,#e9e1cc);border:1px solid #a98f6a;box-shadow:5px 7px 17px #392a1c23;transform:rotate(-1deg)}
+.victory-file .facsimile-head{font:700 clamp(58px,5vw,80px)/.93 var(--serif);letter-spacing:-.065em;color:#75483b;text-align:center;padding:15px 0 8px}
+.epilogue-cover{background:var(--ink);padding:clamp(29px,6vw,65px);color:#f3e9d8;border:7px solid #e3d3ba;box-shadow:0 9px 25px #2f241b22;margin-bottom:30px;position:relative;overflow:hidden}
+.epilogue-cover:after{content:'✳';font:400 280px/1 var(--serif);position:absolute;right:-40px;bottom:-110px;opacity:.09;pointer-events:none}
+.epilogue-cover .eyebrow{color:#d4b498;margin:0 0 27px}
+.epilogue-title{font:600 clamp(37px,6vw,76px)/1.07 var(--serif);letter-spacing:-.045em;position:relative;z-index:1;margin:0 0 34px}
+.epilogue-title em{font-weight:500;color:#c6a789}
+.epilogue-subtitle{font:500 10px var(--mono);letter-spacing:.12em;color:#d4c4b3;position:relative;z-index:1}
+.epilogue-section{background:var(--paper-soft);border:1px solid #c9bca4;box-shadow:0 7px 18px #34291e15;padding:clamp(24px,5vw,49px);margin:20px 0}
+.epilogue-section h2{font:600 clamp(34px,4.5vw,51px)/1.14 var(--serif);margin:12px 0 24px}
+.epilogue-section .story-prose{max-width:850px}
+.epilogue-memories{background:#e8dcc6;border-left:3px solid var(--red);padding:clamp(24px,4vw,39px);margin:24px 0}
+.epilogue-memories p:not(.chapter-eyebrow){font:15px/1.8 Georgia,serif;color:#463d33;margin:12px 0 20px}
+.epilogue-final-choice{border-top:1px solid #a99a82;padding-top:16px;margin-top:22px!important}
+.historical-afterword{background:#e6dcc7;border:1px solid #bfb097;padding:clamp(24px,4vw,38px);margin:24px 0}
+.historical-afterword h2,.reflection-card h2{font:600 clamp(25px,4vw,36px)/1.2 var(--serif);margin:8px 0 16px}
+.historical-afterword p,.reflection-card p{font:15px/1.75 Georgia,serif;max-width:830px}
+.afterword-source a{font:500 10px/1.65 var(--mono);text-decoration:none;letter-spacing:.04em;color:var(--red);border-bottom:1px solid currentColor}
+.afterword-source a:hover{color:var(--red-dark)}
+.reflection-card{padding:clamp(24px,4vw,40px);border:2px solid #927451;background:#f4ead5;box-shadow:5px 6px 0 #9f81621c;margin:24px 0}
+.reflection-card .mini-note{font:12px/1.65 var(--sans);color:#756a5b}
+@media(max-width:650px){.epilogue-cover{border-width:4px}.epilogue-title{margin-bottom:25px}.epilogue-memories{padding:22px}.victory-file{transform:none}}
