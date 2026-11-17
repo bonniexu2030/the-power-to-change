@@ -477,4 +477,15 @@ for(const name of ['journal','archive','carpool']){
  d.querySelector(`[data-close="${name}"]`).addEventListener('click',()=>d.close());
  d.addEventListener('click',e=>{if(e.target===d)d.close()});
 }
+
+/* Let readers inspect archival annotations without interrupting the story. */
+document.querySelectorAll('[data-archive-examine]').forEach(inspector=>{
+ const detail=inspector.querySelector('[data-archive-detail]');
+ const buttons=Array.from(inspector.querySelectorAll('button[data-archive-note]'));
+ buttons.forEach(button=>button.addEventListener('click',()=>{
+   buttons.forEach(other=>other.setAttribute('aria-pressed',other===button?'true':'false'));
+   detail.textContent=button.getAttribute('data-archive-note');
+ }));
+});
+
 render();
