@@ -5,6 +5,7 @@
 'use strict';
 
 const SAVE_KEY = 'power-to-change-381-days-v1';
+const ROLE_SAVE_PREFIX = 'power-to-change-381-days-role-v1-';
 const MOTION_KEY = 'power-to-change-animated-text-v1';
 // Respect the reader's accessibility preference initially; they can opt in.
 function getTextRevealSetting() {
@@ -181,6 +182,7 @@ const journalContent = document.getElementById('journal-content');
 const archive = document.getElementById('archive');
 const toast = document.getElementById('toast');
 const journalButton = document.getElementById('open-journal');
+const characterSwitchButton = document.getElementById('change-character');
 let toastTimer;
 let stopActiveNarration = null;
 let state = readSavedState();
@@ -188,22 +190,54 @@ let screen = state ? state.screen : 'cover';
 function currentChapter(){return state && state.chapter===5?5:state && state.chapter===4?4:state && state.chapter===3?3:state && state.chapter===2?2:1;}
 
 function safeText(text){return String(text).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');}
-function readSavedState(){
-  try{
-    const parsed=JSON.parse(localStorage.getItem(SAVE_KEY));
-    if(!parsed||parsed.version!==1||!game[parsed.role]||!['scene','result','ending'].includes(parsed.screen))return null;
-    if(!parsed.stats||!parsed.relationships)return null;
-    return parsed;
-  }catch(error){return null;}
+
+function validStoryState(saved, role){
+ return !!(saved&&saved.version===1&&game[saved.role]&&(!role||saved.role===role)
+   &&['scene','result','ending'].includes(saved.screen)
+   &&saved.stats&&saved.relationships&&saved.choices);
 }
-function store(){if(!state)return;state.screen=screen;try{localStorage.setItem(SAVE_KEY,JSON.stringify(state));}catch(error){/* browser storage may be disabled */}}
+function readRoleSave(role){
+ if(!game[role])return null;
+ try {
+  const saved=JSON.parse(localStorage.getItem(ROLE_SAVE_PREFIX+role));
+  return validStoryState(saved,role)?saved:null;
+ }catch(error){return null;}
+}
+function readSavedState(){
+ try{
+  const saved=JSON.parse(localStorage.getItem(SAVE_KEY));
+  if(!validStoryState(saved))return null;
+  // Migrate the original one-character save without changing its contents.
+  if(!readRoleSave(saved.role))
+    localStorage.setItem(ROLE_SAVE_PREFIX+saved.role,JSON.stringify(saved));
+  return saved;
+ }catch(error){return null;}
+}
+function store(){
+ if(!state)return;
+ // A cover or role selector is not a playable save screen.
+ if(['scene','result','ending'].includes(screen))state.screen=screen;
+ try{
+  const saved=JSON.stringify(state);
+  localStorage.setItem(SAVE_KEY,saved);
+  localStorage.setItem(ROLE_SAVE_PREFIX+state.role,saved);
+ }catch(error){/* Browser storage may be disabled. */}
+}
+function switchCharacter(){
+ if(state)store();
+ if(document.getElementById('journal').open)document.getElementById('journal').close();
+ state=null;
+ screen='roles';
+ render();
+}
 function clamp(n,min,max){return Math.min(max,Math.max(min,n));}
 function roleData(){return state?game[state.role]:null;}
 function scrollTop(){window.scrollTo({top:0,behavior:'instant'});}
 function render(){
   // Cleanly stop an ongoing text reveal before switching story pages.
   if (stopActiveNarration) { stopActiveNarration(); stopActiveNarration = null; }
-  journalButton.hidden=!state;
+  journalButton.hidden=!state||screen==='roles';
+  characterSwitchButton.hidden=!state||screen==='roles';
   if(screen==='cover')renderCover();
   else if(screen==='roles')renderRoles();
   else if(screen==='scene')currentChapter()===5?renderSceneChapter5():currentChapter()===4?renderSceneChapter4():currentChapter()===3?renderSceneChapter3():currentChapter()===2?renderSceneChapter2():renderScene();
@@ -321,21 +355,42 @@ function renderCover(){
  app.innerHTML=`<div class="chapter-cover"><section class="cover-copy"><p class="eyebrow">BOOK ONE · THE MONTGOMERY BUS BOYCOTT</p><h1 class="hero-title">381 <em>Days.</em></h1><p class="lede">One city. Three lives. A movement that changes history.</p><p class="lede">Step into Montgomery in December 1955. Your choices shape a person's relationships, security, and place in a larger struggle—but history was never made by one person alone.</p><div class="cover-actions" id="cover-actions"></div><p class="disclaimer">Historical fiction: playable characters and dialogue are invented. Major events and historical documents are drawn from the documented Montgomery Bus Boycott. All five chapters are playable. Your decisions shape your character's story, while documented history remains unchanged.</p></section><div class="collage" aria-hidden="true"><div class="collage-sheet"><p class="date">MONTGOMERY · 1955</p><div class="big-type">THE<br>LONG<br>WALK</div></div><div class="collage-polaroid"><div class="polaroid-illustration"></div><span class="polaroid-caption">ORDINARY DAYS. EXTRAORDINARY DECISIONS.</span></div><div class="collage-note"><p>What would<br>you have<br>done?</p></div><div class="tape"></div><div class="round-seal">FILE<br>NO. 01</div></div></div>`;
  const actions=document.getElementById('cover-actions');
  actions.append(makeButton(state?'Continue your story →':'Open the story →',()=>{screen=state?state.screen:'roles';render()}));
- if(state)actions.append(makeButton('Choose a new role',()=>{if(confirm('Start a fresh story? Your current chapter progress will be replaced.')){state=null;try{localStorage.removeItem(SAVE_KEY)}catch(e){}screen='roles';render()}},'btn btn-secondary'));
+ if(state)actions.append(makeButton('Choose another character →',switchCharacter,'btn btn-secondary'));
 }
 function renderRoles(){
- app.innerHTML='<div class="page-heading"><p class="eyebrow">ARCHIVE / CHARACTER FILES</p><h1>Choose your perspective.</h1><p>Three people, one historical movement. Their circumstances, obligations, and freedoms are not the same. Each character has a different opening chapter.</p></div><div id="role-list" class="roles"></div><p class="disclaimer">You can replay another character when you finish Chapter V. All playable characters are fictional.</p>';
+ app.innerHTML='<div class="page-heading"><p class="eyebrow">ARCHIVE / CHARACTER FILES</p><h1>Choose your perspective.</h1><p>Three people, one historical movement. Their circumstances, obligations, and freedoms are not the same.</p></div><div id="role-list" class="roles"></div><p class="disclaimer">You can change characters at any point. Each character’s progress is saved separately in this browser. Use Restart to begin a saved story again from Chapter I.</p>';
  const list=document.getElementById('role-list');
  for(const [id,role] of Object.entries(game)){
+  const saved=readRoleSave(id);
+  const slot=document.createElement('div');slot.className='role-slot';
   const button=document.createElement('button');button.type='button';button.className='role-card';
-  button.innerHTML=`<div class="role-art ${role.color}"><div class="role-shape"></div><span>${role.portrait}</span></div><div class="role-body"><span class="role-index">CHARACTER FILE / ${id==='evelyn'?'01':id==='marcus'?'02':'03'}</span><h2>${role.name}</h2><p>${role.summary}</p></div><div class="role-select"><span>BEGIN THIS STORY</span><span>↗</span></div>`;
-  button.addEventListener('click',()=>startRole(id));list.append(button);
+  const action=saved?'RESUME · CHAPTER '+(saved.chapter||1):'BEGIN THIS STORY';
+  button.innerHTML=`<div class="role-art ${role.color}"><div class="role-shape"></div><span>${role.portrait}</span></div><div class="role-body"><span class="role-index">CHARACTER FILE / ${id==='evelyn'?'01':id==='marcus'?'02':'03'}</span><h2>${safeText(role.name)}</h2><p>${safeText(role.summary)}</p></div><div class="role-select"><span>${action}</span><span>↗</span></div>`;
+  button.addEventListener('click',()=>startRole(id));
+  slot.append(button);
+  if(saved){
+   const restart=document.createElement('button');
+   restart.type='button';restart.className='role-restart';
+   restart.textContent='↺ Restart '+role.name+' from Chapter I';
+   restart.addEventListener('click',()=>restartRole(id));
+   slot.append(restart);
+  }
+  list.append(slot);
  }
 }
 function startRole(id){
- const data=game[id];state={version:1,chapter:1,role:id,stats:{...data.stats},relationships:{...data.relationships},choices:{},screen:'scene'};
+ const data=game[id];if(!data)return;
+ state=readRoleSave(id)||{version:1,chapter:1,role:id,stats:{...data.stats},relationships:{...data.relationships},choices:{},screen:'scene'};
+ screen=state.screen||'scene';store();render();
+}
+function restartRole(id){
+ const data=game[id];if(!data)return;
+ if(!confirm('Restart '+data.name+' from Chapter I? Only this character’s saved decisions and progress will be replaced.'))return;
+ try{localStorage.removeItem(ROLE_SAVE_PREFIX+id)}catch(error){}
+ state={version:1,chapter:1,role:id,stats:{...data.stats},relationships:{...data.relationships},choices:{},screen:'scene'};
  screen='scene';store();render();
 }
+
 function storyLayout(kind){
  const role=roleData(),ch=currentChapter();
  const part={1:'PART I · THE FIRST STEP',2:'PART II · THE LONG WALK',3:'PART III · THE PRICE OF STANDING UP',4:'PART IV · HOPE IS NOT THE END',5:'PART V · WHAT COMES AFTER VICTORY?'}[ch];
@@ -410,7 +465,7 @@ function renderEnding(){
  body.innerHTML=`<p class="chapter-eyebrow">DECEMBER 5, 1955 · MONDAY EVENING</p><h1>One Day Becomes Something More.</h1><p class="place-time">END OF CHAPTER I</p><div class="story-prose">${data.end.map(p=>`<p>${safeText(p)}</p>`).join('')}<p>${safeText(chapterOneClosingParagraph())}</p><p>At Holt Street Baptist Church, a mass meeting supports continuing the boycott. The movement is no longer a protest planned for only one day.</p></div><div class="finishing"><span class="tag">YOUR STORY REMEMBERS</span><p>${safeText(chosen.memory)}</p><h2>Next: The Long Walk</h2><p>${safeText(data.next)}.</p><p class="preview-lock">YOUR CHOICES WILL FOLLOW YOU INTO CHAPTER II</p></div><div class="scene-actions" id="ending-actions"></div><p class="insight">Read more in the historical archive. When the next chapter is added, this same save system will carry your choices forward.</p>`;
  const actions=body.querySelector('#ending-actions');
  actions.append(makeButton('Continue to Chapter II →',()=>{state.chapter=2;screen='scene';store();render()}));
- actions.append(makeButton('Replay another role →',()=>{if(confirm('Try another character? This will replace your current saved run.')){try{localStorage.removeItem(SAVE_KEY)}catch(e){}state=null;screen='roles';render()}}));
+ actions.append(makeButton('Choose another character →',switchCharacter));
  actions.append(makeButton('Back to introduction',()=>{screen='cover';render()},'btn btn-secondary'));
   revealStoryText('.story-prose p', '.finishing, .scene-actions, .insight');
 }
@@ -475,7 +530,7 @@ function renderEndingChapter2(){
  body.innerHTML='<p class="chapter-eyebrow">JANUARY 1956 · THE BOYCOTT CONTINUES</p><h1>The Days Keep Coming.</h1><p class="place-time">END OF CHAPTER II</p><div class="story-prose">'+role.end.map(p=>'<p>'+safeText(p)+'</p>').join('')+'</div><div class="finishing"><span class="tag">YOUR JOURNAL REMEMBERS</span><p>'+safeText(selected.memory)+'</p><h2>Next: The Price of Standing Up</h2><p>'+safeText(role.next)+'.</p><p class="preview-lock">YOUR DECISIONS WILL FOLLOW YOU INTO CHAPTER III</p></div><div class="scene-actions" id="ending-actions"></div><p class="insight">The historical boycott continues, regardless of your choices. Your personal story has changed. Read the documents or replay another role to compare perspectives.</p>';
  const actions=body.querySelector('#ending-actions');
  actions.append(makeButton('Continue to Chapter III →',()=>{state.chapter=3;screen='scene';store();render()}));
- actions.append(makeButton('Replay another role →',()=>{if(confirm('Try another character? This will replace your current saved run.')){try{localStorage.removeItem(SAVE_KEY)}catch(e){}state=null;screen='roles';render()}}));
+ actions.append(makeButton('Choose another character →',switchCharacter));
  actions.append(makeButton('Return to introduction',()=>{screen='cover';render()},'btn btn-secondary'));
  revealStoryText('.story-prose p','.finishing, .scene-actions, .insight');
 }
@@ -548,7 +603,7 @@ function renderEndingChapter3(){
   '<div class="scene-actions" id="ending-actions"></div><p class="insight">The criminal prosecution of boycott leaders is separate from Browder v. Gayle, the federal civil lawsuit challenging segregated buses. You can examine the original records in the archive.</p>';
  const actions=body.querySelector('#ending-actions');
  actions.append(makeButton('Continue to Chapter IV →',()=>{state.chapter=4;screen='scene';store();render()}));
- actions.append(makeButton('Replay another role →',()=>{if(confirm('Try another character? This will replace your current saved run.')){try{localStorage.removeItem(SAVE_KEY)}catch(e){}state=null;screen='roles';render()}}));
+ actions.append(makeButton('Choose another character →',switchCharacter));
  actions.append(makeButton('Return to introduction',()=>{screen='cover';render()},'btn btn-secondary'));
  revealStoryText('.story-prose p','.finishing, .scene-actions, .insight');
 }
@@ -656,12 +711,7 @@ function renderEndingChapter4(){
   '<p class="insight">The Supreme Court has affirmed the ruling, but the desegregation order must still reach Montgomery. You can revisit the courthouse file to explore the plaintiffs and the original judgment.</p>';
  const actions=body.querySelector('#ending-actions');
  actions.append(makeButton('Continue to Chapter V →',()=>{state.chapter=5;screen='scene';store();render()}));
- actions.append(makeButton('Replay another role →',()=>{
-  if(confirm('Try another character? This will replace your current saved run.')){
-   try{localStorage.removeItem(SAVE_KEY)}catch(error){}
-   state=null;screen='roles';render();
-  }
- }));
+ actions.append(makeButton('Choose another character →',switchCharacter));
  actions.append(makeButton('Back to introduction',()=>{screen='cover';render()},'btn btn-secondary'));
  revealStoryText('.story-prose p','.finishing, .scene-actions, .insight');
 }
@@ -802,12 +852,7 @@ function renderEndingChapter5(){
  const actions=body.querySelector('#ending-actions');
  if(state.role==='evelyn')actions.append(makeButton('Replay Evelyn & Ruth conversation ↗',openEvelynRuthScene,'btn btn-secondary'));
 
- actions.append(makeButton('Explore another perspective →',()=>{
-   if(confirm('Start a new character? Your current saved character and decisions will be replaced.')){
-    try{localStorage.removeItem(SAVE_KEY)}catch(error){}
-    state=null;screen='roles';render();
-   }
- }));
+ actions.append(makeButton('Explore another perspective →',switchCharacter));
  actions.append(makeButton('Return to the introduction',()=>{screen='cover';render()},'btn btn-secondary'));
  revealStoryText('.epilogue-section .story-prose p, .epilogue-memories p:not(.chapter-eyebrow)', '.historical-afterword, .reflection-card, .scene-actions');
 }
@@ -826,8 +871,8 @@ function renderJournal(){
  const labels={stability:'Personal Stability',network:'Support Network',contribution:'Movement Contribution'};
  const values=Object.entries(labels).map(([key,label])=>`<div class="meter"><div class="meter-head"><strong>${label}</strong><span>${gaugeLabel(state.stats[key])}</span></div><div class="bar"><div class="bar-fill ${key}" style="width:${clamp(state.stats[key],0,100)}%"></div></div></div>`).join('');
  const rels=Object.entries(data.relationshipNames).map(([key,name])=>`<div class="relationship"><strong>${safeText(name)}</strong><em>${relationshipLabel(state.relationships[key])}</em></div>`).join('');
- journalContent.innerHTML=`<p class="journal-intro">${safeText(data.name)} · Chapter ${currentChapter()} / V<br>Your circumstances and personal connections change as you make decisions.</p><p class="journal-section-label">YOUR CIRCUMSTANCES</p>${values}<p class="journal-section-label">PEOPLE IN YOUR LIFE</p>${rels}<p class="journal-section-label">REMEMBERED DECISIONS</p><div class="journal-note">${selected?safeText(selected.memory):'Your first decision has not been made yet.'}${state.choices.ch2prep?"<br><br>"+safeText("You helped Lottie Mae explore "+(state.choices.ch2prep==="confirm"?"driver confirmations.":"shared pickup points.")):""}${state.choices.ch2?"<br><br>"+safeText(window.chapterTwoData[state.role].choices.find(c=>c.id===state.choices.ch2)?.memory||""):""}${ch3talk?"<br><br>"+safeText("Conversation: "+ch3talk):""}${ch3memory?"<br><br>"+safeText(ch3memory):""}${ch4memory?"<br><br>"+safeText(ch4memory):""}${ch5memory?"<br><br>"+safeText(ch5memory):""}${ch5ending?"<br><br>"+safeText("Personal epilogue: "+ch5ending):""}</div><p class="journal-section-label">HISTORICAL SOURCES</p><p class="journal-intro">${state.documentsOpened?'✓ Boycott leaflet examined.':'Boycott leaflet not yet examined.'}<br>${state.carpoolOpened?'✓ Carpool instructions examined.':'Carpool instructions not yet examined.'}${currentChapter()>=3?'<br>'+(state.bombingOpened?'✓ January 1956 newspaper report examined.':'January 1956 newspaper report not yet examined.')+'<br>'+(state.trialOpened?'✓ Criminal case file examined.':'Criminal case file not yet examined.'):''}${currentChapter()>=4?'<br>'+(state.ch4caseOpened?'✓ Browder v. Gayle courthouse file examined.':'Browder v. Gayle courthouse file not yet examined.'):''}${currentChapter()===5?'<br>'+(state.ch5documentOpened?'✓ End-of-boycott statement examined.':'End-of-boycott statement not yet examined.'):''}</p><p class="journal-section-label">GAME CONTROLS</p><button class="small-action" id="reset-game">Start a new role / reset progress</button>`;
- document.getElementById('reset-game').addEventListener('click',()=>{if(confirm('Reset your current run? Your choices will be erased.')){journal.close();state=null;try{localStorage.removeItem(SAVE_KEY)}catch(e){}screen='roles';render()}});
+ journalContent.innerHTML=`<p class="journal-intro">${safeText(data.name)} · Chapter ${currentChapter()} / V<br>Your circumstances and personal connections change as you make decisions.</p><p class="journal-section-label">YOUR CIRCUMSTANCES</p>${values}<p class="journal-section-label">PEOPLE IN YOUR LIFE</p>${rels}<p class="journal-section-label">REMEMBERED DECISIONS</p><div class="journal-note">${selected?safeText(selected.memory):'Your first decision has not been made yet.'}${state.choices.ch2prep?"<br><br>"+safeText("You helped Lottie Mae explore "+(state.choices.ch2prep==="confirm"?"driver confirmations.":"shared pickup points.")):""}${state.choices.ch2?"<br><br>"+safeText(window.chapterTwoData[state.role].choices.find(c=>c.id===state.choices.ch2)?.memory||""):""}${ch3talk?"<br><br>"+safeText("Conversation: "+ch3talk):""}${ch3memory?"<br><br>"+safeText(ch3memory):""}${ch4memory?"<br><br>"+safeText(ch4memory):""}${ch5memory?"<br><br>"+safeText(ch5memory):""}${ch5ending?"<br><br>"+safeText("Personal epilogue: "+ch5ending):""}</div><p class="journal-section-label">HISTORICAL SOURCES</p><p class="journal-intro">${state.documentsOpened?'✓ Boycott leaflet examined.':'Boycott leaflet not yet examined.'}<br>${state.carpoolOpened?'✓ Carpool instructions examined.':'Carpool instructions not yet examined.'}${currentChapter()>=3?'<br>'+(state.bombingOpened?'✓ January 1956 newspaper report examined.':'January 1956 newspaper report not yet examined.')+'<br>'+(state.trialOpened?'✓ Criminal case file examined.':'Criminal case file not yet examined.'):''}${currentChapter()>=4?'<br>'+(state.ch4caseOpened?'✓ Browder v. Gayle courthouse file examined.':'Browder v. Gayle courthouse file not yet examined.'):''}${currentChapter()===5?'<br>'+(state.ch5documentOpened?'✓ End-of-boycott statement examined.':'End-of-boycott statement not yet examined.'):''}</p><p class="journal-section-label">GAME CONTROLS</p><button class="small-action" id="reset-game">Change character (keep your progress)</button>`;
+ document.getElementById('reset-game').addEventListener('click',switchCharacter);
 }
 let toastCount=0;
 function showToast(message){
@@ -839,6 +884,7 @@ function showToast(message){
 }
 
 journalButton.addEventListener('click',()=>{if(state){renderJournal();journal.showModal()}});
+characterSwitchButton.addEventListener('click',switchCharacter);
 for(const name of ['journal','archive','carpool','bombing','trial','casefile','victory']){
  const d=document.getElementById(name);
  d.querySelector(`[data-close="${name}"]`).addEventListener('click',()=>d.close());
