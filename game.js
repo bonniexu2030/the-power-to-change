@@ -121,6 +121,60 @@ const game = {
   }
 };
 
+
+/* Narrative refinements from the chapter review; choices and saves unchanged. */
+game.evelyn.intro=[
+ 'The kitchen is quiet except for the ticking clock above the stove.',
+ 'Evelyn counts what remains of her last paycheck. Beside it lies a leaflet asking Black residents of Montgomery to stay off the buses tomorrow.',
+ 'Ruth leans across the table. “Mama, what happens if you don’t ride?”',
+ '“I have to get to work somehow,” Evelyn says. “Mrs. Whitmore expects me at eight.”',
+ '“But the lady on the bus was arrested because something wasn’t fair, wasn’t she?” Ruth asks. Evelyn has always wanted Ruth to ask questions, but some answers are frightening.',
+ 'Lottie Mae has offered to look for a neighbor who can give Evelyn a ride. Nothing is certain. Ruth watches her mother. “What are you going to do?”'
+];
+game.marcus.intro=[
+ 'Marcus is halfway through his reading when David appears at the door with a stack of papers.',
+ '“I thought you’d married your textbooks,” David teases. Marcus grins. “Someone has to pass these classes. You’ll thank me when I’m teaching yours.”',
+ 'David places a leaflet on the desk. “They’re asking people not to ride the buses Monday. We could help get the word out.”',
+ 'Marcus studies the paper. His mother worked hard to help him attend Alabama State College. Teaching could give him a future that once seemed out of reach.',
+ '“Your mother will want you studying,” David says, more seriously. “I know,” Marcus answers. “But what kind of world am I studying to teach in?”',
+ 'David gathers the leaflets. “Well? Are you coming?”'
+];
+game.daniel.intro=[
+ 'Daniel is arranging tools when Thomas Reed enters the shop. They recognize each other, though they rarely talk beyond the weather and the price of nails.',
+ 'The newspaper on the counter carries news of Rosa Parks’s arrest. Daniel has grown up accepting segregated buses and businesses as ordinary parts of Montgomery life.',
+ 'Mr. Bennett folds the paper. “All this fuss about the buses. People ought to leave well enough alone.” Thomas places his purchase on the counter without answering.',
+ 'Daniel almost nods out of habit. Yet Thomas is standing right there, and Bennett speaks as if Thomas has no reason to object. That contradiction unsettles Daniel.',
+ 'Bennett turns to him. “Don’t you agree?” Daniel thinks of the promotion his employer mentioned last month. Then he looks at Thomas.'
+];
+game.evelyn.end=[
+ 'Across Montgomery, word spreads that the first boycott day drew an extraordinary response. Evelyn hears that residents have gathered at Holt Street Baptist Church.',
+ 'Ruth watches her mother put away the leaflet. She has more questions now than she did yesterday.'
+];
+game.marcus.end=[
+ 'By evening, news reaches Marcus that a crowd has filled the mass meeting at Holt Street Baptist Church. The first day has become something much larger.',
+ 'David looks at Marcus as though he expects him to understand. Whatever Marcus decided earlier, the question of what comes next is not going away.'
+];
+game.daniel.end=[
+ 'By Monday evening, Bennett has heard that many residents stayed off the buses and that a mass meeting has supported continuing the protest.',
+ 'Daniel notices how easily his employer dismisses the people affected. Whether Daniel spoke up or stayed quiet, he has begun paying attention to things he once accepted.'
+];
+function chapterOneClosingParagraph(){
+ const choice=state?.choices?.ch1,role=state?.role;
+ if(role==='evelyn'){
+   if(choice==='walk')return '“Were you afraid?” Ruth asks. Evelyn explains that being frightened and making a choice are not always opposites.';
+   if(choice==='ride')return 'Ruth asks whether Lottie Mae can take them tomorrow. Evelyn explains that neighbors have needs of their own, and helping takes planning.';
+   return '“Does riding mean we don’t care?” Ruth asks. “No, baby,” Evelyn says. “It means I have to protect you, too. That doesn’t make the unfairness right.”';
+ }
+ if(role==='marcus'){
+   if(choice==='public')return 'David jokes that Marcus is becoming a familiar face in the neighborhood. Marcus laughs, then admits he is worried about finding time for school.';
+   if(choice==='quiet')return '“You always notice the details,” David says appreciatively. Marcus begins to realize that details may matter more than applause.';
+   return 'David is disappointed but leaves another leaflet on Marcus’s desk. “In case you change your mind,” he says.';
+ }
+ if(choice==='agree')return 'Daniel remembers agreeing with Bennett. Thomas never argued; the silence troubles him now.';
+ if(choice==='question')return 'Mr. Bennett’s suspicious glance follows Daniel home. Questioning a familiar rule felt uncomfortable, but so did pretending it was beyond question.';
+ return 'Daniel remembers Thomas’s expression. Saying nothing had felt neutral; he is beginning to wonder whom his silence served.';
+}
+
 const app = document.getElementById('app');
 const journal = document.getElementById('journal');
 const journalContent = document.getElementById('journal-content');
@@ -325,7 +379,7 @@ function renderEnding(){
  const data=roleData();const chosen=data.choices.find(c=>c.id===state.choices.ch1);
  if(!chosen){screen='scene';render();return;}
  const body=storyLayout();
- body.innerHTML=`<p class="chapter-eyebrow">DECEMBER 5, 1955 · MONDAY EVENING</p><h1>One Day Becomes Something More.</h1><p class="place-time">END OF CHAPTER I</p><div class="story-prose">${data.end.map(p=>`<p>${safeText(p)}</p>`).join('')}<p>At Holt Street Baptist Church, a mass meeting supports continuing the boycott. The movement is no longer a protest planned for only one day.</p></div><div class="finishing"><span class="tag">YOUR STORY REMEMBERS</span><p>${safeText(chosen.memory)}</p><h2>Next: The Long Walk</h2><p>${safeText(data.next)}.</p><p class="preview-lock">YOUR CHOICES WILL FOLLOW YOU INTO CHAPTER II</p></div><div class="scene-actions" id="ending-actions"></div><p class="insight">Read more in the historical archive. When the next chapter is added, this same save system will carry your choices forward.</p>`;
+ body.innerHTML=`<p class="chapter-eyebrow">DECEMBER 5, 1955 · MONDAY EVENING</p><h1>One Day Becomes Something More.</h1><p class="place-time">END OF CHAPTER I</p><div class="story-prose">${data.end.map(p=>`<p>${safeText(p)}</p>`).join('')}<p>${safeText(chapterOneClosingParagraph())}</p><p>At Holt Street Baptist Church, a mass meeting supports continuing the boycott. The movement is no longer a protest planned for only one day.</p></div><div class="finishing"><span class="tag">YOUR STORY REMEMBERS</span><p>${safeText(chosen.memory)}</p><h2>Next: The Long Walk</h2><p>${safeText(data.next)}.</p><p class="preview-lock">YOUR CHOICES WILL FOLLOW YOU INTO CHAPTER II</p></div><div class="scene-actions" id="ending-actions"></div><p class="insight">Read more in the historical archive. When the next chapter is added, this same save system will carry your choices forward.</p>`;
  const actions=body.querySelector('#ending-actions');
  actions.append(makeButton('Continue to Chapter II →',()=>{state.chapter=2;screen='scene';store();render()}));
  actions.append(makeButton('Replay another role →',()=>{if(confirm('Try another character? This will replace your current saved run.')){try{localStorage.removeItem(SAVE_KEY)}catch(e){}state=null;screen='roles';render()}}));
