@@ -675,7 +675,7 @@ function renderEndingChapter4(){
 /* Optional illustrated Chapter 5 scene. Uses the approved V2 portrait layout,
  * independent of chapter choices. Existing saved progress is preserved. */
 function openEvelynRuthScene(){
- if(!state||state.role!=='evelyn'||currentChapter()!==5||screen!=='scene')return;
+ if(!state||state.role!=='evelyn'||currentChapter()!==5)return;
  const dialog=document.getElementById('vn-dialog');
  const frame=document.getElementById('vn-frame');
  if(!dialog||!frame)return;
@@ -800,6 +800,8 @@ function renderEndingChapter5(){
   '<div class="scene-actions" id="ending-actions"></div>'+
   '<p class="mini-note">You have completed this perspective in The Power to Change. Each character follows the same historical movement but faces different constraints and choices. The journal remains available.</p>';
  const actions=body.querySelector('#ending-actions');
+ if(state.role==='evelyn')actions.append(makeButton('Replay Evelyn & Ruth conversation ↗',openEvelynRuthScene,'btn btn-secondary'));
+
  actions.append(makeButton('Explore another perspective →',()=>{
    if(confirm('Start a new character? Your current saved character and decisions will be replaced.')){
     try{localStorage.removeItem(SAVE_KEY)}catch(error){}
