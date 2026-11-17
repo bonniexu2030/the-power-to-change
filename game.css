@@ -43,3 +43,11 @@
   .reading-unlocked, .chapter-grid > .book-page, .chapter-grid > .chapter-side,
   .story-prose .typing-active::after, .consequence .typing-active::after { animation:none!important; }
 }
+
+/* Animation visibility, setting control, and cross-browser hidden behavior. */
+[hidden] { display: none !important; }
+.chapter-tools { display:flex; gap:14px; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
+.reading-toggle { font:500 9px var(--mono); letter-spacing:.065em; color:var(--red); border:1px solid #b6a88f; background:#f7f0e1; padding:9px 10px; white-space:nowrap; }
+.reading-toggle:hover { background:#e8dcca; border-color:var(--red); }
+.reading-toggle[aria-pressed="false"] { color:var(--muted); }
+@media(max-width:470px){.chapter-head{align-items:start}.chapter-tools{gap:5px;max-width:175px}.chapter-progress{font-size:8px}.reading-toggle{font-size:8px;padding:7px 8px}}
