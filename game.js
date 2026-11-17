@@ -117,6 +117,7 @@ const archive = document.getElementById('archive');
 const toast = document.getElementById('toast');
 const journalButton = document.getElementById('open-journal');
 let toastTimer;
+let stopActiveNarration = null;
 let state = readSavedState();
 let screen = state ? state.screen : 'cover';
 
@@ -134,6 +135,8 @@ function clamp(n,min,max){return Math.min(max,Math.max(min,n));}
 function roleData(){return state?game[state.role]:null;}
 function scrollTop(){window.scrollTo({top:0,behavior:'instant'});}
 function render(){
+  // Cleanly stop an ongoing text reveal before switching story pages.
+  if (stopActiveNarration) { stopActiveNarration(); stopActiveNarration = null; }
   journalButton.hidden=!state;
   if(screen==='cover')renderCover();
   else if(screen==='roles')renderRoles();
@@ -144,6 +147,105 @@ function render(){
   if(state)renderJournal();
   scrollTop();
 }
+/* A quick, cinematic typewriter effect for story passages.
+ * Animates only the visual text; never writes HTML or requires a game choice to wait.
+ * The Skip button reveals all paragraphs instantly. Reduced-motion users see full text.
+ */
+function revealStoryText(paragraphSelector, lockedSelector) {
+  const paragraphs = Array.from(app.querySelectorAll(paragraphSelector));
+  if (!paragraphs.length) return;
+  const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion) return;
+
+  const gatedElements = Array.from(app.querySelectorAll(lockedSelector));
+  const fullTexts = paragraphs.map(p => p.textContent);
+  const glyphs = fullTexts.map(text => Array.from(text));
+  // Reserve the final paragraph sizes to prevent the page jumping as words are revealed.
+  paragraphs.forEach((p, i) => {
+    p.style.minHeight = `${Math.ceil(p.getBoundingClientRect().height)}px`;
+    p.setAttribute('aria-label', fullTexts[i]);
+    p.setAttribute('aria-live', 'off');
+    p.textContent = '';
+    p.classList.add('typing-pending');
+  });
+  gatedElements.forEach(el => { el.hidden = true; });
+
+  const skip = document.createElement('button');
+  skip.type = 'button';
+  skip.className = 'reading-skip';
+  skip.textContent = 'Show all text ↗';
+  skip.setAttribute('aria-label', 'Skip the text animation and show the complete scene');
+  const placeTime = app.querySelector('.place-time');
+  if (placeTime) placeTime.insertAdjacentElement('afterend', skip);
+
+  let cancelled = false;
+  let frameId = null;
+  let delayId = null;
+  let current = 0;
+  let startTime = null;
+  const millisecondsPerCharacter = 5.7; // Fast enough to remain pleasant on repeat plays.
+  const betweenParagraphsMs = 145;
+
+  const stop = () => {
+    cancelled = true;
+    if (frameId !== null) cancelAnimationFrame(frameId);
+    if (delayId !== null) clearTimeout(delayId);
+  };
+  stopActiveNarration = stop;
+
+  const finish = (wasSkipped = false) => {
+    if (cancelled) return;
+    stop();
+    paragraphs.forEach((p, i) => {
+      p.textContent = fullTexts[i];
+      p.classList.remove('typing-pending', 'typing-active');
+      p.style.minHeight = '';
+      p.removeAttribute('aria-label');
+      p.removeAttribute('aria-live');
+    });
+    skip.remove();
+    gatedElements.forEach(el => {
+      el.hidden = false;
+      el.classList.add('reading-unlocked');
+    });
+    stopActiveNarration = null;
+    if (wasSkipped) {
+      const firstChoice = gatedElements.flatMap(el => [...el.querySelectorAll('button')])[0];
+      if (firstChoice) firstChoice.focus({ preventScroll: true });
+    }
+  };
+
+  skip.addEventListener('click', () => finish(true));
+
+  function animateParagraph(timestamp) {
+    if (cancelled) return;
+    if (startTime === null) startTime = timestamp;
+    const count = Math.min(glyphs[current].length, Math.floor((timestamp - startTime) / millisecondsPerCharacter));
+    paragraphs[current].textContent = glyphs[current].slice(0, count).join('');
+    if (count < glyphs[current].length) {
+      frameId = requestAnimationFrame(animateParagraph);
+    } else {
+      paragraphs[current].classList.remove('typing-active');
+      paragraphs[current].classList.add('typing-complete');
+      current += 1;
+      if (current < paragraphs.length) {
+        delayId = setTimeout(startParagraph, betweenParagraphsMs);
+      } else {
+        finish();
+      }
+    }
+  }
+
+  function startParagraph() {
+    if (cancelled) return;
+    paragraphs[current].classList.remove('typing-pending');
+    paragraphs[current].classList.add('typing-active');
+    startTime = null;
+    frameId = requestAnimationFrame(animateParagraph);
+  }
+  startParagraph();
+}
+
 function makeButton(label,handler,classes='btn btn-primary'){
   const button=document.createElement('button');button.type='button';button.className=classes;button.textContent=label;button.addEventListener('click',handler);return button;
 }
@@ -180,6 +282,7 @@ function renderScene(){
   const b=document.createElement('button');b.type='button';b.className='choice';b.innerHTML=`<span class="choice-number">${String.fromCharCode(65+index)}</span><span>${safeText(choice.label)}</span>`;
   b.addEventListener('click',()=>choose(choice.id));list.append(b);
  });
+ revealStoryText('.story-prose p', '.prompt');
 }
 function choose(choiceId){
  if(!state||screen!=='scene'||state.choices.ch1)return;
@@ -195,6 +298,7 @@ function renderResult(){
  const body=storyLayout();
  body.innerHTML=`<p class="chapter-eyebrow">YOUR DECISION / DECEMBER 1955</p><h1>The choice is made.</h1><p class="place-time">${safeText(data.name.toUpperCase())} · CHAPTER I</p><div class="story-prose"><p>${safeText(selected.label)}</p></div><div class="consequence"><span class="label">WHAT HAPPENS NEXT</span><p>${safeText(selected.result)}</p></div><p class="insight">Your journal has recorded this decision and any changes in security, relationships, or contribution. These measures describe circumstances—not whether you are a good person.</p><div class="scene-actions" id="continue-actions"></div>`;
  body.querySelector('#continue-actions').append(makeButton('Continue the chapter →',()=>{screen='ending';store();render()}));
+  revealStoryText('.story-prose p, .consequence p', '.insight, .scene-actions');
 }
 function renderEnding(){
  const data=roleData();const chosen=data.choices.find(c=>c.id===state.choices.ch1);
@@ -204,6 +308,7 @@ function renderEnding(){
  const actions=body.querySelector('#ending-actions');
  actions.append(makeButton('Replay another role →',()=>{if(confirm('Try another character? This will replace your current saved run.')){try{localStorage.removeItem(SAVE_KEY)}catch(e){}state=null;screen='roles';render()}}));
  actions.append(makeButton('Back to introduction',()=>{screen='cover';render()},'btn btn-secondary'));
+  revealStoryText('.story-prose p', '.finishing, .scene-actions, .insight');
 }
 function relationshipLabel(value){return value<=-2?'Strained':value===-1?'Uneasy':value===0?'Complicated':value===1?'Growing trust':'Strong trust';}
 function gaugeLabel(value){return value<35?'Strained':value<70?'Steady':'Strong';}

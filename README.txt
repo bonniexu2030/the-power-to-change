@@ -1,40 +1,21 @@
-THE POWER TO CHANGE — CHAPTER I PROTOTYPE
+THE POWER TO CHANGE — CHAPTER 1 ANIMATED GAME UPDATE
 
-This is an ADD-ON, not a replacement for your existing homepage.
-Your existing index.html, style.css, and script.js remain unchanged.
+Your original GitHub Pages homepage now includes direct game links in the main navigation, hero button, and Montgomery Bus Boycott story card. Those homepage changes have already been made in the GitHub repository.
 
-FILES TO UPLOAD TO THE ROOT OF YOUR PUBLIC GITHUB REPOSITORY:
-    game.html
-    game.css
-    game.js
+TO INSTALL THE GAME UPDATE:
+1. Open your repository: https://github.com/bonniexu2030/the-power-to-change
+2. Select Add file -> Upload files.
+3. Upload these THREE individual files from the extracted ZIP: game.html, game.css, game.js. Do not upload the ZIP itself.
+4. Commit changes. The existing versions of these files will be replaced.
+5. Visit https://bonniexu2030.github.io/the-power-to-change/game.html and refresh.
 
-TO PUBLISH:
-1. Open https://github.com/bonniexu2030/the-power-to-change
-2. Code -> Add file -> Upload files.
-3. Select ONLY the three game files listed above (or drag them).
-4. Commit changes to the main branch.
-5. Open https://bonniexu2030.github.io/the-power-to-change/game.html
+NEW:
+- Cinematic typewriter-style reveal in scenes, results, and chapter ending.
+- Show all text control for players who want to skip animation.
+- Respects reduced-motion accessibility settings.
 
-WHAT TO TEST:
-- Introduction opens character selection.
-- Evelyn, Marcus, and Daniel each have their own fully playable Chapter 1.
-- Each role offers exactly three major choices.
-- The consequence appears; the journal changes and a brief toast fades out.
-- Journal opens/closes and displays relationships, gauges, and memories.
-- The boycott leaflet archive overlay links to the original Stanford source.
-- Refresh the page: your run is saved in this browser.
-- Replay another role; start a new role.
-- Check on your phone as well as a desktop browser.
+ALREADY PRESENT:
+- Three character openings, meaningful choices, journal, relationship and gauge updates, brief notifications, historical leaflet, and local browser save.
+- Chapter 2 is planned, not yet playable.
 
-CURRENT LIMITS:
-- This is a Chapter I vertical slice, not the complete five-chapter game.
-- Chapter II is explicitly labeled as upcoming. No false promises about unseen chapters.
-- Journal figures are design variables, not historical statistics or moral grades.
-- All character dialogue is fictional; historical facts and document credits are distinguished.
-- The decorative collage/leaflet are ORIGINAL code-drawn illustrations, not archival photographs.
-- Saved progress is local to one browser/device. It does not sync across devices.
-
-OPTIONAL LINK FROM YOUR HOMEPAGE (add this within index.html when ready):
-<a href="game.html" class="button button-dark">PLAY 381 DAYS <span>↗</span></a>
-
-Original homepage can be restored by simply keeping its existing three files untouched.
+To test: select a role, watch text appear, use Show all text, choose an option, open the journal and archive, then refresh. If old styling remains, hard-refresh your browser (Command+Shift+R).
