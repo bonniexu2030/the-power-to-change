@@ -199,3 +199,8 @@ h1 em, h2 em { color: var(--red); font-weight: 500; }
   .story-info { min-height: 225px; }
   .hero h1 { font-size: 46px; }
 }
+
+/* Make the playable experience easy to spot in the original site navigation. */
+.main-nav .nav-play { background: var(--red); color: #fff8e9; padding: 12px 14px; border: 1px solid var(--red); }
+.main-nav .nav-play:hover, .main-nav .nav-play:focus-visible { background: var(--red-dark); border-color: var(--red-dark); color: #fff8e9; }
+.story-info a.card-link { display: inline-flex; align-items: center; width: fit-content; }
