@@ -671,6 +671,39 @@ function renderEndingChapter4(){
  * The historical outcome is fixed. One final player choice and the history
  * of earlier decisions shape a fictional character's personal ending.
  */
+
+/* Optional illustrated Chapter 5 scene. Uses the approved V2 portrait layout,
+ * independent of chapter choices. Existing saved progress is preserved. */
+function openEvelynRuthScene(){
+ if(!state||state.role!=='evelyn'||currentChapter()!==5||screen!=='scene')return;
+ const dialog=document.getElementById('vn-dialog');
+ const frame=document.getElementById('vn-frame');
+ if(!dialog||!frame)return;
+ frame.src='vn-evelyn-ruth.html?v=20261117-vn-v1';
+ if(!dialog.open)dialog.showModal();
+}
+function onEvelynRuthSceneDone(event){
+ const dialog=document.getElementById('vn-dialog');
+ const frame=document.getElementById('vn-frame');
+ if(!dialog||!frame||!dialog.open||event.origin!==window.location.origin||event.source!==frame.contentWindow)return;
+ if(event.data?.type!=='power-to-change-vn-finished'||event.data.scene!=='evelyn-ruth-ch5')return;
+ if(state&&state.role==='evelyn'&&currentChapter()===5){
+  state.ch5vnSeen=true;
+  store();
+  const replay=document.getElementById('open-vn-scene');
+  if(replay)replay.textContent='Replay illustrated conversation ↗';
+  const status=document.getElementById('vn-entry-status');
+  if(status)status.textContent='✓ Conversation experienced';
+ }
+ dialog.close();
+}
+window.addEventListener('message',onEvelynRuthSceneDone);
+document.getElementById('vn-close').addEventListener('click',()=>document.getElementById('vn-dialog').close());
+document.getElementById('vn-dialog').addEventListener('close',()=>{
+ const frame=document.getElementById('vn-frame');
+ frame.removeAttribute('src');
+});
+
 function chapterFiveRole(){return window.chapterFiveData[state.role];}
 function finalEndingId(){
  if(!state||!state.stats)return null;
@@ -703,9 +736,11 @@ function renderSceneChapter5(){
  body.innerHTML='<p class="chapter-eyebrow">DECEMBER 20–21, 1956 · CHAPTER V OF FIVE</p>'+
   '<h1>'+safeText(role.heading)+'</h1><p class="place-time">'+safeText(role.place)+'</p>'+
   '<div class="story-prose">'+paragraphs.map(p=>'<p>'+safeText(p)+'</p>').join('')+'</div>'+
+  (state.role==='evelyn'?'<section class="vn-entry"><p class="chapter-eyebrow">ILLUSTRATED CONVERSATION · OPTIONAL</p><h3>A moment with Ruth</h3><p>Experience Evelyn and Ruth’s conversation as a visual novel scene. The portraits and dialogue follow the style you approved.</p><button type="button" id="open-vn-scene" class="btn btn-secondary">'+(state.ch5vnSeen?'Replay illustrated conversation ↗':'Play illustrated conversation ↗')+'</button><span class="vn-entry-status" id="vn-entry-status">'+(state.ch5vnSeen?'✓ Conversation experienced':'Narration and dialogue · No decisions changed')+'</span></section>':'')+
   '<section class="prompt"><h2>'+safeText(role.prompt)+'</h2>'+
   '<div class="choice-list" id="chapter-five-choices"></div>'+
   '<p class="mini-note">The historical boycott has ended. Your final decision affects this character’s relationships and future—not the outcome of the movement.</p></section>';
+ if(state.role==='evelyn')body.querySelector('#open-vn-scene').addEventListener('click',openEvelynRuthScene);
  const list=body.querySelector('#chapter-five-choices');
  role.choices.forEach((choice,index)=>{
   const b=document.createElement('button');b.type='button';b.className='choice';
