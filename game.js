@@ -433,14 +433,28 @@ function storyLayout(kind){
  return document.getElementById('scene-body');
 }
 function renderScene(){
- const data=roleData();const body=storyLayout();
- body.innerHTML=`<p class="chapter-eyebrow">DECEMBER 1955 · A STORY IN FIVE CHAPTERS</p><h1>${safeText(data.heading)}</h1><p class="place-time">${safeText(data.place)}</p><div class="story-prose">${data.intro.map(p=>`<p>${safeText(p)}</p>`).join('')}</div><section class="prompt"><h2>${safeText(data.prompt)}</h2><div class="choice-list" id="choices"></div><p class="mini-note">There is no perfect answer. The journal tracks circumstances, not morality.</p></section>`;
+ const data=roleData(),body=storyLayout();
+ const isMarcus=state.role==='marcus';
+ const intro=isMarcus?[
+   'David brings boycott leaflets to Marcus’s room on December 3, 1955. Their conversation asks what each of them can contribute—and what each might risk.',
+   'Marcus wants to become a teacher. His mother has sacrificed to help him attend college, and he knows his decisions may affect more than himself.'
+ ]:data.intro;
+ const illustrated=isMarcus?
+   '<section class="vn-entry"><p class="chapter-eyebrow">ILLUSTRATED SCENE · DECEMBER 3, 1955</p><h3>Words That Travel · Marcus and David</h3><p>Experience their conversation before deciding how Marcus will respond to the boycott.</p><button type="button" id="open-marcus-vn" class="btn btn-secondary">Replay illustrated conversation ↗</button><span class="vn-entry-status" id="marcus-vn-status">'+(state.ch1vnSeen?'✓ Conversation experienced':'Optional replay · Skip is available inside the scene')+'</span></section>':'';
+ body.innerHTML=`<p class="chapter-eyebrow">DECEMBER 1955 · A STORY IN FIVE CHAPTERS</p><h1>${safeText(data.heading)}</h1><p class="place-time">${safeText(data.place)}</p><div class="story-prose">${intro.map(p=>`<p>${safeText(p)}</p>`).join('')}</div>${illustrated}<section class="prompt"><h2>${safeText(data.prompt)}</h2><div class="choice-list" id="choices"></div><p class="mini-note">There is no perfect answer. The journal tracks circumstances, not morality.</p></section>`;
  const list=body.querySelector('#choices');
  data.choices.forEach((choice,index)=>{
   const b=document.createElement('button');b.type='button';b.className='choice';b.innerHTML=`<span class="choice-number">${String.fromCharCode(65+index)}</span><span>${safeText(choice.label)}</span>`;
   b.addEventListener('click',()=>choose(choice.id));list.append(b);
  });
- revealStoryText('.story-prose p', '.prompt');
+ if(isMarcus){
+  body.querySelector('#open-marcus-vn').addEventListener('click',openMarcusDavidScene);
+  if(!state.ch1vnOffered){
+   state.ch1vnOffered=true;store();
+   // Wait until the full page is rendered; auto-open only once per playthrough.
+   Promise.resolve().then(()=>{if(state&&state.role==='marcus'&&currentChapter()===1&&screen==='scene')openMarcusDavidScene();});
+  }
+ }else revealStoryText('.story-prose p', '.prompt');
 }
 function choose(choiceId){
  if(!state||screen!=='scene'||state.choices.ch1)return;
@@ -724,6 +738,35 @@ function renderEndingChapter4(){
 
 /* Optional illustrated Chapter 5 scene. Uses the approved V2 portrait layout,
  * independent of chapter choices. Existing saved progress is preserved. */
+/* Main visual-novel scene: Marcus and David. Dialogue is illustrative and
+ * returns to the original Chapter 1 choice without changing any consequences. */
+function openMarcusDavidScene(){
+ if(!state||state.role!=='marcus'||currentChapter()!==1||screen!=='scene')return;
+ const dialog=document.getElementById('vn-marcus-dialog');
+ const frame=document.getElementById('vn-marcus-frame');
+ if(!dialog||!frame)return;
+ frame.src='vn-marcus-david.html?v=20261117-marcus-vn-v1';
+ if(!dialog.open)dialog.showModal();
+}
+function onMarcusDavidSceneDone(event){
+ const dialog=document.getElementById('vn-marcus-dialog');
+ const frame=document.getElementById('vn-marcus-frame');
+ if(!dialog||!frame||!dialog.open||event.origin!==window.location.origin||event.source!==frame.contentWindow)return;
+ if(event.data?.type!=='power-to-change-vn-finished'||event.data.scene!=='marcus-david-ch1')return;
+ if(state&&state.role==='marcus'&&currentChapter()===1){
+  state.ch1vnSeen=true;
+  store();
+  const status=document.getElementById('marcus-vn-status');
+  if(status)status.textContent='✓ Conversation experienced';
+ }
+ dialog.close();
+}
+window.addEventListener('message',onMarcusDavidSceneDone);
+document.getElementById('vn-marcus-close').addEventListener('click',()=>document.getElementById('vn-marcus-dialog').close());
+document.getElementById('vn-marcus-dialog').addEventListener('close',()=>{
+ document.getElementById('vn-marcus-frame').removeAttribute('src');
+});
+
 function openEvelynRuthScene(){
  if(!state||state.role!=='evelyn'||currentChapter()!==5)return;
  const dialog=document.getElementById('vn-dialog');
