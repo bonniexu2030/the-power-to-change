@@ -500,7 +500,9 @@ function renderSceneChapter2(){
  if(state.role==='marcus' && !state.choices.ch2prep){
    promptHtml='<section class="prompt"><p class="chapter-eyebrow">AN EXCHANGE WITH LOTTIE MAE</p><h2>How can the rides become more reliable?</h2><p class="mini-note">Some neighbors are waiting too long. Lottie Mae asks Marcus how to make pickup arrangements work better.</p><div class="choice-list" id="prep-choices"></div></section>';
  }
- body.innerHTML='<p class="chapter-eyebrow">DECEMBER 1955 · CHAPTER II OF FIVE</p><h1>'+safeText(role.heading)+'</h1><p class="place-time">'+safeText(role.place)+'</p><div class="story-prose">'+paragraphs.filter(Boolean).map(p=>'<p>'+safeText(p)+'</p>').join('')+'</div>'+promptHtml;
+ const illustrated=state.role==='marcus'?
+   '<section class="vn-entry"><p class="chapter-eyebrow">ILLUSTRATED CONVERSATION · DECEMBER 15, 1955</p><h3>The work behind the movement · Marcus and David</h3><p>Listen to how ride schedules, school, and community responsibilities intersect before making Marcus’s next decisions.</p><button type="button" id="open-marcus-ch2-vn" class="btn btn-secondary">Play illustrated conversation ↗</button><span class="vn-entry-status" id="marcus-ch2-vn-status">'+(state.ch2vnSeen?'✓ Conversation experienced':'Skip is available inside the scene')+'</span></section>':'';
+ body.innerHTML='<p class="chapter-eyebrow">DECEMBER 1955 · CHAPTER II OF FIVE</p><h1>'+safeText(role.heading)+'</h1><p class="place-time">'+safeText(role.place)+'</p><div class="story-prose">'+paragraphs.filter(Boolean).map(p=>'<p>'+safeText(p)+'</p>').join('')+'</div>'+illustrated+promptHtml;
  if(state.role==='marcus' && !state.choices.ch2prep){
    const list=body.querySelector('#prep-choices');
    [{id:'confirm',label:'Ask drivers to confirm their availability the evening before.'},{id:'meetpoint',label:'Suggest a shared pickup point for neighbors going the same way.'}].forEach((c,i)=>{
@@ -517,7 +519,13 @@ function renderSceneChapter2(){
      b.addEventListener('click',()=>chooseChapter2(choice.id));list.append(b);
    });
  }
- revealStoryText('.story-prose p','.prompt');
+ if(state.role==='marcus'){
+   body.querySelector('#open-marcus-ch2-vn').addEventListener('click',()=>openMarcusChapterScene(2));
+   if(!state.ch2vnOffered){
+     state.ch2vnOffered=true;store();
+     Promise.resolve().then(()=>{if(state&&state.role==='marcus'&&currentChapter()===2&&screen==='scene')openMarcusChapterScene(2);});
+   }
+ }else revealStoryText('.story-prose p','.prompt');
 }
 function chooseChapter2(choiceId){
  if(!state||currentChapter()!==2||screen!=='scene'||state.choices.ch2)return;
@@ -572,7 +580,9 @@ function renderSceneChapter3(){
  const promptMarkup=small?
    '<section class="prompt"><p class="chapter-eyebrow">A CONVERSATION THAT MATTERS</p><h2>'+safeText(role.exchange.title)+'</h2><p class="mini-note">'+safeText(role.exchange.prompt)+'</p><div class="choice-list" id="chapter-three-talk"></div></section>':
    '<section class="prompt"><h2>'+safeText(role.prompt)+'</h2><div class="choice-list" id="chapter-three-choices"></div><p class="mini-note">The boycott continues regardless of your decision. Your choices affect this character’s circumstances, not the movement’s historical outcome.</p></section>';
- body.innerHTML='<p class="chapter-eyebrow">FEBRUARY 1956 · CHAPTER III OF FIVE</p><h1>'+safeText(role.heading)+'</h1><p class="place-time">'+safeText(role.place)+'</p><div class="story-prose">'+paragraphList.map(p=>'<p>'+safeText(p)+'</p>').join('')+'</div>'+promptMarkup;
+ const illustrated=state.role==='marcus'?
+   '<section class="vn-entry"><p class="chapter-eyebrow">ILLUSTRATED CONVERSATION · FEBRUARY 24, 1956</p><h3>A difficult conversation · Marcus and David</h3><p>They disagree about personal risk and responsibility. After the scene, decide what Marcus tells his mother and how he responds to the boycott.</p><button type="button" id="open-marcus-ch3-vn" class="btn btn-secondary">Play illustrated conversation ↗</button><span class="vn-entry-status" id="marcus-ch3-vn-status">'+(state.ch3vnSeen?'✓ Conversation experienced':'Skip is available inside the scene')+'</span></section>':'';
+ body.innerHTML='<p class="chapter-eyebrow">FEBRUARY 1956 · CHAPTER III OF FIVE</p><h1>'+safeText(role.heading)+'</h1><p class="place-time">'+safeText(role.place)+'</p><div class="story-prose">'+paragraphList.map(p=>'<p>'+safeText(p)+'</p>').join('')+'</div>'+illustrated+promptMarkup;
  const list=body.querySelector(small?'#chapter-three-talk':'#chapter-three-choices');
  const options=small?role.exchange.options:role.choices;
  options.forEach((choice,i)=>{
@@ -585,7 +595,13 @@ function renderSceneChapter3(){
    else btn.addEventListener('click',()=>chooseChapter3(choice.id));
    list.append(btn);
  });
- revealStoryText('.story-prose p','.prompt');
+ if(state.role==='marcus'){
+   body.querySelector('#open-marcus-ch3-vn').addEventListener('click',()=>openMarcusChapterScene(3));
+   if(!state.ch3vnOffered){
+     state.ch3vnOffered=true;store();
+     Promise.resolve().then(()=>{if(state&&state.role==='marcus'&&currentChapter()===3&&screen==='scene')openMarcusChapterScene(3);});
+   }
+ }else revealStoryText('.story-prose p','.prompt');
 }
 function chooseChapter3(choiceId){
  if(!state||currentChapter()!==3||screen!=='scene'||state.choices.ch3||!state.choices.ch3talk)return;
@@ -766,6 +782,36 @@ document.getElementById('vn-marcus-close').addEventListener('click',()=>document
 document.getElementById('vn-marcus-dialog').addEventListener('close',()=>{
  document.getElementById('vn-marcus-frame').removeAttribute('src');
 });
+
+/* Chapter II / III illustrated conversations preserve all existing choices.
+ * The optional variation is based on decisions already present in this save. */
+function openMarcusChapterScene(chapter){
+ if(!state||state.role!=='marcus'||currentChapter()!==chapter||screen!=='scene'||![2,3].includes(chapter))return;
+ const dlg=document.getElementById('vn-marcus-extra-dialog');
+ const frame=document.getElementById('vn-marcus-extra-frame');
+ if(!dlg||!frame)return;
+ document.getElementById('vn-marcus-extra-meta').textContent='ILLUSTRATED SCENE · CHAPTER '+(chapter===2?'II':'III');
+ document.getElementById('vn-marcus-extra-title').textContent=chapter===2?'Marcus & David · The Long Walk':'Marcus & David · The Price of Standing Up';
+ const params=new URLSearchParams({v:'20261117-marcus-ch23-v1',first:state.choices.ch1||'',second:state.choices.ch2||''});
+ frame.src=(chapter===2?'vn-marcus-david-ch2.html':'vn-marcus-david-ch3.html')+'?'+params.toString();
+ if(!dlg.open)dlg.showModal();
+}
+function onMarcusChapterSceneDone(event){
+ const dlg=document.getElementById('vn-marcus-extra-dialog');
+ const frame=document.getElementById('vn-marcus-extra-frame');
+ if(!dlg||!frame||!dlg.open||event.origin!==window.location.origin||event.source!==frame.contentWindow)return;
+ const scene=event.data&&event.data.scene;
+ const chapter=scene==='marcus-david-ch2'?2:scene==='marcus-david-ch3'?3:null;
+ if(event.data?.type!=='power-to-change-vn-finished'||chapter===null||!state||state.role!=='marcus'||currentChapter()!==chapter)return;
+ const key=chapter===2?'ch2vnSeen':'ch3vnSeen';
+ state[key]=true;store();
+ const status=document.getElementById('marcus-ch'+chapter+'-vn-status');
+ if(status)status.textContent='✓ Conversation experienced';
+ dlg.close();
+}
+window.addEventListener('message',onMarcusChapterSceneDone);
+document.getElementById('vn-marcus-extra-close').addEventListener('click',()=>document.getElementById('vn-marcus-extra-dialog').close());
+document.getElementById('vn-marcus-extra-dialog').addEventListener('close',()=>document.getElementById('vn-marcus-extra-frame').removeAttribute('src'));
 
 function openEvelynRuthScene(){
  if(!state||state.role!=='evelyn'||currentChapter()!==5)return;
