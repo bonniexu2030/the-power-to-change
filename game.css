@@ -60,3 +60,12 @@
 .archive-tabs button[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:#fff8e9}
 .archive-tabs button:hover,.archive-tabs button:focus-visible{border-color:var(--red);outline-offset:2px}
 .archive-detail{font:13px/1.65 Georgia,serif;color:#514639;margin:0;min-height:62px}
+
+/* Chapter III: two complementary pieces of evidence in the side archive. */
+.chapter-side #open-trial{transform:rotate(1.6deg);background:#eadac3;border-color:#996a53}
+.chapter-side #open-trial .file-icon{color:var(--red)}
+.chapter-side #open-trial:hover{transform:translateY(-2px) rotate(.4deg);border-color:var(--red)}
+.historical-news{background:#e9dfc9}
+.legal-file{background:#e4d4b9}
+.archive-dialog .primary-link + .primary-link{display:block;margin-top:11px}
+@media(max-width:760px){.chapter-side #open-trial{transform:none}.chapter-side #open-trial:hover{transform:translateY(-2px)}}
