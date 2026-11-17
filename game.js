@@ -211,6 +211,7 @@ function render(){
   else if(screen==='ending')currentChapter()===5?renderEndingChapter5():currentChapter()===4?renderEndingChapter4():currentChapter()===3?renderEndingChapter3():currentChapter()===2?renderEndingChapter2():renderEnding();
   else{screen='cover';renderCover();}
   if(state)renderJournal();
+  if(window.GameplayExtras)window.GameplayExtras.render(state,screen,store);
   scrollTop();
 }
 /* A quick, cinematic typewriter effect for story passages.
