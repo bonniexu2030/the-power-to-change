@@ -185,7 +185,7 @@ let toastTimer;
 let stopActiveNarration = null;
 let state = readSavedState();
 let screen = state ? state.screen : 'cover';
-function currentChapter(){return state && state.chapter===2?2:1;}
+function currentChapter(){return state && state.chapter===3?3:state && state.chapter===2?2:1;}
 
 function safeText(text){return String(text).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');}
 function readSavedState(){
@@ -206,9 +206,9 @@ function render(){
   journalButton.hidden=!state;
   if(screen==='cover')renderCover();
   else if(screen==='roles')renderRoles();
-  else if(screen==='scene')currentChapter()===2?renderSceneChapter2():renderScene();
-  else if(screen==='result')currentChapter()===2?renderResultChapter2():renderResult();
-  else if(screen==='ending')currentChapter()===2?renderEndingChapter2():renderEnding();
+  else if(screen==='scene')currentChapter()===3?renderSceneChapter3():currentChapter()===2?renderSceneChapter2():renderScene();
+  else if(screen==='result')currentChapter()===3?renderResultChapter3():currentChapter()===2?renderResultChapter2():renderResult();
+  else if(screen==='ending')currentChapter()===3?renderEndingChapter3():currentChapter()===2?renderEndingChapter2():renderEnding();
   else{screen='cover';renderCover();}
   if(state)renderJournal();
   scrollTop();
@@ -335,17 +335,34 @@ function startRole(id){
  screen='scene';store();render();
 }
 function storyLayout(kind){
- const role=roleData();
- app.innerHTML=`<div class="chapter-head"><span class="small-caps">${currentChapter()===2?"PART II · THE LONG WALK":"PART I · THE FIRST STEP"}</span><div class="chapter-tools"><span class="chapter-progress">0${currentChapter()} / 05 CHAPTERS</span><button type="button" class="reading-toggle" id="reading-toggle" aria-pressed="${textRevealEnabled}">${textRevealEnabled ? 'TEXT REVEAL: ON' : 'TEXT REVEAL: OFF'}</button></div></div><div class="chapter-grid"><article class="book-page"><div class="book-content" id="scene-body"></div></article><aside class="chapter-side"><div class="sidebar-card"><p class="side-label">CHARACTER FILE</p><h2>${safeText(role.name)}</h2><p>${safeText(role.roleLabel)}<br>AGE ${safeText(role.age)}</p><p style="margin-top:15px">Your earlier choices will matter later. You can open your journal at any time.</p></div><button class="archive-ticket" id="open-archive" type="button" aria-label="Examine the historical boycott leaflet"><span class="file-icon">▤</span><h3>Found in the archive</h3><p>${currentChapter()===2?"DOCUMENT NO. 02<br>CARPOOL INSTRUCTIONS":"DOCUMENT NO. 01<br>THE 1955 BOYCOTT LEAFLET"}<br>CLICK TO EXAMINE ↗</p></button><div class="side-timeline">${currentChapter()===2?"<strong>DEC 8</strong> · MIA PLANS CARPOOL<br><strong>DEC 13</strong> · CARPOOL BEGINS<br><strong>JAN 1956</strong> · BOYCOTT CONTINUES":"<strong>DEC 1</strong> · ROSA PARKS ARRESTED<br><strong>DEC 5</strong> · FIRST BOYCOTT DAY<br><strong>DEC 5</strong> · MASS MEETING"}</div></aside></div>`;
+ const role=roleData(),ch=currentChapter();
+ const part={1:'PART I · THE FIRST STEP',2:'PART II · THE LONG WALK',3:'PART III · THE PRICE OF STANDING UP'}[ch];
+ const sourceName={1:'THE 1955 BOYCOTT LEAFLET',2:'CARPOOL INSTRUCTIONS',3:'JANUARY 1956 · NEWS REPORT'}[ch];
+ const timeline={
+  1:'<strong>DEC 1</strong> · ROSA PARKS ARRESTED<br><strong>DEC 5</strong> · FIRST BOYCOTT DAY<br><strong>DEC 5</strong> · MASS MEETING',
+  2:'<strong>DEC 8</strong> · MIA PLANS CARPOOL<br><strong>DEC 13</strong> · CARPOOL BEGINS<br><strong>JAN 1956</strong> · BOYCOTT CONTINUES',
+  3:'<strong>JAN 30</strong> · KING HOME BOMBED<br><strong>FEB 21</strong> · BOYCOTT INDICTMENTS<br><strong>MAR 22</strong> · KING CONVICTED'
+ }[ch];
+ const secondArchive=ch===3?'<button class="archive-ticket" id="open-trial" type="button" aria-label="Examine historical indictment and criminal trial"><span class="file-icon">▤</span><h3>Courthouse records</h3><p>DOCUMENT NO. 04<br>INDICTMENT & MARCH TRIAL<br>CLICK TO EXAMINE ↗</p></button>':'';
+ app.innerHTML='<div class="chapter-head"><span class="small-caps">'+part+'</span><div class="chapter-tools"><span class="chapter-progress">0'+ch+' / 05 CHAPTERS</span><button type="button" class="reading-toggle" id="reading-toggle" aria-pressed="'+textRevealEnabled+'">'+(textRevealEnabled?'TEXT REVEAL: ON':'TEXT REVEAL: OFF')+'</button></div></div>'+
+  '<div class="chapter-grid"><article class="book-page"><div class="book-content" id="scene-body"></div></article><aside class="chapter-side"><div class="sidebar-card"><p class="side-label">CHARACTER FILE</p><h2>'+safeText(role.name)+'</h2><p>'+safeText(role.roleLabel)+'<br>AGE '+safeText(role.age)+'</p><p style="margin-top:15px">Your decisions shape this fictional life. Open your journal to see what changed.</p></div>'+
+  '<button class="archive-ticket" id="open-archive" type="button" aria-label="Examine a historical document"><span class="file-icon">▤</span><h3>Found in the archive</h3><p>DOCUMENT NO. 0'+(ch===3?3:ch)+'<br>'+sourceName+'<br>CLICK TO EXAMINE ↗</p></button>'+secondArchive+
+  '<div class="side-timeline">'+timeline+'</div></aside></div>';
  document.getElementById('open-archive').addEventListener('click',()=>{
-   if(currentChapter()===2){document.getElementById('carpool').showModal();state.carpoolOpened=true;}
-   else{archive.showModal();state.documentsOpened=true;}
+   const dialogId=ch===3?'bombing':ch===2?'carpool':'archive';
+   document.getElementById(dialogId).showModal();
+   if(ch===3)state.bombingOpened=true;
+   else if(ch===2)state.carpoolOpened=true;
+   else state.documentsOpened=true;
    store();renderJournal();
  });
- document.getElementById('reading-toggle').addEventListener('click', () => {
-   textRevealEnabled = !textRevealEnabled;
-   try { localStorage.setItem(MOTION_KEY, textRevealEnabled ? 'on' : 'off'); } catch(error) {}
-   render(); // Replay this page with the selected reveal setting.
+ if(ch===3)document.getElementById('open-trial').addEventListener('click',()=>{
+    document.getElementById('trial').showModal();state.trialOpened=true;store();renderJournal();
+ });
+ document.getElementById('reading-toggle').addEventListener('click',()=>{
+    textRevealEnabled=!textRevealEnabled;
+    try{localStorage.setItem(MOTION_KEY,textRevealEnabled?'on':'off')}catch(error){}
+    render();
  });
  return document.getElementById('scene-body');
 }
@@ -444,7 +461,80 @@ function renderEndingChapter2(){
  const role=chapterTwoRole(),selected=role.choices.find(c=>c.id===state.choices.ch2);
  if(!selected){screen='scene';render();return;}
  const body=storyLayout();
- body.innerHTML='<p class="chapter-eyebrow">JANUARY 1956 · THE BOYCOTT CONTINUES</p><h1>The Days Keep Coming.</h1><p class="place-time">END OF CHAPTER II</p><div class="story-prose">'+role.end.map(p=>'<p>'+safeText(p)+'</p>').join('')+'</div><div class="finishing"><span class="tag">YOUR JOURNAL REMEMBERS</span><p>'+safeText(selected.memory)+'</p><h2>Next: The Price of Standing Up</h2><p>'+safeText(role.next)+'.</p><p class="preview-lock">CHAPTER III IS THE NEXT DEVELOPMENT MILESTONE</p></div><div class="scene-actions" id="ending-actions"></div><p class="insight">The historical boycott continues, regardless of your choices. Your personal story has changed. Read the documents or replay another role to compare perspectives.</p>';
+ body.innerHTML='<p class="chapter-eyebrow">JANUARY 1956 · THE BOYCOTT CONTINUES</p><h1>The Days Keep Coming.</h1><p class="place-time">END OF CHAPTER II</p><div class="story-prose">'+role.end.map(p=>'<p>'+safeText(p)+'</p>').join('')+'</div><div class="finishing"><span class="tag">YOUR JOURNAL REMEMBERS</span><p>'+safeText(selected.memory)+'</p><h2>Next: The Price of Standing Up</h2><p>'+safeText(role.next)+'.</p><p class="preview-lock">YOUR DECISIONS WILL FOLLOW YOU INTO CHAPTER III</p></div><div class="scene-actions" id="ending-actions"></div><p class="insight">The historical boycott continues, regardless of your choices. Your personal story has changed. Read the documents or replay another role to compare perspectives.</p>';
+ const actions=body.querySelector('#ending-actions');
+ actions.append(makeButton('Continue to Chapter III →',()=>{state.chapter=3;screen='scene';store();render()}));
+ actions.append(makeButton('Replay another role →',()=>{if(confirm('Try another character? This will replace your current saved run.')){try{localStorage.removeItem(SAVE_KEY)}catch(e){}state=null;screen='roles';render()}}));
+ actions.append(makeButton('Return to introduction',()=>{screen='cover';render()},'btn btn-secondary'));
+ revealStoryText('.story-prose p','.finishing, .scene-actions, .insight');
+}
+
+
+/* Chapter III: a relationship exchange, then an important choice.
+ * All personal dialogue is invented; historical context is linked in the archive. */
+function chapterThreeRole(){return window.chapterThreeData[state.role];}
+function renderSceneChapter3(){
+ const role=chapterThreeRole(),body=storyLayout();
+ const rKey=state.role==='evelyn'?'lottie':state.role==='marcus'?'david':'sarah';
+ const relationalText=(state.relationships[rKey]||0)>=1?role.relationshipLines.high:role.relationshipLines.low;
+ const paragraphList=[
+   ...role.intro.slice(0,3),
+   role.ch1Callbacks[state.choices.ch1],
+   role.ch2Callbacks[state.choices.ch2],
+   relationalText,
+   ...role.intro.slice(3)
+ ].filter(Boolean);
+ if(state.choices.ch3talk){
+   const earlier=role.exchange.options.find(x=>x.id===state.choices.ch3talk);
+   if(earlier)paragraphList.push(earlier.response);
+ }
+ const small=!state.choices.ch3talk;
+ const promptMarkup=small?
+   '<section class="prompt"><p class="chapter-eyebrow">A CONVERSATION THAT MATTERS</p><h2>'+safeText(role.exchange.title)+'</h2><p class="mini-note">'+safeText(role.exchange.prompt)+'</p><div class="choice-list" id="chapter-three-talk"></div></section>':
+   '<section class="prompt"><h2>'+safeText(role.prompt)+'</h2><div class="choice-list" id="chapter-three-choices"></div><p class="mini-note">The boycott continues regardless of your decision. Your choices affect this character’s circumstances, not the movement’s historical outcome.</p></section>';
+ body.innerHTML='<p class="chapter-eyebrow">FEBRUARY 1956 · CHAPTER III OF FIVE</p><h1>'+safeText(role.heading)+'</h1><p class="place-time">'+safeText(role.place)+'</p><div class="story-prose">'+paragraphList.map(p=>'<p>'+safeText(p)+'</p>').join('')+'</div>'+promptMarkup;
+ const list=body.querySelector(small?'#chapter-three-talk':'#chapter-three-choices');
+ const options=small?role.exchange.options:role.choices;
+ options.forEach((choice,i)=>{
+   const btn=document.createElement('button');btn.type='button';btn.className='choice';
+   btn.innerHTML='<span class="choice-number">'+String.fromCharCode(65+i)+'</span><span>'+safeText(choice.label)+'</span>';
+   if(small)btn.addEventListener('click',()=>{
+     if(state.choices.ch3talk)return;
+     state.choices.ch3talk=choice.id;store();render();showToast('Your conversation was remembered · Journal updated');
+   });
+   else btn.addEventListener('click',()=>chooseChapter3(choice.id));
+   list.append(btn);
+ });
+ revealStoryText('.story-prose p','.prompt');
+}
+function chooseChapter3(choiceId){
+ if(!state||currentChapter()!==3||screen!=='scene'||state.choices.ch3||!state.choices.ch3talk)return;
+ const choice=chapterThreeRole().choices.find(x=>x.id===choiceId);
+ if(!choice)return;
+ state.choices.ch3=choiceId;
+ for(const [key,n] of Object.entries(choice.delta))state.stats[key]=clamp(state.stats[key]+n,0,100);
+ for(const [key,n] of Object.entries(choice.relation))state.relationships[key]=clamp((state.relationships[key]||0)+n,-2,2);
+ screen='result';store();render();showToast(choice.toast);
+}
+function renderResultChapter3(){
+ const role=chapterThreeRole(),selected=role.choices.find(c=>c.id===state.choices.ch3);
+ if(!selected){screen='scene';render();return;}
+ const remembered=role.delayed?.[state.choices.ch2]?.[state.choices.ch3]||'The choice you made in December is still part of this difficult moment.';
+ const body=storyLayout();
+ body.innerHTML='<p class="chapter-eyebrow">YOUR DECISION / FEBRUARY 1956</p><h1>What It Costs.</h1><p class="place-time">'+safeText(game[state.role].name.toUpperCase())+' · CHAPTER III</p>'+
+  '<div class="story-prose"><p>'+safeText(selected.label)+'</p></div><div class="consequence"><span class="label">THE CONSEQUENCES</span><p>'+safeText(selected.result)+'</p><p>'+safeText(remembered)+'</p></div>'+
+  '<p class="insight">An earlier choice has returned in the story. Your circumstances and relationships have also been updated in your journal.</p><div class="scene-actions" id="continue-actions"></div>';
+ body.querySelector('#continue-actions').append(makeButton('Continue the chapter →',()=>{screen='ending';store();render()}));
+ revealStoryText('.story-prose p, .consequence p','.insight, .scene-actions');
+}
+function renderEndingChapter3(){
+ const role=chapterThreeRole(),selected=role.choices.find(c=>c.id===state.choices.ch3);
+ if(!selected){screen='scene';render();return;}
+ const body=storyLayout();
+ body.innerHTML='<p class="chapter-eyebrow">MARCH 22, 1956 · MONTGOMERY</p><h1>The Protest Continues.</h1><p class="place-time">END OF CHAPTER III</p>'+
+  '<div class="story-prose">'+role.ending.map(p=>'<p>'+safeText(p)+'</p>').join('')+'</div>'+
+  '<div class="finishing"><span class="tag">YOUR JOURNAL REMEMBERS</span><p>'+safeText(selected.memory)+'</p><h2>Next: Hope Is Not the End</h2><p>'+safeText(role.next)+'</p><p class="preview-lock">CHAPTER IV IS THE NEXT DEVELOPMENT MILESTONE</p></div>'+
+  '<div class="scene-actions" id="ending-actions"></div><p class="insight">The criminal prosecution of boycott leaders is separate from Browder v. Gayle, the federal civil lawsuit challenging segregated buses. You can examine the original records in the archive.</p>';
  const actions=body.querySelector('#ending-actions');
  actions.append(makeButton('Replay another role →',()=>{if(confirm('Try another character? This will replace your current saved run.')){try{localStorage.removeItem(SAVE_KEY)}catch(e){}state=null;screen='roles';render()}}));
  actions.append(makeButton('Return to introduction',()=>{screen='cover';render()},'btn btn-secondary'));
@@ -472,7 +562,7 @@ function showToast(message){
 }
 
 journalButton.addEventListener('click',()=>{if(state){renderJournal();journal.showModal()}});
-for(const name of ['journal','archive','carpool']){
+for(const name of ['journal','archive','carpool','bombing','trial']){
  const d=document.getElementById(name);
  d.querySelector(`[data-close="${name}"]`).addEventListener('click',()=>d.close());
  d.addEventListener('click',e=>{if(e.target===d)d.close()});
