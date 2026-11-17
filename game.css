@@ -113,3 +113,98 @@
 .reflection-card{padding:clamp(24px,4vw,40px);border:2px solid #927451;background:#f4ead5;box-shadow:5px 6px 0 #9f81621c;margin:24px 0}
 .reflection-card .mini-note{font:12px/1.65 var(--sans);color:#756a5b}
 @media(max-width:650px){.epilogue-cover{border-width:4px}.epilogue-title{margin-bottom:25px}.epilogue-memories{padding:22px}.victory-file{transform:none}}
+
+/* Light gameplay upgrade: optional map, keepsakes, field desk and stamps. */
+.extras-header-button{padding:9px 11px!important;min-width:40px;justify-content:center}
+.extras-header-button[hidden]{display:none!important}
+.extras-header-button .extras-icon{font-size:17px!important;line-height:1}
+.topbar-actions{gap:9px}
+.extras-side-card{background:#eaddc7;border:1px solid #c3af8e;padding:20px;box-shadow:2px 6px 14px #31251d17}
+.extras-side-card p:not(.side-label){font:12px/1.6 var(--sans);color:#665948;margin:6px 0 11px}
+.extras-side-link{display:block;width:100%;border:1px solid var(--red);color:var(--red);background:#f6ead6;padding:11px 10px;text-align:left;font:500 9px/1.5 var(--mono);letter-spacing:.06em}
+.extras-side-link:hover,.extras-side-link:focus-visible{background:#e8d6bb}
+.extras-side-divider{height:1px;background:#b5a58e;margin:16px 0}
+.extras-dialog{width:min(875px,calc(100% - 26px));max-height:min(90vh,900px);max-height:min(90dvh,900px);margin:auto;border:1px solid #947c63;background:var(--paper-soft);color:var(--ink);padding:0;box-shadow:0 18px 60px #1d171450;overflow:auto}
+.extras-dialog::backdrop{background:#211b15ab}
+.extras-shell{min-width:0}
+.extras-head{background:#e2d3b9;border-bottom:1px solid #bba88a;padding:26px 31px;display:flex;justify-content:space-between;align-items:flex-start;gap:18px}
+.extras-head h2{font:600 clamp(28px,4vw,43px)/1.15 var(--serif);margin:6px 0 0}
+.extras-eyebrow{font:500 9px/1.55 var(--mono);letter-spacing:.1em;color:var(--red);margin:0}
+.extras-close{font:300 32px/1 var(--sans);background:#f5ecdc;border:1px solid #ae9678;width:38px;height:38px;flex-shrink:0}
+.extras-close:hover,.extras-close:focus-visible{color:var(--red);border-color:var(--red)}
+.extras-nav{display:flex;flex-wrap:wrap;gap:7px;padding:15px 30px 0;border-bottom:1px solid #c7b99f;background:#f0e5d3}
+.extras-tab{font:500 10px/1.4 var(--mono);letter-spacing:.03em;color:#756757;background:#ebe1cf;border:1px solid #bcad95;border-bottom:none;padding:11px 13px;white-space:nowrap}
+.extras-tab.is-active{background:var(--paper-soft);color:var(--red);border-color:var(--red);box-shadow:0 -3px 0 var(--red) inset}
+.extras-tab:hover{color:var(--red)}
+.extras-body{padding:26px 30px 32px}
+.extras-intro{font:14px/1.7 var(--sans);max-width:760px;color:#615648;margin:0 0 20px}
+.extras-footer{font:11px/1.6 var(--mono);color:var(--muted);margin:17px 0 0}
+.extras-notice{background:#e8ddc6;color:#62503c;border-left:3px solid #77856b;font:500 11px/1.6 var(--mono);padding:11px 14px;margin:0 0 20px}
+.story-map-board{height:310px;position:relative;overflow:hidden;border:8px solid #ebdec6;outline:1px solid #ad9a7d;background:repeating-linear-gradient(88deg,transparent 0 33px,#9c927e17 34px 35px),repeating-linear-gradient(0deg,#d3c9b7 0 35px,#d6cdbd 36px 37px);box-shadow:inset 0 0 0 1px #a8997d4a;margin-bottom:19px}
+.story-map-board::before{content:'';position:absolute;left:0;right:0;top:44%;height:9px;background:#baa88b;transform:rotate(-14deg);box-shadow:0 33px 0 #baa88b88;opacity:.55}
+.story-map-board::after{content:'';position:absolute;left:53%;top:-30%;width:11px;height:175%;background:#a9a58f88;transform:rotate(28deg)}
+.map-road{position:absolute;background:#eee1c3a3;z-index:0}
+.map-road-a{left:5%;top:0;height:110%;width:7px;transform:rotate(-20deg)}
+.map-road-b{right:20%;top:-10%;height:130%;width:8px;transform:rotate(19deg)}
+.map-road-c{left:0;top:75%;width:100%;height:10px;transform:rotate(9deg)}
+.map-crossing{position:absolute;left:34%;top:17%;width:35%;height:50%;border:2px dashed #897a6459;border-radius:50%;transform:rotate(23deg)}
+.map-watermark{position:absolute;left:12px;bottom:8px;z-index:1;font:500 8px var(--mono);color:#60564c9e;letter-spacing:.1em;pointer-events:none}
+.story-map-pin{position:absolute;z-index:2;transform:translate(-50%,-50%);border:0;background:transparent;display:flex;align-items:center;flex-direction:column;gap:3px;padding:4px;width:110px;cursor:pointer}
+.map-pin-symbol{background:#f4e7d0;border:2px solid var(--red);width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--red);font-size:13px;box-shadow:0 2px 8px #3f2b1e44}
+.story-map-pin.is-visited .map-pin-symbol{background:#697357;border-color:#697357;color:white}
+.story-map-pin.is-selected .map-pin-symbol{outline:3px solid #b6a27f;outline-offset:2px;transform:scale(1.12)}
+.story-map-pin:hover .map-pin-symbol{transform:scale(1.15)}
+.map-pin-label{font:600 9px/1.25 var(--mono);background:#f5eedee8;padding:3px 5px;color:#5a4735;box-shadow:1px 2px 3px #3327152d;text-align:center}
+.map-legend{display:flex;flex-wrap:wrap;gap:7px;margin:15px 0 18px}
+.map-legend-button{font:500 10px/1.5 var(--mono);background:#eee3cf;color:#5b5146;border:1px solid #c5b39b;padding:8px 10px}
+.map-legend-button.selected,.map-legend-button:hover{color:var(--red);border-color:var(--red);background:#f6eddf}
+.map-discovery{border-left:3px solid #a46e57;background:#e8d9c1;padding:20px 22px}
+.map-discovery h3{font:600 27px/1.2 var(--serif);margin:7px 0 11px}
+.map-discovery p:not(.extras-eyebrow){font:14px/1.75 Georgia,serif;color:#51463b;margin:0}
+.map-discovery a{display:inline-block;margin:14px 0 0;color:var(--red);font:500 10px/1.5 var(--mono);text-decoration:none;border-bottom:1px solid currentColor}
+.extras-counter{font:500 11px var(--mono);color:var(--red);padding:12px 14px;background:#eee2cc;border:1px solid #c3ad8d;margin-bottom:17px}
+.extras-keepsake-grid,.extras-stamp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.extras-keepsake,.extras-stamp{display:flex;gap:14px;align-items:flex-start;background:#f3e9d7;border:1px solid #c3b197;padding:18px;min-width:0;box-shadow:2px 3px 0 #b29d7d1c}
+.keepsake-symbol,.stamp-image{display:flex;align-items:center;justify-content:center;flex:0 0 45px;height:51px;background:#e2cfb1;border:1px solid #aa9170;color:var(--red);font:600 25px var(--serif);transform:rotate(-3deg)}
+.extras-keepsake h3,.extras-stamp h3{font:600 21px/1.25 var(--serif);margin:5px 0 8px}
+.extras-keepsake p:not(.extras-eyebrow),.extras-stamp p:not(.extras-eyebrow){font:12px/1.6 var(--sans);color:#6a5d4d;margin:0}
+.extras-empty{font:14px/1.6 var(--sans);color:var(--muted)}
+.extras-stamp.earned .stamp-image{background:#a9b294;color:#334a32}
+.extras-stamp.locked{opacity:.57}
+.extras-stamp.locked .stamp-image{filter:grayscale(1)}
+.extras-activity-stack{display:grid;gap:15px}
+.extras-activity{border:1px solid #c1ad91;background:#f1e6d3;padding:23px}
+.extras-activity.is-locked{opacity:.7}
+.extras-activity h3{font:600 28px/1.25 var(--serif);margin:8px 0 11px}
+.extras-activity p:not(.extras-eyebrow){font:14px/1.65 var(--sans);color:#685b4b}
+.activity-options{display:grid;gap:9px;margin-top:16px}
+.activity-choice{text-align:left;color:#433b32;background:#e8dcca;border:1px solid #b7a286;padding:12px 15px;font:14px/1.6 var(--sans)}
+.activity-choice:hover,.activity-choice:focus-visible{border-color:var(--red);background:#e1d1b6}
+.activity-result{margin-top:14px;padding:16px 18px;border-left:3px solid #798364;background:#e8e1ca}
+.activity-result strong{font:500 10px var(--mono);letter-spacing:.07em;color:#687557}
+.activity-result p{margin:7px 0!important}
+.activity-result span{font:500 10px var(--mono);color:#687557}
+.extras-muted{font-style:italic}
+@media(max-width:670px){
+  .extras-dialog{width:calc(100% - 14px);max-height:95vh;max-height:95dvh}
+  .extras-head{padding:19px 20px}
+  .extras-nav{padding:13px 17px 0;gap:4px}
+  .extras-tab{font-size:9px;padding:9px 8px}
+  .extras-body{padding:19px}
+  .story-map-board{height:270px}
+  .story-map-pin{width:42px}
+  .map-pin-label{display:none}
+  .extras-keepsake-grid,.extras-stamp-grid{grid-template-columns:1fr}
+  .topbar-actions{gap:5px}
+  .extras-header-button{min-width:33px;padding:7px!important}
+}
+@media(max-width:430px){
+  .extras-header-button[data-extras-open="achievements"]{display:none!important}
+  .topbar{gap:8px;padding:0 10px}
+  .brand{font-size:9px;gap:4px}
+  .exit-link{font-size:7px}
+  .story-map-board{height:235px}
+  .map-legend-button{font-size:9px;padding:7px}
+  .extras-tab{font-size:8px}
+  .extras-side-card{padding:15px}
+}
