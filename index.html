@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="An interactive history of resistance, exploring the Civil Rights and Women's Rights Movements through historical decisions.">
+  <title>The Power to Change | An Interactive History of Resistance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="paper-grain" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="wordmark" href="#top" aria-label="The Power to Change home">
+      <span class="wordmark-mark">✳</span>
+      <span>THE POWER<br>TO CHANGE</span>
+    </a>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+      <a href="#civil-rights">CIVIL RIGHTS</a>
+      <a href="#womens-rights">WOMEN'S RIGHTS</a>
+      <a href="#how-it-works">HOW IT WORKS</a>
+      <a class="nav-about" href="#about">ABOUT THE PROJECT ↗</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero section-wrap">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-line"></span> AN INTERACTIVE HISTORY OF RESISTANCE</p>
+        <h1>History was made<br>by people like <em>you.</em></h1>
+        <p class="hero-deck">Step into the moments that shaped the fight for equality. Face the choices, pressures, and possibilities people encountered—and discover how society shaped what they could do.</p>
+        <div class="hero-actions">
+          <a class="button button-dark" href="#stories">ENTER THE ARCHIVE <span>↗</span></a>
+          <a class="text-link" href="#how-it-works">How the experience works <span>↓</span></a>
+        </div>
+        <div class="hero-note"><span class="note-star">✳</span> TWO MOVEMENTS. FOUR HISTORICAL MOMENTS. COUNTLESS HUMAN CHOICES.</div>
+      </div>
+
+      <div class="hero-collage" aria-label="Decorative collage of archival paper and historical ephemera">
+        <div class="collage-tape tape-one"></div>
+        <div class="collage-paper paper-back">
+          <span class="paper-stamp">ARCHIVE<br>NO. 001</span>
+          <span class="paper-back-text">THE<br>FIGHT<br>FOR<br>EQUALITY</span>
+        </div>
+        <div class="collage-photo photo-main">
+          <div class="photo-art">
+            <span class="silhouette silhouette-one"></span>
+            <span class="silhouette silhouette-two"></span>
+            <span class="silhouette silhouette-three"></span>
+            <span class="photo-caption">THE PEOPLE<br>WHO MADE HISTORY</span>
+          </div>
+          <span class="photo-label">A RECORD OF RESISTANCE · USA</span>
+        </div>
+        <div class="collage-paper paper-note">
+          <span class="handwritten">“Change does<br>not happen<br>by accident.”</span>
+          <span class="note-rule"></span>
+          <span class="note-small">A QUESTION<br>FOR EVERY GENERATION</span>
+        </div>
+        <div class="collage-tape tape-two"></div>
+        <span class="collage-number">FIG. 01</span>
+      </div>
+      <div class="hero-bottom-rule"><span>01 / THE ARCHIVE</span><span>SCROLL TO EXPLORE ↓</span></div>
+    </section>
+
+    <section class="intro-strip">
+      <div class="section-wrap intro-grid">
+        <p class="eyebrow">THE CENTRAL QUESTION</p>
+        <p class="intro-question">If you had lived through history,<br><em>what would you have done?</em></p>
+        <p class="intro-aside">And just as importantly: what choices would society have made available to you?</p>
+      </div>
+    </section>
+
+    <section class="stories section-wrap" id="stories">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow"><span class="eyebrow-line"></span> OPEN THE ARCHIVE</p>
+          <h2>Choose a moment.<br><em>Make your mark.</em></h2>
+        </div>
+        <p class="heading-aside">Explore two movements through the experiences of the people who challenged the world around them.</p>
+      </div>
+
+      <div class="movement-block" id="civil-rights">
+        <div class="movement-heading">
+          <span class="movement-index">01</span>
+          <div><p class="eyebrow">THE MOVEMENT</p><h3>Civil Rights</h3></div>
+          <span class="movement-dates">1950s—1960s</span>
+        </div>
+        <div class="story-grid">
+          <article class="story-card story-card-red">
+            <div class="story-image image-greensboro">
+              <span class="image-tag">NORTH CAROLINA · 1960</span>
+              <span class="image-illustration">✳</span>
+              <span class="image-bottom-label">A SEAT AT THE COUNTER</span>
+            </div>
+            <div class="story-info">
+              <div class="card-meta"><span>SCENARIO 01</span><span>01 / 04</span></div>
+              <h4>The Greensboro<br>Sit-Ins</h4>
+              <p>You are a college student deciding whether to challenge segregation at a local lunch counter.</p>
+              <button class="card-link play-button" data-scenario="greensboro">ENTER SCENARIO <span>↗</span></button>
+            </div>
+          </article>
+          <article class="story-card story-card-cream">
+            <div class="story-image image-montgomery">
+              <span class="image-tag">ALABAMA · 1955–56</span>
+              <span class="image-illustration">✳</span>
+              <span class="image-bottom-label">THE POWER OF A BOYCOTT</span>
+            </div>
+            <div class="story-info">
+              <div class="card-meta"><span>SCENARIO 02</span><span>02 / 04</span></div>
+              <h4>The Montgomery<br>Bus Boycott</h4>
+              <p>You must decide whether to join a community-wide boycott when you depend on the bus to get to work.</p>
+              <button class="card-link play-button" data-scenario="montgomery">ENTER SCENARIO <span>↗</span></button>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="movement-block movement-women" id="womens-rights">
+        <div class="movement-heading">
+          <span class="movement-index">02</span>
+          <div><p class="eyebrow">THE MOVEMENT</p><h3>Women's Rights</h3></div>
+          <span class="movement-dates">1910s—1970s</span>
+        </div>
+        <div class="story-grid">
+          <article class="story-card story-card-cream">
+            <div class="story-image image-suffrage">
+              <span class="image-tag">WASHINGTON, D.C. · 1913</span>
+              <span class="image-illustration">✳</span>
+              <span class="image-bottom-label">THE RIGHT TO BE HEARD</span>
+            </div>
+            <div class="story-info">
+              <div class="card-meta"><span>SCENARIO 03</span><span>03 / 04</span></div>
+              <h4>The Women's<br>Suffrage Parade</h4>
+              <p>You are part of a public demonstration demanding that women have the right to vote.</p>
+              <button class="card-link play-button" data-scenario="suffrage">ENTER SCENARIO <span>↗</span></button>
+            </div>
+          </article>
+          <article class="story-card story-card-red">
+            <div class="story-image image-strike">
+              <span class="image-tag">NEW YORK CITY · 1970</span>
+              <span class="image-illustration">✳</span>
+              <span class="image-bottom-label">A DAY WITHOUT WOMEN?</span>
+            </div>
+            <div class="story-info">
+              <div class="card-meta"><span>SCENARIO 04</span><span>04 / 04</span></div>
+              <h4>The Women's Strike<br>for Equality</h4>
+              <p>You are deciding whether to join a national demonstration for equal opportunities and rights.</p>
+              <button class="card-link play-button" data-scenario="strike">ENTER SCENARIO <span>↗</span></button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-section" id="how-it-works">
+      <div class="section-wrap how-inner">
+        <div class="how-title">
+          <p class="eyebrow"><span class="eyebrow-line"></span> NOT JUST A HISTORY LESSON</p>
+          <h2>Every choice<br>tells a <em>story.</em></h2>
+          <p>History is more than a list of dates and names. It is also a collection of decisions made by people navigating the world they lived in.</p>
+        </div>
+        <div class="steps-list">
+          <div class="step"><span class="step-number">01</span><div><h4>STEP INTO THE MOMENT</h4><p>Learn the setting, the people involved, and the pressures shaping the event.</p></div><span class="step-mark">✳</span></div>
+          <div class="step"><span class="step-number">02</span><div><h4>MAKE YOUR DECISION</h4><p>Choose how you would respond. There may not be an easy or perfect answer.</p></div><span class="step-mark">✳</span></div>
+          <div class="step"><span class="step-number">03</span><div><h4>SEE WHAT'S AT STAKE</h4><p>Explore possible consequences and compare your decision with the historical record.</p></div><span class="step-mark">✳</span></div>
+          <div class="step"><span class="step-number">04</span><div><h4>LOOK THROUGH A SOCIOLOGICAL LENS</h4><p>Consider how race, gender, class, institutions, and collective action shaped the choices available.</p></div><span class="step-mark">✳</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing-section section-wrap" id="about">
+      <div class="closing-paper">
+        <span class="closing-stamp">A NOTE<br>TO THE VISITOR</span>
+        <p class="eyebrow">BEFORE YOU BEGIN</p>
+        <h2>The past is not<br>as distant as it seems.</h2>
+        <p>This project explores selected events from the Civil Rights and Women's Rights Movements in the United States. Scenarios are designed for reflection, not to suggest that one choice could have single-handedly changed history. Historical context and individual experiences matter.</p>
+        <a href="#stories" class="button button-dark">EXPLORE THE STORIES <span>↗</span></a>
+        <span class="closing-doodle">✳</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="wordmark footer-wordmark" href="#top"><span class="wordmark-mark">✳</span><span>THE POWER<br>TO CHANGE</span></a>
+    <p>AN INTERACTIVE HISTORY OF RESISTANCE</p>
+    <a href="#top">BACK TO TOP ↑</a>
+  </footer>
+
+  <dialog class="game-dialog" id="game-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-top"><span class="eyebrow">INTERACTIVE SCENARIO · DEMO</span><button class="dialog-close" id="dialog-close" aria-label="Close scenario">✕</button></div>
+    <div id="game-content"></div>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
