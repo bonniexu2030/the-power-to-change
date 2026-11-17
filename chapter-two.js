@@ -207,3 +207,20 @@ window.chapterTwoData = {
     "next": "Rising intimidation and a difficult conversation with Sarah about security and silence"
   }
 };
+
+
+/* Reviewed variations. These are fictional responses, not archival quotations. */
+window.chapterTwoData.evelyn.choices.find(c=>c.id==='employer').resultVariants={
+ walk:'Evelyn asks whether her hours can shift when transportation fails. Mrs. Whitmore reminds her that the household expects punctuality. “I need someone I can rely on,” she says. Evelyn understands that even a threat to replace her can affect what she can risk.',
+ ride:'Evelyn explains that the neighbor who brought her to work cannot promise every morning. Mrs. Whitmore grudgingly agrees to consider a later start on some days, but warns that her needs come first. It is not a secure arrangement.',
+ bus:'Evelyn asks for flexibility so that she can begin avoiding the buses more consistently. Mrs. Whitmore asks why the old arrangement cannot continue when Evelyn has been arriving on time. Her refusal shows Evelyn how much control an employer has over a worker’s options.'
+};
+window.chapterTwoData.marcus.prepOutcomes={
+ confirm:'Lottie Mae nods when Marcus suggests confirming driver availability the night before. “That would save us some waiting,” she says. But she reminds him that not everyone has an easy way to send a message.',
+ meetpoint:'Marcus suggests gathering nearby riders at one shared pickup point. Lottie Mae sees the benefit but asks him to remember those who cannot easily walk that far. They revise the idea together.'
+};
+window.chapterTwoData.daniel.introVariants={
+ agree:'Thomas Reed enters Bennett’s Hardware alone with a list of supplies requested by neighbors supporting alternate transportation. Daniel recognizes him from the week before, when he agreed with Mr. Bennett about the boycott.',
+ silent:'Thomas Reed returns with a short list of transportation supplies. Daniel remembers how quiet the store became during their last encounter.',
+ question:'Thomas Reed enters with Marcus Ellis, a student who has been helping neighbors find transportation supplies. Thomas introduces the younger man. Daniel recognizes Thomas from the day he questioned Mr. Bennett’s dismissive remarks.'
+};
