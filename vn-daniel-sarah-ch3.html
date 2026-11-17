@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#e9dfcc"><title>381 Days — Daniel &amp; Sarah · The Cost of Looking Away</title>
+<style>
+:root{--dark:#342f29;--red:#805043;--paper:#f5ebd7;--olive:#69745e;--cream:#eedfc5;--border:#ab8963;--ink:#463c31}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Georgia,'Times New Roman',serif;background:#e4d8c3;color:var(--ink)}
+body{background:radial-gradient(ellipse at 15% 20%,#f7f0de88,transparent 55%),linear-gradient(110deg,#e5dcc7,#d7c8ad)}
+button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid #965f44;outline-offset:4px}
+.shell{min-height:100dvh;display:flex;flex-direction:column;max-width:1550px;margin:auto;padding:22px clamp(12px,3vw,42px) 20px}
+header{display:flex;align-items:center;justify-content:space-between;gap:15px;padding-bottom:16px;border-bottom:1px solid #ad9c80}
+.logo{font-family:Georgia,serif;letter-spacing:.08em;color:#543b32;font-size:16px;font-weight:bold;line-height:1.08}.logo i{font-size:20px;font-style:normal;color:#8b6653;margin-right:8px}.smallcaps{font:600 11px/1.45 Georgia,serif;letter-spacing:.14em;text-transform:uppercase;color:#695747}.header-right{display:flex;align-items:center;gap:12px}.pill{border:1px solid #bfa88b;padding:6px 10px;border-radius:50px;background:#f6ebd1;font-size:11px;white-space:nowrap}
+.scene{position:relative;isolation:isolate;flex:1;min-height:560px;overflow:hidden;max-width:1280px;width:100%;margin:24px auto 0;box-shadow:0 24px 65px #392d2140;border:10px solid #eadbc0;background:linear-gradient(180deg,#d6c7ae 0%,#f2e6ce 49%,#bba78a 100%)}
+.scene:before{content:'';position:absolute;inset:0;opacity:.38;pointer-events:none;z-index:5;background-image:url('data:image/svg+xml,%3Csvg viewBox=%220 0 180 180%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%22.61%22 numOctaves=%222%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22 opacity=%22.08%22/%3E%3C/svg%3E');mix-blend-mode:multiply}
+.wall{position:absolute;inset:0 0 28%;background:linear-gradient(90deg,transparent 38%,#967e6255 38.2%,#967e6255 38.5%,transparent 38.8%),linear-gradient(180deg,#d9cbb3,#efe0c4);}
+.window{position:absolute;top:12%;left:12%;width:26%;height:42%;border:15px solid #937554;background:linear-gradient(155deg,#70898c,#c8d2bd 65%,#b0bd9e);box-shadow:inset 0 0 0 3px #d4bb96,3px 5px 15px #64523e2f;opacity:.6}
+.window:before{content:'';position:absolute;left:49%;top:0;bottom:0;width:9px;background:#937554}.window:after{content:'';position:absolute;top:51%;left:0;right:0;height:9px;background:#937554}
+.wall-art{position:absolute;right:13%;top:16%;height:21%;width:17%;border:10px solid #926e4c;box-shadow:3px 4px 6px #735a4234;background:linear-gradient(140deg,#c6b78d,#82916c);opacity:.45}
+.tabletop{position:absolute;bottom:8%;height:27%;width:80%;left:10%;border-radius:50% 50% 9% 9% / 55% 55% 9% 9%;background:linear-gradient(180deg,#7c5c40,#a17b53 45%,#765136);box-shadow:0 -4px 12px #4d39262b;opacity:.49}
+.kitchen-mark{position:absolute;top:23px;left:27px;background:#f7edd8d9;border:1px solid #bda487;padding:12px 18px;transform:rotate(-1.5deg);z-index:2;box-shadow:4px 4px 0 #56432a14}
+.kitchen-mark strong{display:block;font-size:19px;color:#523d30}.kitchen-mark small{font:600 10px Georgia,serif;letter-spacing:.1em;color:#806953}
+.scene-counter{position:absolute;top:24px;right:25px;padding:8px 12px;background:#332e28b7;color:#fae8cd;font:600 11px Georgia,serif;letter-spacing:.1em;z-index:3}
+.dialogue-layer{position:absolute;inset:0;z-index:8;pointer-events:none;display:flex;align-items:end;padding:0 2.8% 4%}
+.portrait{position:absolute;bottom:19%;width:clamp(130px,23%,270px);height:clamp(180px,43%,395px);object-fit:cover;object-position:center 24%;border:8px solid #eddcc0;outline:2px solid #947657;box-shadow:6px 12px 30px #34281b60;filter:saturate(.72) brightness(.82);opacity:.53;transition:filter .35s,opacity .35s,transform .35s;z-index:3;will-change:transform}
+.portrait.left{left:1.6%;transform:translateY(15px) rotate(-3deg)}.portrait.right{right:1.6%;transform:translateY(15px) rotate(3deg)}
+.portrait.active{opacity:1;filter:saturate(1) brightness(1.03);z-index:6}.portrait.active.left{transform:translateY(0px) rotate(-1deg)}.portrait.active.right{transform:translateY(0px) rotate(1deg)}
+.portrait-label{position:absolute;bottom:15%;font-size:11px;background:#e4cfaf;padding:8px 14px;z-index:7;color:#634935;border:1px solid #a48665;font-weight:bold;letter-spacing:.1em;transform:rotate(-1deg);opacity:.5;transition:opacity .2s}
+.portrait-label.left{left:5%}.portrait-label.right{right:5%}.portrait-label.active{opacity:1}
+.dialogue-box{pointer-events:auto;position:relative;width:77%;min-height:148px;margin:0 auto 2px;z-index:10;background:linear-gradient(120deg,#fdf2d7eF,#f5e5c2f2);border:2px solid #8c6949;border-radius:8px;box-shadow:0 0 0 6px #ead5b3bc,0 17px 28px #2b211956;padding:28px 32px 22px;cursor:pointer;transition:opacity .15s}
+.dialogue-box:before{content:'';pointer-events:none;position:absolute;inset:6px;border:1px solid #ceb392;border-radius:3px}
+.dialogue-box .speaker{position:absolute;top:-27px;left:22px;min-width:148px;background:#8d604a;color:#fef3de;border:2px solid #694d3d;text-align:center;padding:10px 18px;font-weight:bold;letter-spacing:.11em;box-shadow:3px 5px 0 #392a2038;z-index:2}
+.dialogue-box.right .speaker{left:auto;right:22px}
+.dialogue-text{position:relative;z-index:2;font-size:clamp(15px,1.55vw,22px);line-height:1.6;padding-left:9px;color:#40372d;min-height:70px;max-width:780px}
+.caret{position:absolute;right:23px;bottom:16px;font-size:21px;color:#966b4c;animation:bounce 1s infinite;z-index:2}
+@keyframes bounce{50%{transform:translateY(4px)}}
+.narration{pointer-events:auto;align-self:center;margin:auto;position:relative;width:min(72%,660px);min-height:170px;padding:34px 38px;background:#f8efdfeD;border:1px solid #9b7d5c;box-shadow:0 0 0 7px #e6d4b7bd,0 17px 50px #2d221b4a;transform:rotate(-.5deg);cursor:pointer;text-align:center}
+.narration:before{content:'✦';position:absolute;top:-24px;left:calc(50% - 21px);width:42px;height:42px;display:grid;place-items:center;background:#f3dfbe;color:#8c5645;border:1px solid #8e7557;font-size:22px}
+.narration .narrator-title{color:#7a5244;text-transform:uppercase;font-size:11px;letter-spacing:.17em;font-weight:bold;margin:0 0 17px}
+.narration .dialogue-text{padding:0;min-height:50px;font-style:italic;font-size:clamp(16px,1.65vw,23px);max-width:unset}
+.narration .caret{bottom:8px;right:12px}
+/* The script toggles these surfaces rather than removing them. */
+.is-hidden{display:none!important}
+.tools{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:0 auto;padding-top:17px;max-width:1280px;width:100%}
+.tool-btn{background:#f3e8d4;color:#624a39;border:1px solid #ab9476;border-radius:3px;padding:10px 16px;font:600 12px Georgia,serif;letter-spacing:.05em;box-shadow:2px 2px 0 #59453014}
+.tool-btn:hover{background:#e9d6ba}.tool-btn.dark{background:#604f41;color:#fff1db;border-color:#4f4035}
+.tool-help{margin-left:auto;font-size:12px;color:#73624e;line-height:1.5}
+.history{max-width:1280px;width:100%;margin:12px auto 0;background:#f7ebd7;padding:17px 23px;border:1px solid #bea88a;max-height:240px;overflow:auto;box-shadow:3px 5px 10px #4334211a}
+.history h2{font-size:16px;margin:0 0 9px}.history p{margin:6px 0;font-size:13px;line-height:1.6}.history strong{color:#825544}
+.footer-note{text-align:center;font-size:11px;color:#7d6d56;line-height:1.5;padding:12px 0 0}
+@media(max-width:750px){.shell{padding:12px}.scene{min-height:580px;border-width:5px;margin-top:14px}.kitchen-mark{left:12px;top:12px;padding:9px 10px}.kitchen-mark strong{font-size:14px}.kitchen-mark small{font-size:8px}.scene-counter{top:12px;right:11px;font-size:9px}.dialogue-layer{padding:0 3.5% 5%}.portrait{bottom:24%;width:36%;height:32%;border-width:4px}.portrait.left{left:2%}.portrait.right{right:2%}.portrait-label{bottom:20%;font-size:9px;padding:5px}.dialogue-box{width:100%;min-height:188px;padding:23px 17px 22px}.dialogue-box .speaker{top:-25px;min-width:105px;font-size:12px;padding:8px 13px}.dialogue-text{font-size:17px;line-height:1.55;min-height:100px}.narration{width:86%;padding:37px 17px 25px;min-height:180px}.narration .dialogue-text{font-size:17px}.tool-help{margin-left:0;width:100%}.header-right{display:none}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+
+/* Revision 2: richly illustrated kitchen and selective character appearances. */
+.scene{background:linear-gradient(180deg,rgba(39,27,17,.12),rgba(31,23,15,.08) 43%,rgba(36,24,14,.16)),linear-gradient(180deg,rgba(42,25,12,.15),rgba(30,22,13,.24)),var(--home-img) center center/cover no-repeat #b9a185;}
+/* The old schematic kitchen was superseded by detailed scene art. */
+.scene .wall,.scene .window,.scene .wall-art,.scene .tabletop{display:none}
+.portrait.is-portrait-hidden,.portrait-label.is-portrait-hidden{opacity:0!important;visibility:hidden;pointer-events:none}
+.portrait,.portrait-label{transition:opacity .26s ease,visibility .26s ease,filter .35s,transform .35s}
+.narration{z-index:12}
+@media(max-width:750px){.scene{background-position:43% center}}
+.wall,.window,.wall-art,.tabletop{display:none}
+.scene{background-size:cover;background-position:center}
+@media(max-width:700px){.portrait{width:23%;min-width:100px;height:35%;bottom:26%}.dialogue-box{width:96%}}
+</style></head><body>
+<div class="shell"><header><div class="logo"><i>✳</i> THE POWER<br> &nbsp;&nbsp;&nbsp;TO CHANGE</div><div class="smallcaps">381 Days · Illustrated conversation · Chapter III</div><div class="header-right"><span class="pill">Chapter 3 · Daniel & Sarah</span><span class="pill">CHAPTER III</span></div></header>
+<main class="scene" id="scene"><div class="wall"></div><div class="window"></div><div class="wall-art"></div><div class="tabletop"></div><div class="kitchen-mark"><small>FEBRUARY 24, 1956</small><strong>The Carters’ home</strong></div><div class="scene-counter" id="counter">1 / 8</div>
+<div class="dialogue-layer"><img id="daniel" class="portrait left is-portrait-hidden" alt="Illustrated portrait of Daniel Carter" src=""><img id="sarah" class="portrait right is-portrait-hidden" alt="Illustrated portrait of Sarah Carter" src=""><span id="dlabel" class="portrait-label left is-portrait-hidden">DANIEL</span><span id="slabel" class="portrait-label right is-portrait-hidden">SARAH</span>
+<section id="dialogue" class="dialogue-box is-hidden" aria-label="Character dialogue" tabindex="0" role="button"><div class="speaker" id="speaker">SARAH</div><div class="dialogue-text" id="spoken" aria-live="off"></div><span class="caret" aria-hidden="true">▾</span></section>
+<section id="narration" class="narration" aria-label="Narration" tabindex="0" role="button"><p class="narrator-title">FROM THE STORY</p><div class="dialogue-text" id="narrated" aria-live="off"></div><span class="caret" aria-hidden="true">▾</span></section>
+</div></main>
+<div class="tools"><button class="tool-btn" type="button" id="back">← Previous</button><button class="tool-btn dark" type="button" id="next">Continue →</button><button class="tool-btn" type="button" id="history-toggle" aria-expanded="false" aria-controls="history">Dialogue history</button><button class="tool-btn" type="button" id="replay">Replay scene</button><button class="tool-btn" type="button" id="skip-scene">Skip scene →</button><span class="tool-help">Click the box to finish a line; click again to advance. Space / Enter work too.</span></div>
+<section id="history" class="history is-hidden" aria-label="Conversation history"><h2>Dialogue history</h2><div id="history-content"></div></section>
+<div class="footer-note">The Power to Change · Chapter III · Fictional characters, documented history.</div>
+</div>
+<script src="vn-daniel-sarah-assets.js?v=20261117-daniel-sarah-ch3-v1"></script>
+<script>
+const assets=window.DanielSarahAssets||{};
+if(assets.daniel)document.getElementById('daniel').src=assets.daniel;
+if(assets.sarah)document.getElementById('sarah').src=assets.sarah;
+if(assets.home)document.getElementById('scene').style.setProperty('--home-img','url("'+assets.home+'")');
+const query=new URLSearchParams(location.search);
+const selectedTalk=query.get('talk')==='explain'?'explain':'listen';
+const lines=[{"speaker":"narrator","text":"Friday evening, February 24, 1956. After a long shift at Bennett’s Hardware, Daniel comes home. Sarah is setting supper on the table. She notices the worry on his face before he says a word."},{"speaker":"sarah","text":"Long day?"},{"speaker":"daniel","text":"Bennett talked about the indictments all afternoon. He seems certain the arrests will end the boycott."},{"speaker":"sarah","text":"You don't sound convinced."},{"speaker":"daniel","text":"After the bombing of Dr. King's home, I thought things couldn't get worse. Now people are being charged for organizing."},{"speaker":"narrator","text":"Sarah pulls out a chair, inviting Daniel to sit with her. This is a conversation they can have honestly at home, away from the pressure of Bennett's store."}].concat(selectedTalk==='explain'?[{"speaker":"daniel","text":"A man came into the store asking for supplies to help with the rides. Bennett acted like selling to him was somehow taking a side."},{"speaker":"sarah","text":"And what did you think?"},{"speaker":"daniel","text":"That the man ought to be able to buy what he needs. But I keep thinking about what I did—and what I could've done differently."}]:[{"speaker":"daniel","text":"Sarah, what worries you most about all of this?"},{"speaker":"sarah","text":"I worry about the rent, the groceries, and what happens if Bennett decides he doesn't want you working for him anymore."},{"speaker":"daniel","text":"I know. I've been thinking about that, too."},{"speaker":"sarah","text":"But I worry about what happens if we keep saying nothing, either. I don't want you thinking that's what I'm asking."}],[{"speaker":"narrator","text":"Sarah sets a plate in front of Daniel before taking the chair opposite him. He looks down at his supper, but neither of them begins eating."},{"speaker":"daniel","text":"Bennett talks about the boycott like it's nothing but trouble for the store. He never says a word about the people living through it."},{"speaker":"sarah","text":"I don't think the way people are treated on those buses is right. You know that."},{"speaker":"daniel","text":"Then what am I supposed to do? Every time I disagree with him, I wonder if it'll be the last time."},{"speaker":"sarah","text":"I can't make that decision for you, Daniel. But I think we ought to talk about what it could mean for both of us."},{"speaker":"daniel","text":"You mean losing the job."},{"speaker":"sarah","text":"That's part of it. We've been saving. We've talked about starting a family. I still want those things."},{"speaker":"daniel","text":"So do I."},{"speaker":"sarah","text":"But I don't want us looking back someday and wondering why we never spoke up when we knew something was wrong."},{"speaker":"narrator","text":"Daniel looks across the table. Sarah's voice is steady, but he can see that she's worried."},{"speaker":"daniel","text":"I'm afraid I'll do something that makes things harder for us."},{"speaker":"sarah","text":"And I'm afraid we'll get so used to keeping quiet that we stop questioning anything."},{"speaker":"daniel","text":"You make it sound like neither choice is easy."},{"speaker":"sarah","text":"Maybe because neither one is."},{"speaker":"daniel","text":"I wish I knew what the right thing was."},{"speaker":"sarah","text":"Then think about it. Talk to me. I'll tell you when I think you're wrong, and you can tell me the same."},{"speaker":"daniel","text":"I believe you would."},{"speaker":"sarah","text":"You'd better."},{"speaker":"narrator","text":"Daniel reaches across the table and takes Sarah's hand. Their supper has begun to cool. He still doesn't know how he'll respond to Bennett, but he knows he won't have to make the decision alone."}]);
+let index=0,visible=0,finished=false,frame=null,prior=0,historyOpen=false;
+const $=id=>document.getElementById(id);
+const portraitNames={daniel:'DANIEL',sarah:'SARAH'};
+function setState(){
+  if(frame!==null){cancelAnimationFrame(frame);frame=null;}
+  const l=lines[index],narr=l.speaker==='narrator';
+  $('counter').textContent=`${index+1} / ${lines.length}`;
+  $('narration').classList.toggle('is-hidden',!narr);
+  $('dialogue').classList.toggle('is-hidden',narr);
+  $('dialogue').classList.toggle('right',l.speaker==='sarah');
+  $('speaker').textContent=portraitNames[l.speaker]||'';
+  // Characters only appear after their first line in the current exchange.
+  // A narrator line clears the stage entirely, so the floating note never
+  // overlaps a face. Previously introduced characters stay on opposite sides
+  // and dim when the other person speaks.
+  const appeared=new Set();
+  if(!narr){
+    for(let j=index;j>=0;j--){
+      if(lines[j].speaker==='narrator')break;
+      appeared.add(lines[j].speaker);
+    }
+  }
+  for(const k of ['daniel','sarah']){
+    const person=$(k),label=$(k==='daniel'?'dlabel':'slabel');
+    const shown=appeared.has(k),speaking=l.speaker===k;
+    person.classList.toggle('is-portrait-hidden',!shown);
+    label.classList.toggle('is-portrait-hidden',!shown);
+    person.classList.toggle('active',speaking);
+    label.classList.toggle('active',speaking);
+    person.style.opacity='';
+  }
+  const box=narr?$('narrated'):$('spoken');
+  $('narrated').textContent='';$('spoken').textContent='';
+  box.setAttribute('aria-label',l.text);
+  box.textContent='';visible=0;finished=false;prior=0;
+  const chars=Array.from(l.text);
+  const prefersReduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(prefersReduced){finish();return;}
+  function frameRun(now){
+    if(finished)return;
+    if(!prior)prior=now;
+    const count=Math.min(chars.length,Math.floor((now-prior)/21));
+    if(count!==visible){visible=count;box.textContent=chars.slice(0,count).join('')}
+    if(visible>=chars.length){finish();return;}
+    frame=requestAnimationFrame(frameRun);
+  }
+  frame=requestAnimationFrame(frameRun);
+  $('next').textContent=index===lines.length-1?'Complete scene ↗':'Continue →';
+  $('back').disabled=index===0;
+  updateHistory();
+}
+function finish(){
+  if(frame!==null){cancelAnimationFrame(frame);frame=null;}
+  const line=lines[index];
+  (line.speaker==='narrator'?$('narrated'):$('spoken')).textContent=line.text;
+  visible=Array.from(line.text).length;finished=true;
+}
+function doneScene(){
+ try{if(window.parent!==window){window.parent.postMessage({type:'power-to-change-vn-finished',scene:'daniel-sarah-ch3'},window.location.origin);return;}}catch(e){}
+ index=0;setState();
+}
+function forward(){if(!finished){finish();return;}if(index<lines.length-1){index++;setState()}else{doneScene()}}
+function backward(){if(index>0){index--;setState()}}
+function updateHistory(){
+ $('history-content').innerHTML=lines.slice(0,index+1).map((l,i)=>'<p><strong>'+ (l.speaker==='narrator'?'NARRATOR':portraitNames[l.speaker])+':</strong> '+l.text+'</p>').join('');
+}
+$('dialogue').addEventListener('click',forward);$('narration').addEventListener('click',forward);
+$('next').addEventListener('click',forward);$('back').addEventListener('click',backward);$('replay').addEventListener('click',()=>{index=0;setState()});$('skip-scene').addEventListener('click',doneScene);
+$('history-toggle').addEventListener('click',()=>{historyOpen=!historyOpen;$('history').classList.toggle('is-hidden',!historyOpen);$('history-toggle').setAttribute('aria-expanded',String(historyOpen))});
+document.addEventListener('keydown',e=>{if(e.target.tagName==='BUTTON'||e.target.tagName==='INPUT')return;if(e.key===' '||e.key==='Enter'||e.key==='ArrowRight'){e.preventDefault();forward()}else if(e.key==='ArrowLeft'){e.preventDefault();backward()}});
+setState();
+</script></body></html>
