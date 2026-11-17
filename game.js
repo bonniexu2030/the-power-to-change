@@ -564,7 +564,9 @@ function unlockChapterFourChoices(){
  if(!state||currentChapter()!==4||screen!=='scene'||!state.ch4caseOpened)return;
  const gate=app.querySelector('#ch4-case-gate');
  const choiceArea=app.querySelector('#ch4-choice-area');
+ const reviewed=app.querySelector('#ch4-case-reviewed');
  if(gate)gate.hidden=true;
+ if(reviewed)reviewed.hidden=false;
  if(choiceArea)choiceArea.hidden=false;
 }
 function renderSceneChapter4(){
@@ -667,10 +669,11 @@ function renderJournal(){
  const ch3data=window.chapterThreeData?.[state.role];
  const ch3talk=ch3data?.exchange.options.find(c=>c.id===state.choices.ch3talk)?.label || '';
  const ch3memory=ch3data?.choices.find(c=>c.id===state.choices.ch3)?.memory || '';
+ const ch4memory=window.chapterFourData?.[state.role]?.choices.find(c=>c.id===state.choices.ch4)?.memory || '';
  const labels={stability:'Personal Stability',network:'Support Network',contribution:'Movement Contribution'};
  const values=Object.entries(labels).map(([key,label])=>`<div class="meter"><div class="meter-head"><strong>${label}</strong><span>${gaugeLabel(state.stats[key])}</span></div><div class="bar"><div class="bar-fill ${key}" style="width:${clamp(state.stats[key],0,100)}%"></div></div></div>`).join('');
  const rels=Object.entries(data.relationshipNames).map(([key,name])=>`<div class="relationship"><strong>${safeText(name)}</strong><em>${relationshipLabel(state.relationships[key])}</em></div>`).join('');
- journalContent.innerHTML=`<p class="journal-intro">${safeText(data.name)} · Chapter ${currentChapter()} / V<br>Your circumstances and personal connections change as you make decisions.</p><p class="journal-section-label">YOUR CIRCUMSTANCES</p>${values}<p class="journal-section-label">PEOPLE IN YOUR LIFE</p>${rels}<p class="journal-section-label">REMEMBERED DECISIONS</p><div class="journal-note">${selected?safeText(selected.memory):'Your first decision has not been made yet.'}${state.choices.ch2prep?"<br><br>"+safeText("You helped Lottie Mae explore "+(state.choices.ch2prep==="confirm"?"driver confirmations.":"shared pickup points.")):""}${state.choices.ch2?"<br><br>"+safeText(window.chapterTwoData[state.role].choices.find(c=>c.id===state.choices.ch2)?.memory||""):""}${ch3talk?"<br><br>"+safeText("Conversation: "+ch3talk):""}${ch3memory?"<br><br>"+safeText(ch3memory):""}</div><p class="journal-section-label">HISTORICAL SOURCES</p><p class="journal-intro">${state.documentsOpened?'✓ Boycott leaflet examined.':'Boycott leaflet not yet examined.'}<br>${state.carpoolOpened?'✓ Carpool instructions examined.':'Carpool instructions not yet examined.'}${currentChapter()===3?'<br>'+(state.bombingOpened?'✓ January 1956 newspaper report examined.':'January 1956 newspaper report not yet examined.')+'<br>'+(state.trialOpened?'✓ Criminal case file examined.':'Criminal case file not yet examined.'):''}</p><p class="journal-section-label">GAME CONTROLS</p><button class="small-action" id="reset-game">Start a new role / reset progress</button>`;
+ journalContent.innerHTML=`<p class="journal-intro">${safeText(data.name)} · Chapter ${currentChapter()} / V<br>Your circumstances and personal connections change as you make decisions.</p><p class="journal-section-label">YOUR CIRCUMSTANCES</p>${values}<p class="journal-section-label">PEOPLE IN YOUR LIFE</p>${rels}<p class="journal-section-label">REMEMBERED DECISIONS</p><div class="journal-note">${selected?safeText(selected.memory):'Your first decision has not been made yet.'}${state.choices.ch2prep?"<br><br>"+safeText("You helped Lottie Mae explore "+(state.choices.ch2prep==="confirm"?"driver confirmations.":"shared pickup points.")):""}${state.choices.ch2?"<br><br>"+safeText(window.chapterTwoData[state.role].choices.find(c=>c.id===state.choices.ch2)?.memory||""):""}${ch3talk?"<br><br>"+safeText("Conversation: "+ch3talk):""}${ch3memory?"<br><br>"+safeText(ch3memory):""}${ch4memory?"<br><br>"+safeText(ch4memory):""}</div><p class="journal-section-label">HISTORICAL SOURCES</p><p class="journal-intro">${state.documentsOpened?'✓ Boycott leaflet examined.':'Boycott leaflet not yet examined.'}<br>${state.carpoolOpened?'✓ Carpool instructions examined.':'Carpool instructions not yet examined.'}${currentChapter()>=3?'<br>'+(state.bombingOpened?'✓ January 1956 newspaper report examined.':'January 1956 newspaper report not yet examined.')+'<br>'+(state.trialOpened?'✓ Criminal case file examined.':'Criminal case file not yet examined.'):''}${currentChapter()===4?'<br>'+(state.ch4caseOpened?'✓ Browder v. Gayle courthouse file examined.':'Browder v. Gayle courthouse file not yet examined.'):''}</p><p class="journal-section-label">GAME CONTROLS</p><button class="small-action" id="reset-game">Start a new role / reset progress</button>`;
  document.getElementById('reset-game').addEventListener('click',()=>{if(confirm('Reset your current run? Your choices will be erased.')){journal.close();state=null;try{localStorage.removeItem(SAVE_KEY)}catch(e){}screen='roles';render()}});
 }
 let toastCount=0;
@@ -683,11 +686,14 @@ function showToast(message){
 }
 
 journalButton.addEventListener('click',()=>{if(state){renderJournal();journal.showModal()}});
-for(const name of ['journal','archive','carpool','bombing','trial']){
+for(const name of ['journal','archive','carpool','bombing','trial','casefile']){
  const d=document.getElementById(name);
  d.querySelector(`[data-close="${name}"]`).addEventListener('click',()=>d.close());
  d.addEventListener('click',e=>{if(e.target===d)d.close()});
 }
+
+/* Opening the Chapter IV file unlocks the personal decision when the folder closes. */
+document.getElementById('casefile').addEventListener('close',unlockChapterFourChoices);
 
 /* Let readers inspect archival annotations without interrupting the story. */
 document.querySelectorAll('[data-archive-examine]').forEach(inspector=>{
