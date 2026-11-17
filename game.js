@@ -435,12 +435,18 @@ function storyLayout(kind){
 function renderScene(){
  const data=roleData(),body=storyLayout();
  const isMarcus=state.role==='marcus';
+ const isDaniel=state.role==='daniel';
  const intro=isMarcus?[
    'David brings boycott leaflets to Marcus’s room on December 3, 1955. Their conversation asks what each of them can contribute—and what each might risk.',
    'Marcus wants to become a teacher. His mother has sacrificed to help him attend college, and he knows his decisions may affect more than himself.'
+ ]:isDaniel?[
+   'A newspaper at Bennett’s Hardware reports Rosa Parks’s arrest. Customer Thomas Reed arrives as Daniel’s employer talks about the planned bus protest in front of them.',
+   'Daniel has been promised the possibility of a promotion. His response will reveal how he handles the pressure to conform—and whose concerns are being dismissed.'
  ]:data.intro;
  const illustrated=isMarcus?
-   '<section class="vn-entry"><p class="chapter-eyebrow">ILLUSTRATED SCENE · DECEMBER 3, 1955</p><h3>Words That Travel · Marcus and David</h3><p>Experience their conversation before deciding how Marcus will respond to the boycott.</p><button type="button" id="open-marcus-vn" class="btn btn-secondary">Replay illustrated conversation ↗</button><span class="vn-entry-status" id="marcus-vn-status">'+(state.ch1vnSeen?'✓ Conversation experienced':'Optional replay · Skip is available inside the scene')+'</span></section>':'';
+   '<section class="vn-entry"><p class="chapter-eyebrow">ILLUSTRATED SCENE · DECEMBER 3, 1955</p><h3>Words That Travel · Marcus and David</h3><p>Experience their conversation before deciding how Marcus will respond to the boycott.</p><button type="button" id="open-marcus-vn" class="btn btn-secondary">Replay illustrated conversation ↗</button><span class="vn-entry-status" id="marcus-vn-status">'+(state.ch1vnSeen?'✓ Conversation experienced':'Optional replay · Skip is available inside the scene')+'</span></section>':
+ isDaniel?
+   '<section class="vn-entry"><p class="chapter-eyebrow">ILLUSTRATED SCENE · DECEMBER 3, 1955</p><h3>Business as Usual · Daniel and Mr. Bennett</h3><p>Watch their conversation at the hardware store while Thomas Reed is present, then decide how Daniel responds to his employer.</p><button type="button" id="open-daniel-ch1-vn" class="btn btn-secondary">Replay illustrated conversation ↗</button><span class="vn-entry-status" id="daniel-ch1-vn-status">'+(state.ch1danielvnSeen?'✓ Conversation experienced':'Skip is available inside the scene')+'</span></section>':'';
  body.innerHTML=`<p class="chapter-eyebrow">DECEMBER 1955 · A STORY IN FIVE CHAPTERS</p><h1>${safeText(data.heading)}</h1><p class="place-time">${safeText(data.place)}</p><div class="story-prose">${intro.map(p=>`<p>${safeText(p)}</p>`).join('')}</div>${illustrated}<section class="prompt"><h2>${safeText(data.prompt)}</h2><div class="choice-list" id="choices"></div><p class="mini-note">There is no perfect answer. The journal tracks circumstances, not morality.</p></section>`;
  const list=body.querySelector('#choices');
  data.choices.forEach((choice,index)=>{
@@ -454,6 +460,12 @@ function renderScene(){
    // Wait until the full page is rendered; auto-open only once per playthrough.
    Promise.resolve().then(()=>{if(state&&state.role==='marcus'&&currentChapter()===1&&screen==='scene')openMarcusDavidScene();});
   }
+ }else if(isDaniel){
+   body.querySelector('#open-daniel-ch1-vn').addEventListener('click',openDanielBennettScene);
+   if(!state.ch1danielvnOffered){
+     state.ch1danielvnOffered=true;store();
+     Promise.resolve().then(()=>{if(state&&state.role==='daniel'&&currentChapter()===1&&screen==='scene')openDanielBennettScene();});
+   }
  }else revealStoryText('.story-prose p', '.prompt');
 }
 function choose(choiceId){
@@ -840,6 +852,32 @@ document.getElementById('vn-marcus-extra-dialog').addEventListener('close',()=>d
 
 /* Daniel and Sarah's Chapter III conversation is shown after the existing
  * smaller conversation choice. No new stats, choices, or outcomes are created. */
+/* Daniel Chapter I, illustrated Bennett's Hardware conversation.
+ * Completing or skipping it does not choose on the player's behalf. */
+function openDanielBennettScene(){
+ if(!state||state.role!=='daniel'||currentChapter()!==1||screen!=='scene')return;
+ const dialog=document.getElementById('vn-daniel-ch1-dialog');
+ const frame=document.getElementById('vn-daniel-ch1-frame');
+ if(!dialog||!frame)return;
+ frame.src='vn-daniel-bennett-ch1.html?v=20261117-daniel-ch1-v1';
+ if(!dialog.open)dialog.showModal();
+}
+function onDanielBennettSceneDone(event){
+ const dialog=document.getElementById('vn-daniel-ch1-dialog');
+ const frame=document.getElementById('vn-daniel-ch1-frame');
+ if(!dialog||!frame||!dialog.open||event.origin!==window.location.origin||event.source!==frame.contentWindow)return;
+ if(event.data?.type!=='power-to-change-vn-finished'||event.data.scene!=='daniel-bennett-ch1')return;
+ if(state&&state.role==='daniel'&&currentChapter()===1){
+  state.ch1danielvnSeen=true;store();
+  const status=document.getElementById('daniel-ch1-vn-status');
+  if(status)status.textContent='✓ Conversation experienced';
+ }
+ dialog.close();
+}
+window.addEventListener('message',onDanielBennettSceneDone);
+document.getElementById('vn-daniel-ch1-close').addEventListener('click',()=>document.getElementById('vn-daniel-ch1-dialog').close());
+document.getElementById('vn-daniel-ch1-dialog').addEventListener('close',()=>document.getElementById('vn-daniel-ch1-frame').removeAttribute('src'));
+
 function openDanielSarahScene(){
  if(!state||state.role!=='daniel'||currentChapter()!==3||screen!=='scene'||!state.choices.ch3talk)return;
  const dialog=document.getElementById('vn-daniel-dialog');
