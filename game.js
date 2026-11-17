@@ -665,6 +665,115 @@ function renderEndingChapter4(){
  revealStoryText('.story-prose p','.finishing, .scene-actions, .insight');
 }
 
+
+/* CHAPTER FIVE — END OF THE 381-DAY BOYCOTT.
+ * The historical outcome is fixed. One final player choice and the history
+ * of earlier decisions shape a fictional character's personal ending.
+ */
+function chapterFiveRole(){return window.chapterFiveData[state.role];}
+function finalEndingId(){
+ if(!state||!state.stats)return null;
+ const {stability,network,contribution}=state.stats;
+ if(state.role==='evelyn')return stability<=35?'rebuilding':network>=65?'ties':'footing';
+ if(state.role==='marcus')return stability<=40?'costly':contribution>=65?'organizer':'teacher';
+ if(state.role==='daniel')return contribution>=60&&stability<60?'stand':contribution>=40?'hesitant':'observer';
+ return null;
+}
+function finalRelationshipNotes(){
+ const role=chapterFiveRole(),data=role.relationships;
+ if(state.role==='evelyn'){
+  return [(state.relationships.ruth||0)>=1?data.ruthHigh:data.ruthLow,(state.relationships.lottie||0)>=1?data.lottieHigh:data.lottieLow];
+ }
+ if(state.role==='marcus'){
+  return [(state.relationships.mother||0)>=1?data.motherHigh:data.motherLow,(state.relationships.david||0)>=1?data.davidHigh:data.davidLow];
+ }
+ return [(state.relationships.sarah||0)>=1?data.sarahHigh:data.sarahLow,(state.relationships.bennett||0)>=1?data.bennettHigh:data.bennettLow];
+}
+function renderSceneChapter5(){
+ const role=chapterFiveRole(),body=storyLayout();
+ const paragraphs=[
+  ...role.opening.slice(0,3),
+  role.cb1[state.choices.ch1],
+  role.cb2[state.choices.ch2],
+  role.cb3[state.choices.ch3],
+  role.cb4[state.choices.ch4],
+  ...role.opening.slice(3)
+ ].filter(Boolean);
+ body.innerHTML='<p class="chapter-eyebrow">DECEMBER 20–21, 1956 · CHAPTER V OF FIVE</p>'+
+  '<h1>'+safeText(role.heading)+'</h1><p class="place-time">'+safeText(role.place)+'</p>'+
+  '<div class="story-prose">'+paragraphs.map(p=>'<p>'+safeText(p)+'</p>').join('')+'</div>'+
+  '<section class="prompt"><h2>'+safeText(role.prompt)+'</h2>'+
+  '<div class="choice-list" id="chapter-five-choices"></div>'+
+  '<p class="mini-note">The historical boycott has ended. Your final decision affects this character’s relationships and future—not the outcome of the movement.</p></section>';
+ const list=body.querySelector('#chapter-five-choices');
+ role.choices.forEach((choice,index)=>{
+  const b=document.createElement('button');b.type='button';b.className='choice';
+  b.innerHTML='<span class="choice-number">'+String.fromCharCode(65+index)+'</span><span>'+safeText(choice.label)+'</span>';
+  b.addEventListener('click',()=>chooseChapter5(choice.id));
+  list.append(b);
+ });
+ revealStoryText('.story-prose p','.prompt');
+}
+function chooseChapter5(choiceId){
+ if(!state||currentChapter()!==5||screen!=='scene'||state.choices.ch5)return;
+ const choice=chapterFiveRole().choices.find(c=>c.id===choiceId);
+ if(!choice)return;
+ state.choices.ch5=choiceId;
+ for(const [key,n] of Object.entries(choice.delta))state.stats[key]=clamp(state.stats[key]+n,0,100);
+ for(const [key,n] of Object.entries(choice.relation))state.relationships[key]=clamp((state.relationships[key]||0)+n,-2,2);
+ screen='result';store();render();showToast(choice.toast);
+}
+function renderResultChapter5(){
+ const role=chapterFiveRole(),selected=role.choices.find(c=>c.id===state.choices.ch5);
+ if(!selected){screen='scene';render();return;}
+ const body=storyLayout();
+ body.innerHTML='<p class="chapter-eyebrow">YOUR FINAL DECISION · DECEMBER 1956</p>'+
+ '<h1>The First Morning.</h1><p class="place-time">END OF THE 381-DAY BOYCOTT</p>'+
+ '<div class="story-prose"><p>'+safeText(selected.label)+'</p></div>'+
+ '<div class="consequence"><span class="label">WHAT THIS CHOICE MAKES POSSIBLE</span><p>'+safeText(selected.result)+'</p></div>'+
+ '<p class="insight">A major legal victory has been achieved through collective action. Your character’s life continues beyond the historical date.</p>'+
+ '<div class="scene-actions" id="continue-actions"></div>';
+ body.querySelector('#continue-actions').append(makeButton('Read your personal epilogue →',()=>{screen='ending';store();render()}));
+ revealStoryText('.story-prose p, .consequence p','.insight, .scene-actions');
+}
+function renderEndingChapter5(){
+ const role=chapterFiveRole(),selected=role.choices.find(c=>c.id===state.choices.ch5);
+ if(!selected){screen='scene';render();return;}
+ const ending=role.endings[finalEndingId()] || Object.values(role.endings)[0];
+ const notes=finalRelationshipNotes();
+ const openingMemory=role.cb1[state.choices.ch1]||'You made a choice on the first day of the boycott.';
+ const body=storyLayout();
+ body.innerHTML='<div class="epilogue-cover"><p class="eyebrow">381 DAYS · DECEMBER 1955 — DECEMBER 1956</p>'+
+  '<h1 class="epilogue-title">The End of the Boycott.<br><em>Not the End of Change.</em></h1>'+
+  '<p class="epilogue-subtitle">A PERSONAL EPILOGUE · '+safeText(game[state.role].name.toUpperCase())+'</p></div>'+
+  '<div class="epilogue-section"><p class="chapter-eyebrow">WHERE YOUR STORY LEADS</p>'+
+  '<h2>'+safeText(ending.title)+'</h2>'+
+  '<div class="story-prose"><p>'+safeText(ending.text)+'</p><p>'+safeText(ending.final)+'</p></div>'+
+  '</div><div class="epilogue-memories"><p class="chapter-eyebrow">WHAT YOUR STORY REMEMBERS</p>'+
+  '<p>'+safeText(openingMemory)+'</p><p>'+safeText(notes[0])+'</p><p>'+safeText(notes[1])+'</p>'+
+  '<p class="epilogue-final-choice"><strong>Your final decision:</strong> '+safeText(selected.memory)+'</p></div>'+
+  '<div class="historical-afterword"><p class="chapter-eyebrow">THE DOCUMENTED HISTORY</p>'+
+  '<h2>December 20–21, 1956</h2>'+
+  '<p>The Montgomery Improvement Association called off the bus boycott on December 20, after the federal desegregation order reached the city. Montgomery buses began operating on an integrated basis on December 21. These events did not bring the wider struggle for civil rights to an end.</p>'+
+  '<p>These are the historical facts. The personal decisions and epilogues of Evelyn, Marcus, and Daniel are fictional.</p>'+
+  '<p class="afterword-source"><a href="https://kinginstitute.stanford.edu/king-papers/documents/statement-ending-bus-boycott" target="_blank" rel="noopener noreferrer">Read the original statement ending the boycott ↗</a></p></div>'+
+  '<div class="reflection-card"><p class="chapter-eyebrow">A QUESTION TO CARRY FORWARD</p>'+
+  '<h2>What changes after the victory?</h2>'+
+  '<p>'+safeText(role.reflection)+'</p>'+
+  '<p class="mini-note">There is no graded answer. Consider whose work made the change possible, who bore the costs, and which injustices remained.</p></div>'+
+  '<div class="scene-actions" id="ending-actions"></div>'+
+  '<p class="mini-note">You have completed this perspective in The Power to Change. Each character follows the same historical movement but faces different constraints and choices. The journal remains available.</p>';
+ const actions=body.querySelector('#ending-actions');
+ actions.append(makeButton('Explore another perspective →',()=>{
+   if(confirm('Start a new character? Your current saved character and decisions will be replaced.')){
+    try{localStorage.removeItem(SAVE_KEY)}catch(error){}
+    state=null;screen='roles';render();
+   }
+ }));
+ actions.append(makeButton('Return to the introduction',()=>{screen='cover';render()},'btn btn-secondary'));
+ revealStoryText('.epilogue-section .story-prose p, .epilogue-memories p:not(.chapter-eyebrow)', '.historical-afterword, .reflection-card, .scene-actions');
+}
+
 function relationshipLabel(value){return value<=-2?'Strained':value===-1?'Uneasy':value===0?'Complicated':value===1?'Growing trust':'Strong trust';}
 function gaugeLabel(value){return value<35?'Strained':value<70?'Steady':'Strong';}
 function renderJournal(){
