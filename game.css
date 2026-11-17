@@ -224,3 +224,13 @@
 .vn-modal-close:hover,.vn-modal-close:focus-visible{background:#e3cdae}
 .vn-dialog iframe{display:block;width:100%;height:calc(100% - 61px);border:0;background:#e6d9c3}
 @media(max-width:650px){.vn-dialog{width:100vw;height:100dvh;border-width:0}.vn-modal-top{padding:8px 10px}.vn-modal-top h2{font-size:15px}.vn-entry{padding:16px}.vn-dialog iframe{height:calc(100% - 58px)}}
+
+/* Switch perspectives at any point without discarding character progress. */
+.character-switch{border-color:#ac8f73!important;background:#f4e6cf!important;color:#7a4036!important}
+.character-switch:hover,.character-switch:focus-visible{border-color:var(--red)!important;background:#ead6ba!important}
+.character-switch[hidden]{display:none!important}
+.role-slot{display:flex;flex-direction:column;min-width:0;gap:0}
+.role-slot .role-card{width:100%;flex:1}
+.role-restart{display:block;width:100%;background:#e8dbc6;border:1px solid #b8aa90;border-top:0;color:#7d5142;padding:13px 12px;text-align:center;font:500 9px/1.5 var(--mono);letter-spacing:.025em;cursor:pointer}
+.role-restart:hover,.role-restart:focus-visible{background:#f3e5cf;color:var(--red)}
+@media(max-width:750px){.topbar-actions{gap:6px}.character-switch{padding:9px 10px!important}.character-switch .button-label{display:none}.character-switch span:first-child{font-size:19px}.character-switch{min-width:38px;justify-content:center}}
