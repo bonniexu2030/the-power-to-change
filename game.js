@@ -271,6 +271,7 @@ function revealStoryText(paragraphSelector, lockedSelector) {
     });
     skip.remove();
     gatedElements.forEach(el => {
+      if(el.id==='ch4-choice-area' && !state?.ch4caseOpened) return;
       el.hidden = false;
       el.classList.add('reading-unlocked');
     });
@@ -567,7 +568,7 @@ function unlockChapterFourChoices(){
  const reviewed=app.querySelector('#ch4-case-reviewed');
  if(gate)gate.hidden=true;
  if(reviewed)reviewed.hidden=false;
- if(choiceArea)choiceArea.hidden=false;
+ if(choiceArea&&!app.querySelector('.typing-active, .typing-pending'))choiceArea.hidden=false;
 }
 function renderSceneChapter4(){
  const role=chapterFourRole();
