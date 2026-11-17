@@ -69,3 +69,23 @@
 .legal-file{background:#e4d4b9}
 .archive-dialog .primary-link + .primary-link{display:block;margin-top:11px}
 @media(max-width:760px){.chapter-side #open-trial{transform:none}.chapter-side #open-trial:hover{transform:translateY(-2px)}}
+
+/* CHAPTER IV: the federal courthouse file and evidence-led decision. */
+.chapter-side .casefile-ticket{background:#e7d5b9;border:2px solid #996e51;transform:rotate(-1deg);box-shadow:3px 8px 16px #3d302522}
+.chapter-side .casefile-ticket:hover{border-color:var(--red);transform:translateY(-2px) rotate(0)}
+.casefile-dialog .archive-head{background:#d8c2a1}
+.casefile-dialog .archive-body{gap:25px}
+.case-folder{background:linear-gradient(115deg,#d5b98e 0%,#e9d5ad 48%,#d8c49e 100%);color:#4c362a;box-shadow:inset 7px 0 #916e4a2e,3px 8px 17px #3627162e;transform:rotate(-1.5deg);border:1px solid #ad8e68}
+.case-folder .stamp{border-color:#91564b;color:#78463d}
+.case-folder .facsimile-head{font-size:clamp(29px,3.2vw,42px);letter-spacing:-.04em;line-height:1.12;text-align:center;margin:22px 0}
+.case-folder-small{font:500 10px/1.75 var(--mono);letter-spacing:.09em;text-align:center}
+.case-folder-rule{height:1px;background:#a07f5b;margin:12px auto 19px;max-width:86%}
+.case-folder-mark{font:500 10px/1.7 var(--mono);letter-spacing:.05em;color:#785c43;margin:8px 0}
+.chapter-four-evidence{background:#e8dac0;border:1px solid #baa78b;box-shadow:inset 0 0 0 5px #f1e7d5;padding:20px 21px;margin-top:27px}
+.chapter-four-evidence p{font:15px/1.75 Georgia,serif;color:#55483b;margin:9px 0 15px}
+.casefile-mini-heading{font:600 10px/1.4 var(--mono);letter-spacing:.11em;color:#834d42}
+.chapter-four-evidence .mini-note{font-family:var(--sans);font-size:12px;line-height:1.5}
+.chapter-four-evidence .btn{margin:3px 0}
+.evidence-reviewed{font:500 10px/1.5 var(--mono)!important;letter-spacing:.08em;color:#56704d!important;margin-bottom:0!important}
+.casefile-dialog .primary-link{margin-top:12px}
+@media(max-width:760px){.case-folder{transform:none}.chapter-side .casefile-ticket{transform:none}.casefile-dialog .archive-body{gap:15px}}
