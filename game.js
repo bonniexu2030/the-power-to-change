@@ -679,11 +679,13 @@ function renderSceneChapter4(){
    parts.push((state.relationships.sarah||0)>=1?relationships.sarahHigh:relationships.sarahLow);
    parts.push((state.relationships.bennett||0)>=1?relationships.bennettHigh:relationships.bennettLow);
  }
+ const illustrated=state.role==='marcus'?
+   '<section class="vn-entry"><p class="chapter-eyebrow">ILLUSTRATED CONVERSATION · NOVEMBER 13, 1956</p><h3>The ruling and the ride home · Marcus and David</h3><p>Celebrate the ruling, then face the challenge of keeping people moving after the carpool injunction.</p><button type="button" id="open-marcus-ch4-vn" class="btn btn-secondary">Play illustrated conversation ↗</button><span class="vn-entry-status" id="marcus-ch4-vn-status">'+(state.ch4vnSeen?'✓ Conversation experienced':'Skip is available inside the scene')+'</span></section>':'';
  const alreadyRead=!!state.ch4caseOpened;
  body.innerHTML='<p class="chapter-eyebrow">JUNE–NOVEMBER 1956 · CHAPTER IV OF FIVE</p><h1>'+safeText(role.heading)+'</h1>'+
   '<p class="place-time">'+safeText(role.place)+'</p>'+
   '<div class="story-prose">'+parts.filter(Boolean).map(p=>'<p>'+safeText(p)+'</p>').join('')+'</div>'+
-  '<section class="chapter-four-evidence"><div class="casefile-mini-heading">THE HISTORICAL RECORD · BROWDER v. GAYLE</div>'+
+  illustrated+'<section class="chapter-four-evidence"><div class="casefile-mini-heading">THE HISTORICAL RECORD · BROWDER v. GAYLE</div>'+
   '<p>Black women challenged the bus-segregation laws in federal court. Their testimony became part of the legal case that changed Montgomery. The Supreme Court has now affirmed the ruling, but the order has not yet taken effect.</p>'+
   '<div id="ch4-case-gate"'+(alreadyRead?' hidden':'')+'><p class="mini-note">Open the courthouse file before making your next decision. You can examine original testimony and the court ruling through the source links.</p><button type="button" class="btn btn-secondary" id="ch4-open-file">Examine the courthouse file →</button></div>'+
   '<p class="evidence-reviewed" id="ch4-case-reviewed"'+(!alreadyRead?' hidden':'')+'>FILE EXAMINED · FOUR PIECES OF EVIDENCE AVAILABLE</p></section>'+
@@ -698,7 +700,13 @@ function renderSceneChapter4(){
   b.addEventListener('click',()=>chooseChapter4(choice.id));
   choices.append(b);
  });
- revealStoryText('.story-prose p','.chapter-four-evidence, .prompt');
+ if(state.role==='marcus'){
+  body.querySelector('#open-marcus-ch4-vn').addEventListener('click',()=>openMarcusChapterScene(4));
+  if(!state.ch4vnOffered){
+   state.ch4vnOffered=true;store();
+   Promise.resolve().then(()=>{if(state&&state.role==='marcus'&&currentChapter()===4&&screen==='scene')openMarcusChapterScene(4);});
+  }
+ }else revealStoryText('.story-prose p','.chapter-four-evidence, .prompt');
 }
 function chooseChapter4(choiceId){
  if(!state||currentChapter()!==4||screen!=='scene'||state.choices.ch4||!state.ch4caseOpened)return;
@@ -786,24 +794,33 @@ document.getElementById('vn-marcus-dialog').addEventListener('close',()=>{
 /* Chapter II / III illustrated conversations preserve all existing choices.
  * The optional variation is based on decisions already present in this save. */
 function openMarcusChapterScene(chapter){
- if(!state||state.role!=='marcus'||currentChapter()!==chapter||screen!=='scene'||![2,3].includes(chapter))return;
+ if(!state||state.role!=='marcus'||currentChapter()!==chapter||screen!=='scene'||![2,3,4,5].includes(chapter))return;
  const dlg=document.getElementById('vn-marcus-extra-dialog');
  const frame=document.getElementById('vn-marcus-extra-frame');
  if(!dlg||!frame)return;
- document.getElementById('vn-marcus-extra-meta').textContent='ILLUSTRATED SCENE · CHAPTER '+(chapter===2?'II':'III');
- document.getElementById('vn-marcus-extra-title').textContent=chapter===2?'Marcus & David · The Long Walk':'Marcus & David · The Price of Standing Up';
- const params=new URLSearchParams({v:'20261117-marcus-ch23-v1',first:state.choices.ch1||'',second:state.choices.ch2||''});
- frame.src=(chapter===2?'vn-marcus-david-ch2.html':'vn-marcus-david-ch3.html')+'?'+params.toString();
+ const roman={2:'II',3:'III',4:'IV',5:'V'};
+ const title={2:'The Long Walk',3:'The Price of Standing Up',4:'Hope Is Not Rest',5:'What Comes After Victory?'};
+ document.getElementById('vn-marcus-extra-meta').textContent='ILLUSTRATED SCENE · CHAPTER '+roman[chapter];
+ document.getElementById('vn-marcus-extra-title').textContent='Marcus & David · '+title[chapter];
+ const params=new URLSearchParams({
+  v:'20261117-marcus-ch45-v1',
+  first:state.choices.ch1||'',
+  second:state.choices.ch2||'',
+  third:state.choices.ch3||'',
+  fourth:state.choices.ch4||'',
+  rel:String(state.relationships?.david??0)
+ });
+ frame.src='vn-marcus-david-ch'+chapter+'.html?'+params.toString();
  if(!dlg.open)dlg.showModal();
 }
 function onMarcusChapterSceneDone(event){
  const dlg=document.getElementById('vn-marcus-extra-dialog');
  const frame=document.getElementById('vn-marcus-extra-frame');
  if(!dlg||!frame||!dlg.open||event.origin!==window.location.origin||event.source!==frame.contentWindow)return;
- const scene=event.data&&event.data.scene;
- const chapter=scene==='marcus-david-ch2'?2:scene==='marcus-david-ch3'?3:null;
+ const match=/^marcus-david-ch([2345])$/.exec(event.data?.scene||'');
+ const chapter=match?Number(match[1]):null;
  if(event.data?.type!=='power-to-change-vn-finished'||chapter===null||!state||state.role!=='marcus'||currentChapter()!==chapter)return;
- const key=chapter===2?'ch2vnSeen':'ch3vnSeen';
+ const key=chapter===5?'ch5marcusvnSeen':'ch'+chapter+'vnSeen';
  state[key]=true;store();
  const status=document.getElementById('marcus-ch'+chapter+'-vn-status');
  if(status)status.textContent='✓ Conversation experienced';
@@ -876,10 +893,18 @@ function renderSceneChapter5(){
   '<h1>'+safeText(role.heading)+'</h1><p class="place-time">'+safeText(role.place)+'</p>'+
   '<div class="story-prose">'+paragraphs.map(p=>'<p>'+safeText(p)+'</p>').join('')+'</div>'+
   (state.role==='evelyn'?'<section class="vn-entry"><p class="chapter-eyebrow">ILLUSTRATED CONVERSATION · OPTIONAL</p><h3>A moment with Ruth</h3><p>Experience Evelyn and Ruth’s conversation as a visual novel scene. The portraits and dialogue follow the style you approved.</p><button type="button" id="open-vn-scene" class="btn btn-secondary">'+(state.ch5vnSeen?'Replay illustrated conversation ↗':'Play illustrated conversation ↗')+'</button><span class="vn-entry-status" id="vn-entry-status">'+(state.ch5vnSeen?'✓ Conversation experienced':'Narration and dialogue · No decisions changed')+'</span></section>':'')+
+  (state.role==='marcus'?'<section class="vn-entry"><p class="chapter-eyebrow">ILLUSTRATED CONVERSATION · DECEMBER 20, 1956</p><h3>What comes after victory? · Marcus and David</h3><p>A final conversation about the end of the boycott, friendship, teaching, and what remains to be changed.</p><button type="button" id="open-marcus-ch5-vn" class="btn btn-secondary">Play illustrated conversation ↗</button><span class="vn-entry-status" id="marcus-ch5-vn-status">'+(state.ch5marcusvnSeen?'✓ Conversation experienced':'Skip is available inside the scene')+'</span></section>':'')+
   '<section class="prompt"><h2>'+safeText(role.prompt)+'</h2>'+
   '<div class="choice-list" id="chapter-five-choices"></div>'+
   '<p class="mini-note">The historical boycott has ended. Your final decision affects this character’s relationships and future—not the outcome of the movement.</p></section>';
  if(state.role==='evelyn')body.querySelector('#open-vn-scene').addEventListener('click',openEvelynRuthScene);
+ if(state.role==='marcus'){
+  body.querySelector('#open-marcus-ch5-vn').addEventListener('click',()=>openMarcusChapterScene(5));
+  if(!state.ch5marcusvnOffered){
+   state.ch5marcusvnOffered=true;store();
+   Promise.resolve().then(()=>{if(state&&state.role==='marcus'&&currentChapter()===5&&screen==='scene')openMarcusChapterScene(5);});
+  }
+ }
  const list=body.querySelector('#chapter-five-choices');
  role.choices.forEach((choice,index)=>{
   const b=document.createElement('button');b.type='button';b.className='choice';
@@ -887,7 +912,7 @@ function renderSceneChapter5(){
   b.addEventListener('click',()=>chooseChapter5(choice.id));
   list.append(b);
  });
- revealStoryText('.story-prose p','.prompt');
+ if(state.role!=='marcus')revealStoryText('.story-prose p','.prompt');
 }
 function chooseChapter5(choiceId){
  if(!state||currentChapter()!==5||screen!=='scene'||state.choices.ch5)return;
