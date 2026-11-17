@@ -185,7 +185,7 @@ let toastTimer;
 let stopActiveNarration = null;
 let state = readSavedState();
 let screen = state ? state.screen : 'cover';
-function currentChapter(){return state && state.chapter===4?4:state && state.chapter===3?3:state && state.chapter===2?2:1;}
+function currentChapter(){return state && state.chapter===5?5:state && state.chapter===4?4:state && state.chapter===3?3:state && state.chapter===2?2:1;}
 
 function safeText(text){return String(text).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');}
 function readSavedState(){
@@ -206,9 +206,9 @@ function render(){
   journalButton.hidden=!state;
   if(screen==='cover')renderCover();
   else if(screen==='roles')renderRoles();
-  else if(screen==='scene')currentChapter()===4?renderSceneChapter4():currentChapter()===3?renderSceneChapter3():currentChapter()===2?renderSceneChapter2():renderScene();
-  else if(screen==='result')currentChapter()===4?renderResultChapter4():currentChapter()===3?renderResultChapter3():currentChapter()===2?renderResultChapter2():renderResult();
-  else if(screen==='ending')currentChapter()===4?renderEndingChapter4():currentChapter()===3?renderEndingChapter3():currentChapter()===2?renderEndingChapter2():renderEnding();
+  else if(screen==='scene')currentChapter()===5?renderSceneChapter5():currentChapter()===4?renderSceneChapter4():currentChapter()===3?renderSceneChapter3():currentChapter()===2?renderSceneChapter2():renderScene();
+  else if(screen==='result')currentChapter()===5?renderResultChapter5():currentChapter()===4?renderResultChapter4():currentChapter()===3?renderResultChapter3():currentChapter()===2?renderResultChapter2():renderResult();
+  else if(screen==='ending')currentChapter()===5?renderEndingChapter5():currentChapter()===4?renderEndingChapter4():currentChapter()===3?renderEndingChapter3():currentChapter()===2?renderEndingChapter2():renderEnding();
   else{screen='cover';renderCover();}
   if(state)renderJournal();
   scrollTop();
@@ -317,13 +317,13 @@ function makeButton(label,handler,classes='btn btn-primary'){
   const button=document.createElement('button');button.type='button';button.className=classes;button.textContent=label;button.addEventListener('click',handler);return button;
 }
 function renderCover(){
- app.innerHTML=`<div class="chapter-cover"><section class="cover-copy"><p class="eyebrow">BOOK ONE · THE MONTGOMERY BUS BOYCOTT</p><h1 class="hero-title">381 <em>Days.</em></h1><p class="lede">One city. Three lives. A movement that changes history.</p><p class="lede">Step into Montgomery in December 1955. Your choices shape a person's relationships, security, and place in a larger struggle—but history was never made by one person alone.</p><div class="cover-actions" id="cover-actions"></div><p class="disclaimer">Historical fiction: playable characters and dialogue are invented. Major events and historical documents are drawn from the documented Montgomery Bus Boycott. Chapters I–IV are playable. The final chapter is in development.</p></section><div class="collage" aria-hidden="true"><div class="collage-sheet"><p class="date">MONTGOMERY · 1955</p><div class="big-type">THE<br>LONG<br>WALK</div></div><div class="collage-polaroid"><div class="polaroid-illustration"></div><span class="polaroid-caption">ORDINARY DAYS. EXTRAORDINARY DECISIONS.</span></div><div class="collage-note"><p>What would<br>you have<br>done?</p></div><div class="tape"></div><div class="round-seal">FILE<br>NO. 01</div></div></div>`;
+ app.innerHTML=`<div class="chapter-cover"><section class="cover-copy"><p class="eyebrow">BOOK ONE · THE MONTGOMERY BUS BOYCOTT</p><h1 class="hero-title">381 <em>Days.</em></h1><p class="lede">One city. Three lives. A movement that changes history.</p><p class="lede">Step into Montgomery in December 1955. Your choices shape a person's relationships, security, and place in a larger struggle—but history was never made by one person alone.</p><div class="cover-actions" id="cover-actions"></div><p class="disclaimer">Historical fiction: playable characters and dialogue are invented. Major events and historical documents are drawn from the documented Montgomery Bus Boycott. All five chapters are playable. Your decisions shape your character's story, while documented history remains unchanged.</p></section><div class="collage" aria-hidden="true"><div class="collage-sheet"><p class="date">MONTGOMERY · 1955</p><div class="big-type">THE<br>LONG<br>WALK</div></div><div class="collage-polaroid"><div class="polaroid-illustration"></div><span class="polaroid-caption">ORDINARY DAYS. EXTRAORDINARY DECISIONS.</span></div><div class="collage-note"><p>What would<br>you have<br>done?</p></div><div class="tape"></div><div class="round-seal">FILE<br>NO. 01</div></div></div>`;
  const actions=document.getElementById('cover-actions');
  actions.append(makeButton(state?'Continue your story →':'Open the story →',()=>{screen=state?state.screen:'roles';render()}));
  if(state)actions.append(makeButton('Choose a new role',()=>{if(confirm('Start a fresh story? Your current chapter progress will be replaced.')){state=null;try{localStorage.removeItem(SAVE_KEY)}catch(e){}screen='roles';render()}},'btn btn-secondary'));
 }
 function renderRoles(){
- app.innerHTML='<div class="page-heading"><p class="eyebrow">ARCHIVE / CHARACTER FILES</p><h1>Choose your perspective.</h1><p>Three people, one historical movement. Their circumstances, obligations, and freedoms are not the same. Each character has a different opening chapter.</p></div><div id="role-list" class="roles"></div><p class="disclaimer">You can replay another character when you finish Chapter III. All playable characters are fictional.</p>';
+ app.innerHTML='<div class="page-heading"><p class="eyebrow">ARCHIVE / CHARACTER FILES</p><h1>Choose your perspective.</h1><p>Three people, one historical movement. Their circumstances, obligations, and freedoms are not the same. Each character has a different opening chapter.</p></div><div id="role-list" class="roles"></div><p class="disclaimer">You can replay another character when you finish Chapter V. All playable characters are fictional.</p>';
  const list=document.getElementById('role-list');
  for(const [id,role] of Object.entries(game)){
   const button=document.createElement('button');button.type='button';button.className='role-card';
@@ -337,23 +337,25 @@ function startRole(id){
 }
 function storyLayout(kind){
  const role=roleData(),ch=currentChapter();
- const part={1:'PART I · THE FIRST STEP',2:'PART II · THE LONG WALK',3:'PART III · THE PRICE OF STANDING UP',4:'PART IV · HOPE IS NOT THE END'}[ch];
- const sourceName={1:'THE 1955 BOYCOTT LEAFLET',2:'CARPOOL INSTRUCTIONS',3:'JANUARY 1956 · NEWS REPORT',4:'BROWDER v. GAYLE'}[ch];
+ const part={1:'PART I · THE FIRST STEP',2:'PART II · THE LONG WALK',3:'PART III · THE PRICE OF STANDING UP',4:'PART IV · HOPE IS NOT THE END',5:'PART V · WHAT COMES AFTER VICTORY?'}[ch];
+ const sourceName={1:'THE 1955 BOYCOTT LEAFLET',2:'CARPOOL INSTRUCTIONS',3:'JANUARY 1956 · NEWS REPORT',4:'BROWDER v. GAYLE',5:'THE BOYCOTT ENDS'}[ch];
  const timeline={
   1:'<strong>DEC 1</strong> · ROSA PARKS ARRESTED<br><strong>DEC 5</strong> · FIRST BOYCOTT DAY<br><strong>DEC 5</strong> · MASS MEETING',
   2:'<strong>DEC 8</strong> · MIA PLANS CARPOOL<br><strong>DEC 13</strong> · CARPOOL BEGINS<br><strong>JAN 1956</strong> · BOYCOTT CONTINUES',
   3:'<strong>JAN 30</strong> · KING HOME BOMBED<br><strong>FEB 21</strong> · BOYCOTT INDICTMENTS<br><strong>MAR 22</strong> · KING CONVICTED',
-  4:'<strong>MAY 11</strong> · WOMEN TESTIFY<br><strong>JUN 5</strong> · FEDERAL COURT RULING<br><strong>NOV 13</strong> · SUPREME COURT AFFIRMS'
+  4:'<strong>MAY 11</strong> · WOMEN TESTIFY<br><strong>JUN 5</strong> · FEDERAL COURT RULING<br><strong>NOV 13</strong> · SUPREME COURT AFFIRMS',
+  5:'<strong>DEC 19</strong> · INTEGRATED BUS GUIDANCE<br><strong>DEC 20</strong> · BOYCOTT ENDS<br><strong>DEC 21</strong> · INTEGRATED SERVICE BEGINS'
  }[ch];
  const secondArchive=ch===3?'<button class="archive-ticket" id="open-trial" type="button" aria-label="Examine historical indictment and criminal trial"><span class="file-icon">▤</span><h3>Courthouse records</h3><p>DOCUMENT NO. 04<br>INDICTMENT & MARCH TRIAL<br>CLICK TO EXAMINE ↗</p></button>':'';
  app.innerHTML='<div class="chapter-head"><span class="small-caps">'+part+'</span><div class="chapter-tools"><span class="chapter-progress">0'+ch+' / 05 CHAPTERS</span><button type="button" class="reading-toggle" id="reading-toggle" aria-pressed="'+textRevealEnabled+'">'+(textRevealEnabled?'TEXT REVEAL: ON':'TEXT REVEAL: OFF')+'</button></div></div>'+
   '<div class="chapter-grid"><article class="book-page"><div class="book-content" id="scene-body"></div></article><aside class="chapter-side"><div class="sidebar-card"><p class="side-label">CHARACTER FILE</p><h2>'+safeText(role.name)+'</h2><p>'+safeText(role.roleLabel)+'<br>AGE '+safeText(role.age)+'</p><p style="margin-top:15px">Your decisions shape this fictional life. Open your journal to see what changed.</p></div>'+
-  '<button class="archive-ticket" id="open-archive" type="button" aria-label="Examine a historical document"><span class="file-icon">▤</span><h3>Found in the archive</h3><p>DOCUMENT NO. 0'+(ch===3?3:ch)+'<br>'+sourceName+'<br>CLICK TO EXAMINE ↗</p></button>'+secondArchive+
+  '<button class="archive-ticket" id="open-archive" type="button" aria-label="Examine a historical document"><span class="file-icon">▤</span><h3>Found in the archive</h3><p>DOCUMENT NO. 0'+(ch===5?6:ch===3?3:ch)+'<br>'+sourceName+'<br>CLICK TO EXAMINE ↗</p></button>'+secondArchive+
   '<div class="side-timeline">'+timeline+'</div></aside></div>';
  document.getElementById('open-archive').addEventListener('click',()=>{
-   const dialogId=ch===4?'casefile':ch===3?'bombing':ch===2?'carpool':'archive';
+   const dialogId=ch===5?'victory':ch===4?'casefile':ch===3?'bombing':ch===2?'carpool':'archive';
    document.getElementById(dialogId).showModal();
-   if(ch===4)state.ch4caseOpened=true;
+   if(ch===5)state.ch5documentOpened=true;
+   else if(ch===4)state.ch4caseOpened=true;
    else if(ch===3)state.bombingOpened=true;
    else if(ch===2)state.carpoolOpened=true;
    else state.documentsOpened=true;
@@ -648,10 +650,11 @@ function renderEndingChapter4(){
   '<div class="story-prose">'+role.ending.map(p=>'<p>'+safeText(p)+'</p>').join('')+'</div>'+
   '<div class="finishing"><span class="tag">YOUR JOURNAL REMEMBERS</span><p>'+safeText(selected.memory)+'</p>'+
   '<h2>Next: What Comes After Victory?</h2><p>'+safeText(role.next)+'</p>'+
-  '<p class="preview-lock">CHAPTER V IS OUR FINAL STORY DEVELOPMENT MILESTONE</p></div>'+
+  '<p class="preview-lock">ONE FINAL CHAPTER · THE STORY CONTINUES</p></div>'+
   '<div class="scene-actions" id="ending-actions"></div>'+
   '<p class="insight">The Supreme Court has affirmed the ruling, but the desegregation order must still reach Montgomery. You can revisit the courthouse file to explore the plaintiffs and the original judgment.</p>';
  const actions=body.querySelector('#ending-actions');
+ actions.append(makeButton('Continue to Chapter V →',()=>{state.chapter=5;screen='scene';store();render()}));
  actions.append(makeButton('Replay another role →',()=>{
   if(confirm('Try another character? This will replace your current saved run.')){
    try{localStorage.removeItem(SAVE_KEY)}catch(error){}
@@ -687,7 +690,7 @@ function showToast(message){
 }
 
 journalButton.addEventListener('click',()=>{if(state){renderJournal();journal.showModal()}});
-for(const name of ['journal','archive','carpool','bombing','trial','casefile']){
+for(const name of ['journal','archive','carpool','bombing','trial','casefile','victory']){
  const d=document.getElementById(name);
  d.querySelector(`[data-close="${name}"]`).addEventListener('click',()=>d.close());
  d.addEventListener('click',e=>{if(e.target===d)d.close()});
