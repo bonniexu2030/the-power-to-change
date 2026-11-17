@@ -581,7 +581,9 @@ function renderSceneChapter3(){
    '<section class="prompt"><p class="chapter-eyebrow">A CONVERSATION THAT MATTERS</p><h2>'+safeText(role.exchange.title)+'</h2><p class="mini-note">'+safeText(role.exchange.prompt)+'</p><div class="choice-list" id="chapter-three-talk"></div></section>':
    '<section class="prompt"><h2>'+safeText(role.prompt)+'</h2><div class="choice-list" id="chapter-three-choices"></div><p class="mini-note">The boycott continues regardless of your decision. Your choices affect this character’s circumstances, not the movement’s historical outcome.</p></section>';
  const illustrated=state.role==='marcus'?
-   '<section class="vn-entry"><p class="chapter-eyebrow">ILLUSTRATED CONVERSATION · FEBRUARY 24, 1956</p><h3>A difficult conversation · Marcus and David</h3><p>They disagree about personal risk and responsibility. After the scene, decide what Marcus tells his mother and how he responds to the boycott.</p><button type="button" id="open-marcus-ch3-vn" class="btn btn-secondary">Play illustrated conversation ↗</button><span class="vn-entry-status" id="marcus-ch3-vn-status">'+(state.ch3vnSeen?'✓ Conversation experienced':'Skip is available inside the scene')+'</span></section>':'';
+   '<section class="vn-entry"><p class="chapter-eyebrow">ILLUSTRATED CONVERSATION · FEBRUARY 24, 1956</p><h3>A difficult conversation · Marcus and David</h3><p>They disagree about personal risk and responsibility. After the scene, decide what Marcus tells his mother and how he responds to the boycott.</p><button type="button" id="open-marcus-ch3-vn" class="btn btn-secondary">Play illustrated conversation ↗</button><span class="vn-entry-status" id="marcus-ch3-vn-status">'+(state.ch3vnSeen?'✓ Conversation experienced':'Skip is available inside the scene')+'</span></section>':
+  state.role==='daniel'&&state.choices.ch3talk?
+   '<section class="vn-entry"><p class="chapter-eyebrow">ILLUSTRATED CONVERSATION · FEBRUARY 24, 1956</p><h3>At home with Sarah · Daniel and Sarah</h3><p>Experience the private conversation following your choice about how Daniel approaches Sarah. Their dialogue prepares him for the decision at Bennett’s Hardware.</p><button type="button" id="open-daniel-ch3-vn" class="btn btn-secondary">Replay illustrated conversation ↗</button><span class="vn-entry-status" id="daniel-ch3-vn-status">'+(state.ch3danielvnSeen?'✓ Conversation experienced':'Skip is available inside the scene')+'</span></section>':'';
  body.innerHTML='<p class="chapter-eyebrow">FEBRUARY 1956 · CHAPTER III OF FIVE</p><h1>'+safeText(role.heading)+'</h1><p class="place-time">'+safeText(role.place)+'</p><div class="story-prose">'+paragraphList.map(p=>'<p>'+safeText(p)+'</p>').join('')+'</div>'+illustrated+promptMarkup;
  const list=body.querySelector(small?'#chapter-three-talk':'#chapter-three-choices');
  const options=small?role.exchange.options:role.choices;
@@ -600,6 +602,12 @@ function renderSceneChapter3(){
    if(!state.ch3vnOffered){
      state.ch3vnOffered=true;store();
      Promise.resolve().then(()=>{if(state&&state.role==='marcus'&&currentChapter()===3&&screen==='scene')openMarcusChapterScene(3);});
+   }
+ }else if(state.role==='daniel'&&state.choices.ch3talk){
+   body.querySelector('#open-daniel-ch3-vn').addEventListener('click',openDanielSarahScene);
+   if(!state.ch3danielvnOffered){
+     state.ch3danielvnOffered=true;store();
+     Promise.resolve().then(()=>{if(state&&state.role==='daniel'&&currentChapter()===3&&screen==='scene'&&state.choices.ch3talk)openDanielSarahScene();});
    }
  }else revealStoryText('.story-prose p','.prompt');
 }
@@ -829,6 +837,34 @@ function onMarcusChapterSceneDone(event){
 window.addEventListener('message',onMarcusChapterSceneDone);
 document.getElementById('vn-marcus-extra-close').addEventListener('click',()=>document.getElementById('vn-marcus-extra-dialog').close());
 document.getElementById('vn-marcus-extra-dialog').addEventListener('close',()=>document.getElementById('vn-marcus-extra-frame').removeAttribute('src'));
+
+/* Daniel and Sarah's Chapter III conversation is shown after the existing
+ * smaller conversation choice. No new stats, choices, or outcomes are created. */
+function openDanielSarahScene(){
+ if(!state||state.role!=='daniel'||currentChapter()!==3||screen!=='scene'||!state.choices.ch3talk)return;
+ const dialog=document.getElementById('vn-daniel-dialog');
+ const frame=document.getElementById('vn-daniel-frame');
+ if(!dialog||!frame)return;
+ const params=new URLSearchParams({v:'20261117-daniel-sarah-ch3-v1',talk:state.choices.ch3talk});
+ frame.src='vn-daniel-sarah-ch3.html?'+params.toString();
+ if(!dialog.open)dialog.showModal();
+}
+function onDanielSarahSceneDone(event){
+ const dialog=document.getElementById('vn-daniel-dialog');
+ const frame=document.getElementById('vn-daniel-frame');
+ if(!dialog||!frame||!dialog.open||event.origin!==window.location.origin||event.source!==frame.contentWindow)return;
+ if(event.data?.type!=='power-to-change-vn-finished'||event.data.scene!=='daniel-sarah-ch3')return;
+ if(state&&state.role==='daniel'&&currentChapter()===3&&state.choices.ch3talk){
+   state.ch3danielvnSeen=true;
+   store();
+   const status=document.getElementById('daniel-ch3-vn-status');
+   if(status)status.textContent='✓ Conversation experienced';
+ }
+ dialog.close();
+}
+window.addEventListener('message',onDanielSarahSceneDone);
+document.getElementById('vn-daniel-close').addEventListener('click',()=>document.getElementById('vn-daniel-dialog').close());
+document.getElementById('vn-daniel-dialog').addEventListener('close',()=>document.getElementById('vn-daniel-frame').removeAttribute('src'));
 
 function openEvelynRuthScene(){
  if(!state||state.role!=='evelyn'||currentChapter()!==5)return;
