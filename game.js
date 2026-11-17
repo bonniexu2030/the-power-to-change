@@ -549,6 +549,116 @@ function renderEndingChapter3(){
  revealStoryText('.story-prose p','.finishing, .scene-actions, .insight');
 }
 
+
+/* Chapter IV. The real civil case is explained in an optional-to-explore,
+ * required-to-open archival file; fictional protagonists never change the verdict. */
+function chapterFourRole(){return window.chapterFourData[state.role];}
+function openChapterFourCasefile(){
+ if(!state||currentChapter()!==4)return;
+ state.ch4caseOpened=true;
+ store();renderJournal();
+ const dialog=document.getElementById('casefile');
+ if(!dialog.open)dialog.showModal();
+}
+function unlockChapterFourChoices(){
+ if(!state||currentChapter()!==4||screen!=='scene'||!state.ch4caseOpened)return;
+ const gate=app.querySelector('#ch4-case-gate');
+ const choiceArea=app.querySelector('#ch4-choice-area');
+ if(gate)gate.hidden=true;
+ if(choiceArea)choiceArea.hidden=false;
+}
+function renderSceneChapter4(){
+ const role=chapterFourRole();
+ const body=storyLayout();
+ const parts=[
+  ...role.opening.slice(0,3),
+  role.cb1[state.choices.ch1],
+  role.cb2[state.choices.ch2],
+  role.cb3[state.choices.ch3],
+  ...role.opening.slice(3)
+ ];
+ const relationships=role.relationship||{};
+ if(state.role==='evelyn'){
+   parts.push((state.relationships.lottie||0)>=1?relationships.lottieHigh:relationships.lottieLow);
+   parts.push((state.relationships.ruth||0)>=1?relationships.ruthHigh:relationships.ruthLow);
+ }else if(state.role==='marcus'){
+   parts.push((state.relationships.david||0)>=1?relationships.davidHigh:relationships.davidLow);
+   parts.push((state.relationships.mother||0)>=1?relationships.motherHigh:relationships.motherLow);
+ }else{
+   parts.push((state.relationships.sarah||0)>=1?relationships.sarahHigh:relationships.sarahLow);
+   parts.push((state.relationships.bennett||0)>=1?relationships.bennettHigh:relationships.bennettLow);
+ }
+ const alreadyRead=!!state.ch4caseOpened;
+ body.innerHTML='<p class="chapter-eyebrow">JUNE–NOVEMBER 1956 · CHAPTER IV OF FIVE</p><h1>'+safeText(role.heading)+'</h1>'+
+  '<p class="place-time">'+safeText(role.place)+'</p>'+
+  '<div class="story-prose">'+parts.filter(Boolean).map(p=>'<p>'+safeText(p)+'</p>').join('')+'</div>'+
+  '<section class="chapter-four-evidence"><div class="casefile-mini-heading">THE HISTORICAL RECORD · BROWDER v. GAYLE</div>'+
+  '<p>Black women challenged the bus-segregation laws in federal court. Their testimony became part of the legal case that changed Montgomery. The Supreme Court has now affirmed the ruling, but the order has not yet taken effect.</p>'+
+  '<div id="ch4-case-gate"'+(alreadyRead?' hidden':'')+'><p class="mini-note">Open the courthouse file before making your next decision. You can examine original testimony and the court ruling through the source links.</p><button type="button" class="btn btn-secondary" id="ch4-open-file">Examine the courthouse file →</button></div>'+
+  '<p class="evidence-reviewed" id="ch4-case-reviewed"'+(!alreadyRead?' hidden':'')+'>FILE EXAMINED · FOUR PIECES OF EVIDENCE AVAILABLE</p></section>'+
+  '<section class="prompt" id="ch4-choice-area"'+(!alreadyRead?' hidden':'')+'><h2>'+safeText(role.prompt)+'</h2><div class="choice-list" id="ch4-choices"></div>'+
+  '<p class="mini-note">No individual decision changes the real court outcome. Your choice changes what this fictional character faces next.</p></section>';
+ const openButton=body.querySelector('#ch4-open-file');
+ if(openButton)openButton.addEventListener('click',openChapterFourCasefile);
+ const choices=body.querySelector('#ch4-choices');
+ role.choices.forEach((choice,i)=>{
+  const b=document.createElement('button');b.type='button';b.className='choice';
+  b.innerHTML='<span class="choice-number">'+String.fromCharCode(65+i)+'</span><span>'+safeText(choice.label)+'</span>';
+  b.addEventListener('click',()=>chooseChapter4(choice.id));
+  choices.append(b);
+ });
+ revealStoryText('.story-prose p','.chapter-four-evidence, .prompt');
+}
+function chooseChapter4(choiceId){
+ if(!state||currentChapter()!==4||screen!=='scene'||state.choices.ch4||!state.ch4caseOpened)return;
+ const choice=chapterFourRole().choices.find(c=>c.id===choiceId);
+ if(!choice)return;
+ state.choices.ch4=choiceId;
+ for(const [key,n] of Object.entries(choice.delta))state.stats[key]=clamp(state.stats[key]+n,0,100);
+ for(const [key,n] of Object.entries(choice.relation))state.relationships[key]=clamp((state.relationships[key]||0)+n,-2,2);
+ screen='result';store();render();showToast(choice.toast);
+}
+function renderResultChapter4(){
+ const role=chapterFourRole();
+ const selected=role.choices.find(c=>c.id===state.choices.ch4);
+ if(!selected){screen='scene';render();return;}
+ const callback=selected.delayed?.[state.choices.ch3]||'The decision you made earlier continues to shape what is possible now.';
+ const body=storyLayout();
+ body.innerHTML='<p class="chapter-eyebrow">YOUR DECISION / NOVEMBER 1956</p><h1>Almost Is Not Yet.</h1>'+
+  '<p class="place-time">'+safeText(game[state.role].name.toUpperCase())+' · CHAPTER IV</p>'+
+  '<div class="story-prose"><p>'+safeText(selected.label)+'</p></div>'+
+  '<div class="consequence"><span class="label">WHAT FOLLOWS</span><p>'+safeText(selected.result)+'</p><p>'+safeText(callback)+'</p></div>'+
+  '<p class="insight">Your earlier choices shaped this outcome. The legal ruling remains historical fact; your character’s relationships and circumstances can change.</p>'+
+  '<div class="scene-actions" id="continue-actions"></div>';
+ body.querySelector('#continue-actions').append(makeButton('Continue the chapter →',()=>{
+  screen='ending';store();render();
+ }));
+ revealStoryText('.story-prose p, .consequence p','.insight, .scene-actions');
+}
+function renderEndingChapter4(){
+ const role=chapterFourRole();
+ const selected=role.choices.find(c=>c.id===state.choices.ch4);
+ if(!selected){screen='scene';render();return;}
+ const body=storyLayout();
+ body.innerHTML='<p class="chapter-eyebrow">LATE NOVEMBER 1956 · MONTGOMERY</p>'+
+  '<h1>The Waiting.</h1><p class="place-time">END OF CHAPTER IV</p>'+
+  '<div class="story-prose">'+role.ending.map(p=>'<p>'+safeText(p)+'</p>').join('')+'</div>'+
+  '<div class="finishing"><span class="tag">YOUR JOURNAL REMEMBERS</span><p>'+safeText(selected.memory)+'</p>'+
+  '<h2>Next: What Comes After Victory?</h2><p>'+safeText(role.next)+'</p>'+
+  '<p class="preview-lock">CHAPTER V IS OUR FINAL STORY DEVELOPMENT MILESTONE</p></div>'+
+  '<div class="scene-actions" id="ending-actions"></div>'+
+  '<p class="insight">The Supreme Court has affirmed the ruling, but the desegregation order must still reach Montgomery. You can revisit the courthouse file to explore the plaintiffs and the original judgment.</p>';
+ const actions=body.querySelector('#ending-actions');
+ actions.append(makeButton('Replay another role →',()=>{
+  if(confirm('Try another character? This will replace your current saved run.')){
+   try{localStorage.removeItem(SAVE_KEY)}catch(error){}
+   state=null;screen='roles';render();
+  }
+ }));
+ actions.append(makeButton('Back to introduction',()=>{screen='cover';render()},'btn btn-secondary'));
+ revealStoryText('.story-prose p','.finishing, .scene-actions, .insight');
+}
+
 function relationshipLabel(value){return value<=-2?'Strained':value===-1?'Uneasy':value===0?'Complicated':value===1?'Growing trust':'Strong trust';}
 function gaugeLabel(value){return value<35?'Strained':value<70?'Steady':'Strong';}
 function renderJournal(){
