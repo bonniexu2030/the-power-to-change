@@ -366,6 +366,14 @@ function renderRoles(){
   const button=document.createElement('button');button.type='button';button.className='role-card';
   const action=saved?'RESUME · CHAPTER '+(saved.chapter||1):'BEGIN THIS STORY';
   button.innerHTML=`<div class="role-art ${role.color}"><div class="role-shape"></div><span>${role.portrait}</span></div><div class="role-body"><span class="role-index">CHARACTER FILE / ${id==='evelyn'?'01':id==='marcus'?'02':'03'}</span><h2>${safeText(role.name)}</h2><p>${safeText(role.summary)}</p></div><div class="role-select"><span>${action}</span><span>↗</span></div>`;
+  const portraitSource=window.PTCArtwork&&window.PTCArtwork.portraits&&window.PTCArtwork.portraits[id];
+  if(portraitSource){
+    const art=button.querySelector('.role-art');
+    art.innerHTML='';
+    const img=document.createElement('img');img.className='role-card-portrait';
+    img.src=portraitSource;img.alt='Portrait of '+role.name;img.decoding='async';
+    art.append(img);
+  }
   button.addEventListener('click',()=>startRole(id));
   slot.append(button);
   if(saved){
@@ -1091,5 +1099,38 @@ document.querySelectorAll('[data-archive-examine]').forEach(inspector=>{
    detail.textContent=button.getAttribute('data-archive-note');
  }));
 });
+
+
+/* Every approved portrait is accessible independently of story progress.
+ * Only Evelyn, Marcus, and Daniel are playable. Cast access never alters saves. */
+const castCharacters=[
+ ['evelyn','Evelyn Brooks','Playable · Mother and domestic worker'],
+ ['ruth','Ruth Brooks','Evelyn’s daughter'],
+ ['lottie','Lottie Mae','Evelyn’s neighbor and ride organizer'],
+ ['marcus','Marcus Ellis','Playable · College student and future teacher'],
+ ['david','David','Marcus’s friend and fellow organizer'],
+ ['daniel','Daniel Carter','Playable · Hardware-store employee'],
+ ['sarah','Sarah Carter','Daniel’s wife'],
+ ['bennett','Mr. Bennett','Owner of Bennett’s Hardware'],
+ ['thomas','Thomas Reed','Customer at Bennett’s Hardware'],
+ ['whitmore','Mrs. Whitmore','Evelyn’s employer']
+];
+const castDialog=document.getElementById('cast-dialog');
+const castGrid=document.getElementById('cast-grid');
+if(castDialog&&castGrid){
+ const portraits=window.PTCArtwork&&window.PTCArtwork.portraits||{};
+ for(const [id,name,description] of castCharacters){
+  const figure=document.createElement('figure');figure.className='cast-card';
+  const portrait=document.createElement('img');portrait.alt='Painted portrait of '+name;portrait.decoding='async';portrait.loading='lazy';
+  if(portraits[id])portrait.src=portraits[id];
+  const caption=document.createElement('figcaption');
+  const title=document.createElement('strong');title.textContent=name;
+  const detail=document.createElement('span');detail.textContent=description;
+  caption.append(title,detail);figure.append(portrait,caption);castGrid.append(figure);
+ }
+ document.getElementById('open-cast').addEventListener('click',()=>{if(!castDialog.open)castDialog.showModal()});
+ document.getElementById('cast-close').addEventListener('click',()=>castDialog.close());
+ castDialog.addEventListener('click',e=>{if(e.target===castDialog)castDialog.close()});
+}
 
 render();
