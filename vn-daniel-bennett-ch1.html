@@ -92,13 +92,21 @@ header{display:flex;align-items:center;justify-content:space-between;gap:15px;pa
 <section id="history" class="history is-hidden" aria-label="Conversation history"><h2>Dialogue history</h2><div id="history-content"></div></section>
 <div class="footer-note">The Power to Change · Chapter I · Fictional characters, documented history.</div>
 </div>
-<script src="vn-daniel-sarah-assets.js?v=20261117-daniel-sarah-ch3-v1"></script>
-<script src="vn-bennett-portrait.js?v=20261117-daniel-ch1-v1"></script>
+<script src="artwork/portraits.js?v=20261117-approved-art-v1"></script>
+<script src="artwork/backgrounds.js?v=20261117-approved-art-v1"></script>
+<style id="ptc-approved-art-style">
+.scene{background-image:linear-gradient(180deg,rgba(34,24,18,.16),rgba(42,28,20,.12) 50%,rgba(35,25,19,.25)),var(--ptc-scene-bg)!important;background-size:cover!important;background-position:center center!important;}
+.wall,.window,.wall-art,.tabletop,.hardware-decor{display:none!important}
+.portrait{object-position:center 20%}
+</style>
 <script>
-const assets=window.DanielSarahAssets||{};
-if(assets.daniel)document.getElementById('daniel').src=assets.daniel;
-if(window.BennettPortrait)document.getElementById('bennett').src=window.BennettPortrait;
-
+const ptcArt=window.PTCArtwork||{};
+for(const person of ["daniel","bennett"]){
+ const img=document.getElementById(person);
+ if(img&&ptcArt.portraits&&ptcArt.portraits[person])img.src=ptcArt.portraits[person];
+}
+const ptcBackground=ptcArt.backgrounds&&ptcArt.backgrounds.hardware;
+if(ptcBackground)document.getElementById('scene').style.setProperty('--ptc-scene-bg','url("'+ptcBackground+'")');
 const lines=[{"speaker":"narrator","text":"Saturday afternoon, December 3, 1955. Daniel Carter is arranging tools at Bennett’s Hardware when Thomas Reed enters. They know each other by sight, but have rarely spoken beyond prices and the weather."},{"speaker":"daniel","text":"Afternoon, Mr. Reed. Looking for the same nails as last week?"},{"speaker":"narrator","text":"Thomas nods and sets a small purchase on the counter. The newspaper beside the register reports Rosa Parks’s arrest two days earlier."},{"speaker":"bennett","text":"Have you read this, Daniel? All this fuss about the buses."},{"speaker":"daniel","text":"I saw the headline. I heard people might stay off the buses on Monday."},{"speaker":"bennett","text":"They'll only make things harder for themselves. People ought to leave well enough alone."},{"speaker":"narrator","text":"Thomas glances at the paper but says nothing. He stands waiting at the counter, close enough to hear every word."},{"speaker":"daniel","text":"Would you like these wrapped, Mr. Reed?"},{"speaker":"narrator","text":"Thomas gives another small nod. Daniel reaches for the paper, aware that Bennett is still watching him."},{"speaker":"bennett","text":"I run a hardware store, not a meeting hall. Customers come here for supplies, not speeches."},{"speaker":"daniel","text":"Of course, sir. I was only finishing the sale."},{"speaker":"bennett","text":"You keep your head down and work hard, Daniel, you'll do well here. We talked about that promotion, remember?"},{"speaker":"narrator","text":"Daniel remembers. He and Sarah have been making plans, and a steadier income would make those plans feel possible."},{"speaker":"daniel","text":"I remember, Mr. Bennett."},{"speaker":"bennett","text":"Good. Because there's no sense in stirring up trouble over something that doesn't concern us."},{"speaker":"narrator","text":"Daniel looks at Thomas, still waiting for his purchase. Bennett is speaking as if no one in the room could have a reason to object. Daniel feels himself about to nod, as he has so many times before."},{"speaker":"bennett","text":"Don't you agree?"},{"speaker":"narrator","text":"For a moment the shop seems unusually quiet. Daniel has to decide whether to agree with his employer, remain silent, or question what he has just heard."}];
 let index=0,visible=0,finished=false,frame=null,prior=0,historyOpen=false;
 const $=id=>document.getElementById(id);
