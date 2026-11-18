@@ -797,7 +797,7 @@ function openMarcusDavidScene(){
  const dialog=document.getElementById('vn-marcus-dialog');
  const frame=document.getElementById('vn-marcus-frame');
  if(!dialog||!frame)return;
- frame.src='vn-marcus-david.html?v=20261117-marcus-vn-v1';
+ frame.src='vn-marcus-david.html?v=20261117-approved-art-v1';
  if(!dialog.open)dialog.showModal();
 }
 function onMarcusDavidSceneDone(event){
@@ -831,7 +831,7 @@ function openMarcusChapterScene(chapter){
  document.getElementById('vn-marcus-extra-meta').textContent='ILLUSTRATED SCENE · CHAPTER '+roman[chapter];
  document.getElementById('vn-marcus-extra-title').textContent='Marcus & David · '+title[chapter];
  const params=new URLSearchParams({
-  v:'20261117-marcus-ch45-v1',
+  v:'20261117-approved-art-v1',
   first:state.choices.ch1||'',
   second:state.choices.ch2||'',
   third:state.choices.ch3||'',
@@ -867,7 +867,7 @@ function openDanielBennettScene(){
  const dialog=document.getElementById('vn-daniel-ch1-dialog');
  const frame=document.getElementById('vn-daniel-ch1-frame');
  if(!dialog||!frame)return;
- frame.src='vn-daniel-bennett-ch1.html?v=20261117-daniel-ch1-v1';
+ frame.src='vn-daniel-bennett-ch1.html?v=20261117-approved-art-v1';
  if(!dialog.open)dialog.showModal();
 }
 function onDanielBennettSceneDone(event){
@@ -891,7 +891,7 @@ function openDanielSarahScene(){
  const dialog=document.getElementById('vn-daniel-dialog');
  const frame=document.getElementById('vn-daniel-frame');
  if(!dialog||!frame)return;
- const params=new URLSearchParams({v:'20261117-daniel-sarah-ch3-v1',talk:state.choices.ch3talk});
+ const params=new URLSearchParams({v:'20261117-approved-art-v1',talk:state.choices.ch3talk});
  frame.src='vn-daniel-sarah-ch3.html?'+params.toString();
  if(!dialog.open)dialog.showModal();
 }
@@ -917,7 +917,7 @@ function openEvelynRuthScene(){
  const dialog=document.getElementById('vn-dialog');
  const frame=document.getElementById('vn-frame');
  if(!dialog||!frame)return;
- frame.src='vn-evelyn-ruth.html?v=20261117-vn-v1';
+ frame.src='vn-evelyn-ruth.html?v=20261117-approved-art-v1';
  if(!dialog.open)dialog.showModal();
 }
 function onEvelynRuthSceneDone(event){
