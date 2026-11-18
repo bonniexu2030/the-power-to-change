@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#e9dfcc">
+<title>Illustrated Story | 381 Days</title>
+<style>
+:root{--ink:#352c26;--cream:#f8ecd4;--border:#987a57;--red:#825044;}
+*{box-sizing:border-box}
+body{margin:0;background:#e7d9bf;color:var(--ink);font-family:Georgia,'Times New Roman',serif}
+button{font:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid #a44739;outline-offset:3px}
+.shell{max-width:1390px;min-height:100dvh;margin:auto;padding:18px 22px;display:flex;flex-direction:column}
+.head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:12px;border-bottom:1px solid #9c826c}
+.brand{font-weight:700;letter-spacing:.055em;font-size:14px;color:#684536}
+.meta{text-align:right;letter-spacing:.1em;font-size:11px;color:#675445}
+h1{font-size:clamp(19px,2.1vw,29px);margin:0;font-weight:600}
+.place{font-size:11px;letter-spacing:.11em;text-transform:uppercase;margin:4px 0 0}
+.stage{position:relative;isolation:isolate;flex:1;min-height:580px;max-height:840px;margin-top:18px;overflow:hidden;border:9px solid #eddfc5;outline:1px solid #b7a083;box-shadow:0 17px 45px #42332136;background:linear-gradient(140deg,#baa486,#e6d2aa)}
+.stage::before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg,#24191124,#1e130b10 52%,#24170d78),var(--scene-image,linear-gradient(145deg,#a68b6a,#e5cfaa)) center/cover no-repeat}
+.stage::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,#2f211c24,transparent 25%,transparent 75%,#2b211d22)}
+.scene-heading{position:absolute;left:20px;top:20px;padding:11px 14px;max-width:63%;background:#f5ead9ec;border:1px solid #aa8a6d;z-index:3;box-shadow:3px 4px 0 #3e2d241d}
+.scene-heading strong{font-size:clamp(15px,2vw,22px);display:block}
+.scene-heading small{font-size:10px;letter-spacing:.08em;display:block;margin-top:5px}
+.counter{position:absolute;top:21px;right:20px;background:#392d27ca;color:#f6e4c6;padding:9px 13px;z-index:3;font-size:12px;letter-spacing:.12em}
+.portrait{position:absolute;bottom:182px;width:clamp(110px,25%,290px);height:clamp(195px,50%,430px);border:7px solid #eedfc7;outline:1px solid #97785b;box-shadow:0 9px 25px #36261c81;object-fit:cover;object-position:center 29%;opacity:.63;filter:saturate(.62) brightness(.88);transition:opacity .24s,filter .24s,transform .24s;z-index:2}
+.portrait.left{left:3%;transform:translateY(10px) rotate(-1.5deg)}
+.portrait.right{right:3%;transform:translateY(10px) rotate(1.5deg)}
+.portrait.active{opacity:1;filter:none;z-index:3}
+.portrait.active.left{transform:translateY(0) rotate(-.5deg)}
+.portrait.active.right{transform:translateY(0) rotate(.5deg)}
+.portrait[hidden]{display:none}
+.portrait-label{position:absolute;bottom:169px;background:#f0dfc5ed;padding:5px 10px;border:1px solid #95785b;z-index:4;font-size:11px;letter-spacing:.09em}
+.portrait-label.left{left:4%}.portrait-label.right{right:4%}
+.portrait-label[hidden]{display:none}
+.dialogue{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);width:min(790px,88%);min-height:144px;padding:25px 30px 20px;background:#f9efdbeF;border:2px solid #8b7058;border-radius:4px;box-shadow:0 0 0 5px #e6d5bdbd,0 9px 28px #37291f72;z-index:6}
+.speaker{position:absolute;left:15px;top:-20px;padding:8px 17px;background:#815746;color:white;border:1px solid #684737;letter-spacing:.12em;font-size:12px;min-width:115px;text-align:center}
+.line{font-size:clamp(16px,1.5vw,21px);line-height:1.48;min-height:65px;margin:8px 0 0}
+.next-hint{display:block;text-align:right;font-size:10px;letter-spacing:.15em;color:#6b5a45;margin:10px 0 0}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center;padding:17px 0 8px}
+.controls button{background:#f7ecda;border:1px solid #a88b70;color:#513d30;padding:10px 18px;font-size:13px;min-height:43px}
+.controls button.primary{background:#6b4b3d;color:#fff7e8;border-color:#6b4b3d}
+.controls button:disabled{opacity:.4;cursor:default}
+.note{text-align:center;font-size:11px;line-height:1.5;color:#766453;margin:4px 0 10px}
+@media(max-width:700px){
+ .shell{padding:9px;min-height:100dvh}.head{padding:6px 3px}.brand{font-size:11px}.meta{font-size:9px}
+ .stage{min-height:520px;margin-top:10px;border-width:4px}
+ .scene-heading{top:10px;left:10px;max-width:74%;padding:8px}
+ .counter{top:12px;right:9px;font-size:10px;padding:6px}
+ .portrait{width:35%;height:40%;bottom:194px;border-width:4px}
+ .portrait.left{left:2%}.portrait.right{right:2%}
+ .portrait-label{bottom:182px;font-size:9px;padding:4px}
+ .dialogue{width:94%;bottom:11px;padding:24px 15px 11px;min-height:157px}
+ .speaker{font-size:10px;padding:6px 9px;top:-17px}
+ .line{font-size:16px;min-height:88px}
+ .controls{gap:7px;padding:11px 0}.controls button{flex:1;padding:9px 6px;font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="head"><div class="brand">✳ THE POWER TO CHANGE <span aria-hidden="true">·</span> 381 DAYS</div><div class="meta">ILLUSTRATED HISTORICAL FICTION</div></header>
+<main class="stage" id="stage" aria-label="Illustrated conversation">
+  <div class="scene-heading"><strong id="scene-title">The story continues</strong><small id="scene-place"></small></div>
+  <div class="counter" id="counter"></div>
+  <img class="portrait left" id="portrait-left" alt="" hidden>
+  <img class="portrait right" id="portrait-right" alt="" hidden>
+  <span class="portrait-label left" id="label-left" hidden></span><span class="portrait-label right" id="label-right" hidden></span>
+  <section class="dialogue" aria-live="polite" aria-atomic="true"><strong class="speaker" id="speaker">NARRATOR</strong><p class="line" id="line"></p><small class="next-hint">NEXT →</small></section>
+</main>
+<nav class="controls" aria-label="Conversation controls">
+<button type="button" id="prev">← BACK</button>
+<button type="button" class="primary" id="next">CONTINUE →</button>
+<button type="button" id="skip" title="Continue directly to the original chapter choices">SKIP SCENE ↗</button>
+</nav>
+<p class="note">Fictional character dialogue grounded in the historical setting. Choices, consequences, and journals remain in the main game.</p>
+</div>
+<script src="artwork/portraits.js?v=20261118-illustrated-v2"></script>
+<script src="vn-new-scenes.js?v=20261118-illustrated-v2"></script>
+<script>
+(function(){
+'use strict';
+const names={evelyn:'Evelyn Brooks',ruth:'Ruth Brooks',lottie:'Lottie Mae',marcus:'Marcus Ellis',david:'David',daniel:'Daniel Carter',sarah:'Sarah Carter',bennett:'Mr. Bennett',thomas:'Thomas Reed',whitmore:'Mrs. Whitmore'};
+const query=new URLSearchParams(window.location.search);
+const id=query.get('scene')||'';
+const data=window.PTCNewScenes&&window.PTCNewScenes[id];
+const stage=document.getElementById('stage');
+const line=document.getElementById('line');
+const next=document.getElementById('next');
+const prev=document.getElementById('prev');
+let step=0,done=false;
+if(!data){document.getElementById('speaker').textContent='ERROR';line.textContent='This scene is unavailable. Use Skip Scene to return to your original choices.';next.disabled=true;return;}
+document.title=data.title+' | 381 Days';
+document.getElementById('scene-title').textContent=data.title;
+document.getElementById('scene-place').textContent=data.date+' · '+data.place;
+function setPortrait(side,person,active){
+ const img=document.getElementById('portrait-'+side),tag=document.getElementById('label-'+side);
+ const src=window.PTCArtwork&&window.PTCArtwork.portraits&&window.PTCArtwork.portraits[person];
+ img.hidden=tag.hidden=!src;
+ if(src){img.src=src;img.alt='Illustrated portrait of '+(names[person]||person);tag.textContent=names[person]||person;img.classList.toggle('active',active);}
+}
+function draw(){
+ const beat=data.beats[step],who=beat.who;
+ let words=beat.text||'';
+ if(beat.choice){const option=query.get(beat.choice);words=(beat.variants&&beat.variants[option])||'The choice made earlier still shapes this moment.';}
+ const left=beat.left||data.left,right=beat.right||data.right;
+ document.getElementById('speaker').textContent=who==='narrator'?'NARRATOR':(names[who]||who).toUpperCase();
+ line.textContent=words;
+ setPortrait('left',left,who===left);
+ setPortrait('right',right,who===right);
+ document.getElementById('counter').textContent=String(step+1).padStart(2,'0')+' / '+String(data.beats.length).padStart(2,'0');
+ prev.disabled=step===0;
+ next.textContent=step===data.beats.length-1?'CONTINUE TO CHOICES →':'CONTINUE →';
+}
+function finish(){
+ if(done)return;done=true;
+ if(window.parent!==window)window.parent.postMessage({type:'power-to-change-vn-finished',scene:'illustrated-'+id},window.location.origin);
+ else line.textContent='Scene finished. Return to the game to make your decision.';
+}
+prev.addEventListener('click',()=>{if(step>0){step--;draw();}});
+next.addEventListener('click',()=>{if(step<data.beats.length-1){step++;draw();}else finish();});
+document.getElementById('skip').addEventListener('click',finish);
+document.addEventListener('keydown',e=>{
+ if(e.target.tagName==='BUTTON')return;
+ if(['ArrowRight','Enter',' '].includes(e.key)){e.preventDefault();next.click();}
+ if(e.key==='ArrowLeft'){e.preventDefault();prev.click();}
+});
+const bg=document.createElement('script');
+bg.src='artwork/background-'+data.background+'.js?v=20261118-illustrated-v2';
+bg.onload=()=>{const art=window.PTCArtwork&&window.PTCArtwork.backgrounds;const src=art&&art[data.background];if(src)stage.style.setProperty('--scene-image','url("'+src+'")');};
+bg.onerror=()=>{document.querySelector('.note').textContent+=' Background image could not load; dialogue and choices remain available.';};
+document.head.append(bg);
+draw();
+})();
+</script>
+</body>
+</html>
