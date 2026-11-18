@@ -153,6 +153,9 @@ test('Chapter V completes its choice and personal ending without loss of saved p
  await expect(page.locator('#illustrated-dialog')).toBeVisible();
  await page.locator('#illustrated-close').click();
  await page.locator('#chapter-five-choices .choice').first().click();
+ // Existing result pages deliberately gate progression behind their animated narration.
+ const reveal=page.locator('.reading-skip');
+ if(await reveal.isVisible())await reveal.click();
  await expect(page.locator('#continue-actions button').first()).toBeVisible();
  await page.locator('#continue-actions button').first().click();
  await expect(page.locator('.epilogue-title')).toBeVisible();
