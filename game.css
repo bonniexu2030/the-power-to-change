@@ -234,3 +234,23 @@
 .role-restart{display:block;width:100%;background:#e8dbc6;border:1px solid #b8aa90;border-top:0;color:#7d5142;padding:13px 12px;text-align:center;font:500 9px/1.5 var(--mono);letter-spacing:.025em;cursor:pointer}
 .role-restart:hover,.role-restart:focus-visible{background:#f3e5cf;color:var(--red)}
 @media(max-width:750px){.topbar-actions{gap:6px}.character-switch{padding:9px 10px!important}.character-switch .button-label{display:none}.character-switch span:first-child{font-size:19px}.character-switch{min-width:38px;justify-content:center}}
+
+
+/* Approved artwork, shared portrait gallery and role-card portraits. */
+.role-art .role-card-portrait{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 31%;filter:saturate(.91);z-index:2;}
+.role-art:has(.role-card-portrait) .role-shape{display:none;}
+.cast-dialog{box-sizing:border-box;width:min(1160px,96vw);max-width:1160px;max-height:92dvh;margin:auto;padding:0;overflow:auto;border:7px solid #c5ab86;background:#efe3cf;color:#473a30;box-shadow:0 30px 90px #201c17a8;}
+.cast-dialog::backdrop{background:#1b1a17c9;backdrop-filter:blur(4px)}
+.cast-head{position:sticky;top:0;z-index:2;background:#e8d6b9;padding:23px clamp(16px,3vw,34px);display:flex;align-items:start;justify-content:space-between;gap:25px;border-bottom:2px solid #b99e7d}
+.cast-head .small-caps{font:600 10px var(--mono);letter-spacing:.13em;color:#81533e;margin:0 0 7px}
+.cast-head h2{font:700 clamp(24px,3.2vw,36px) var(--serif);margin:0 0 7px}
+.cast-head p:last-child{font:15px/1.5 var(--body);margin:0;color:#766453;max-width:600px}
+.cast-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px;padding:28px clamp(14px,3vw,34px)}
+.cast-card{margin:0;background:#f8efdf;border:1px solid #bfa88a;box-shadow:0 4px 11px #392d1f14;min-width:0}
+.cast-card img{display:block;aspect-ratio:3/4;object-fit:cover;object-position:center 20%;width:100%;background:#b99d7e}
+.cast-card figcaption{padding:12px 11px 15px}
+.cast-card figcaption strong{display:block;color:#4d392f;font:600 16px/1.3 var(--serif);margin-bottom:5px}
+.cast-card figcaption span{display:block;font:11px/1.35 var(--body);color:#776458}
+.cast-footnote{font:11px/1.5 var(--body);color:#78685c;padding:0 30px 24px;margin:0}
+@media(max-width:850px){.cast-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:520px){.cast-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;padding:15px}.cast-head{padding:16px}.cast-card figcaption strong{font-size:14px}.cast-card figcaption span{font-size:10px}.cast-footnote{padding:0 16px 20px}}
