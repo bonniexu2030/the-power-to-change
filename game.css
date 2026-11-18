@@ -254,3 +254,16 @@
 .cast-footnote{font:11px/1.5 var(--body);color:#78685c;padding:0 30px 24px;margin:0}
 @media(max-width:850px){.cast-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:520px){.cast-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;padding:15px}.cast-head{padding:16px}.cast-card figcaption strong{font-size:14px}.cast-card figcaption span{font-size:10px}.cast-footnote{padding:0 16px 20px}}
+
+/* The illustrated scene now carries narrative and dialogue on chapter entry.
+   Do not duplicate its prose above the player's original choices. */
+body.illustrated-mode #scene-body > .story-prose,
+body.illustrated-mode #scene-body > .vn-entry,
+body.illustrated-mode #scene-body > .reading-skip{display:none!important}
+body.illustrated-mode:not(.illustrated-ready) #scene-body > .prompt,
+body.illustrated-mode:not(.illustrated-ready) #scene-body > .chapter-four-evidence,
+body.illustrated-mode:not(.illustrated-ready) #scene-body > #ch4-choice-area{display:none!important}
+.illustrated-cue{padding:19px 20px;margin:24px 0;background:#f4e7cf;border:1px solid #bda484;box-shadow:3px 4px 0 #66513a1a}
+.illustrated-cue .btn{margin:0}
+.illustrated-cue p{margin:11px 0 0;font-size:13px;line-height:1.5;color:#665747}
+@media(max-width:650px){.illustrated-cue{padding:15px}.illustrated-cue .btn{width:100%;white-space:normal}}

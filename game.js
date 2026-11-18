@@ -3,6 +3,8 @@
  * All playable characters, dialogue, and personal scenes are fictional.
  */
 'use strict';
+// Illustrated dialogue is now the default chapter presentation. Original choices/saves remain unchanged.
+const PTC_FULL_ILLUSTRATED = true;
 
 const SAVE_KEY = 'power-to-change-381-days-v1';
 const ROLE_SAVE_PREFIX = 'power-to-change-381-days-role-v1-';
@@ -246,6 +248,7 @@ function render(){
   else{screen='cover';renderCover();}
   if(state)renderJournal();
   if(window.GameplayExtras)window.GameplayExtras.render(state,screen,store);
+  if(PTC_FULL_ILLUSTRATED)prepareIllustratedPresentation();
   scrollTop();
 }
 /* A quick, cinematic typewriter effect for story passages.
@@ -253,6 +256,7 @@ function render(){
  * The Skip button reveals all paragraphs instantly. Reduced-motion users see full text.
  */
 function revealStoryText(paragraphSelector, lockedSelector) {
+  if (PTC_FULL_ILLUSTRATED && screen === 'scene') return; // Dialogue lives in the illustrated scene instead.
   const paragraphs = Array.from(app.querySelectorAll(paragraphSelector));
   if (!paragraphs.length) return;
   // Text motion can be enabled or disabled by the reader at any time.
@@ -463,14 +467,14 @@ function renderScene(){
  });
  if(isMarcus){
   body.querySelector('#open-marcus-vn').addEventListener('click',openMarcusDavidScene);
-  if(!state.ch1vnOffered){
+  if(!PTC_FULL_ILLUSTRATED && !state.ch1vnOffered){
    state.ch1vnOffered=true;store();
    // Wait until the full page is rendered; auto-open only once per playthrough.
    Promise.resolve().then(()=>{if(state&&state.role==='marcus'&&currentChapter()===1&&screen==='scene')openMarcusDavidScene();});
   }
  }else if(isDaniel){
    body.querySelector('#open-daniel-ch1-vn').addEventListener('click',openDanielBennettScene);
-   if(!state.ch1danielvnOffered){
+   if(!PTC_FULL_ILLUSTRATED && !state.ch1danielvnOffered){
      state.ch1danielvnOffered=true;store();
      Promise.resolve().then(()=>{if(state&&state.role==='daniel'&&currentChapter()===1&&screen==='scene')openDanielBennettScene();});
    }
@@ -541,7 +545,7 @@ function renderSceneChapter2(){
  }
  if(state.role==='marcus'){
    body.querySelector('#open-marcus-ch2-vn').addEventListener('click',()=>openMarcusChapterScene(2));
-   if(!state.ch2vnOffered){
+   if(!PTC_FULL_ILLUSTRATED && !state.ch2vnOffered){
      state.ch2vnOffered=true;store();
      Promise.resolve().then(()=>{if(state&&state.role==='marcus'&&currentChapter()===2&&screen==='scene')openMarcusChapterScene(2);});
    }
@@ -619,13 +623,13 @@ function renderSceneChapter3(){
  });
  if(state.role==='marcus'){
    body.querySelector('#open-marcus-ch3-vn').addEventListener('click',()=>openMarcusChapterScene(3));
-   if(!state.ch3vnOffered){
+   if(!PTC_FULL_ILLUSTRATED && !state.ch3vnOffered){
      state.ch3vnOffered=true;store();
      Promise.resolve().then(()=>{if(state&&state.role==='marcus'&&currentChapter()===3&&screen==='scene')openMarcusChapterScene(3);});
    }
  }else if(state.role==='daniel'&&state.choices.ch3talk){
    body.querySelector('#open-daniel-ch3-vn').addEventListener('click',openDanielSarahScene);
-   if(!state.ch3danielvnOffered){
+   if(!PTC_FULL_ILLUSTRATED && !state.ch3danielvnOffered){
      state.ch3danielvnOffered=true;store();
      Promise.resolve().then(()=>{if(state&&state.role==='daniel'&&currentChapter()===3&&screen==='scene'&&state.choices.ch3talk)openDanielSarahScene();});
    }
@@ -730,7 +734,7 @@ function renderSceneChapter4(){
  });
  if(state.role==='marcus'){
   body.querySelector('#open-marcus-ch4-vn').addEventListener('click',()=>openMarcusChapterScene(4));
-  if(!state.ch4vnOffered){
+  if(!PTC_FULL_ILLUSTRATED && !state.ch4vnOffered){
    state.ch4vnOffered=true;store();
    Promise.resolve().then(()=>{if(state&&state.role==='marcus'&&currentChapter()===4&&screen==='scene')openMarcusChapterScene(4);});
   }
@@ -982,7 +986,7 @@ function renderSceneChapter5(){
  if(state.role==='evelyn')body.querySelector('#open-vn-scene').addEventListener('click',openEvelynRuthScene);
  if(state.role==='marcus'){
   body.querySelector('#open-marcus-ch5-vn').addEventListener('click',()=>openMarcusChapterScene(5));
-  if(!state.ch5marcusvnOffered){
+  if(!PTC_FULL_ILLUSTRATED && !state.ch5marcusvnOffered){
    state.ch5marcusvnOffered=true;store();
    Promise.resolve().then(()=>{if(state&&state.role==='marcus'&&currentChapter()===5&&screen==='scene')openMarcusChapterScene(5);});
   }
@@ -1131,6 +1135,128 @@ if(castDialog&&castGrid){
  document.getElementById('open-cast').addEventListener('click',()=>{if(!castDialog.open)castDialog.showModal()});
  document.getElementById('cast-close').addEventListener('click',()=>castDialog.close());
  castDialog.addEventListener('click',e=>{if(e.target===castDialog)castDialog.close()});
+}
+
+
+/* One consistent illustrated-dialgoue layer for all 15 chapters.
+ * Original chapters, choice buttons, story consequences, localStorage keys,
+ * gallery, journal and archive remain in place.
+ * The additional Daniel III prelude precedes his existing choice-shaped scene.
+ */
+const ptcVNScenes = {
+ 'evelyn-1':{newId:'evelyn-1',title:'Evelyn & Ruth · A Promise for Monday'},
+ 'evelyn-2':{newId:'evelyn-2',title:'Evelyn & Lottie Mae · The Long Walk'},
+ 'evelyn-3':{newId:'evelyn-3',title:'Evelyn & Ruth · A Mother’s Fear'},
+ 'evelyn-4':{newId:'evelyn-4',title:'Evelyn & Lottie Mae · Almost Isn’t There'},
+ 'evelyn-5':{file:'vn-evelyn-ruth.html',signal:'evelyn-ruth-ch5',title:'Evelyn & Ruth · The Victory'},
+ 'marcus-1':{file:'vn-marcus-david.html',signal:'marcus-david-ch1',title:'Marcus & David · The First Step'},
+ 'marcus-2':{file:'vn-marcus-david-ch2.html',signal:'marcus-david-ch2',title:'Marcus & David · The Long Walk'},
+ 'marcus-3':{file:'vn-marcus-david-ch3.html',signal:'marcus-david-ch3',title:'Marcus & David · The Price of Standing Up'},
+ 'marcus-4':{file:'vn-marcus-david-ch4.html',signal:'marcus-david-ch4',title:'Marcus & David · Hope Is Not Rest'},
+ 'marcus-5':{file:'vn-marcus-david-ch5.html',signal:'marcus-david-ch5',title:'Marcus & David · After Victory'},
+ 'daniel-1':{file:'vn-daniel-bennett-ch1.html',signal:'daniel-bennett-ch1',title:'Daniel & Bennett · Business as Usual'},
+ 'daniel-2':{newId:'daniel-2',title:'Daniel, Thomas & Bennett · A Transaction'},
+ 'daniel-3-intro':{newId:'daniel-3-intro',title:'Daniel & Sarah · Before the Conversation'},
+ 'daniel-3-talk':{file:'vn-daniel-sarah-ch3.html',signal:'daniel-sarah-ch3',title:'Daniel & Sarah · The Cost of Looking Away'},
+ 'daniel-4':{newId:'daniel-4',title:'Daniel & Bennett · When the Law Changes'},
+ 'daniel-5':{newId:'daniel-5',title:'Daniel & Bennett · A Different Ordinary'}
+};
+const ptcVNDialog = document.getElementById('illustrated-dialog');
+const ptcVNFrame = document.getElementById('illustrated-frame');
+let ptcActiveIllustratedKey = null;
+function illustratedSceneKey(){
+ if(!state || screen!=='scene')return null;
+ return state.role+'-'+currentChapter()+(state.role==='daniel'&&currentChapter()===3?(state.choices.ch3talk?'-talk':'-intro'):'');
+}
+function hasSeenIllustratedScene(key){
+ if(!state||!key)return false;
+ if(state.illustratedSeen && state.illustratedSeen[key])return true;
+ const prior={
+  'evelyn-5':'ch5vnSeen','marcus-1':'ch1vnSeen','marcus-2':'ch2vnSeen',
+  'marcus-3':'ch3vnSeen','marcus-4':'ch4vnSeen','marcus-5':'ch5marcusvnSeen',
+  'daniel-1':'ch1danielvnSeen','daniel-3-talk':'ch3danielvnSeen'
+ };
+ return !!(prior[key] && state[prior[key]]);
+}
+function startIllustratedScene(key){
+ const scene=ptcVNScenes[key];
+ if(!scene||!state||illustratedSceneKey()!==key||!ptcVNDialog||ptcVNDialog.open)return;
+ const choices=state.choices||{};
+ const args=new URLSearchParams({
+  v:'20261118-full-vn-v1',
+  first:choices.ch1||'',second:choices.ch2||'',third:choices.ch3||'',
+  fourth:choices.ch4||'',talk:choices.ch3talk||'',prep:choices.ch2prep||'',
+  rel:String(state.role==='marcus'?(state.relationships.david||0):(state.role==='evelyn'?(state.relationships.lottie||0):(state.relationships.sarah||0)))
+ });
+ let page=scene.file;
+ if(scene.newId){page='vn-new.html';args.set('scene',scene.newId);}
+ document.getElementById('illustrated-dialog-title').textContent=scene.title;
+ ptcActiveIllustratedKey=key;
+ ptcVNFrame.src=page+'?'+args.toString();
+ ptcVNDialog.showModal();
+}
+function completeIllustratedScene(){
+ const key=ptcActiveIllustratedKey;
+ ptcActiveIllustratedKey=null;
+ if(ptcVNDialog.open)ptcVNDialog.close();
+ ptcVNFrame.removeAttribute('src');
+ if(!key||!state||illustratedSceneKey()!==key)return;
+ state.illustratedSeen=state.illustratedSeen||{};
+ state.illustratedSeen[key]=true;
+ const legacy={
+  'evelyn-5':'ch5vnSeen','marcus-1':'ch1vnSeen','marcus-2':'ch2vnSeen',
+  'marcus-3':'ch3vnSeen','marcus-4':'ch4vnSeen','marcus-5':'ch5marcusvnSeen',
+  'daniel-1':'ch1danielvnSeen','daniel-3-talk':'ch3danielvnSeen'
+ };
+ if(legacy[key])state[legacy[key]]=true;
+ store();
+ document.body.classList.add('illustrated-ready');
+ const cue=document.getElementById('illustrated-caption');
+ if(cue)cue.textContent='Illustrated dialogue finished · Make your choice below, or replay the conversation';
+ const replay=app.querySelector('.illustrated-cue button');
+ if(replay)replay.textContent='Replay illustrated conversation ↗';
+}
+function prepareIllustratedPresentation(){
+ const key=illustratedSceneKey();
+ document.body.classList.toggle('illustrated-mode',!!key);
+ if(!key){document.body.classList.remove('illustrated-ready');return;}
+ const scene=ptcVNScenes[key];
+ if(!scene)return;
+ const seen=hasSeenIllustratedScene(key);
+ document.body.classList.toggle('illustrated-ready',seen);
+ const body=document.getElementById('scene-body');
+ if(!body)return;
+ const header=body.querySelector('.place-time');
+ if(header){
+  const panel=document.createElement('div');
+  panel.className='illustrated-cue';
+  const button=makeButton(seen?'Replay illustrated conversation ↗':'Play illustrated conversation ↗',()=>startIllustratedScene(illustratedSceneKey()),'btn btn-secondary');
+  const caption=document.createElement('p');caption.id='illustrated-caption';
+  caption.textContent=seen?'Illustrated dialogue finished · Make your choice below, or replay the conversation':'Illustrated dialogue replaces the chapter narration. You will decide what happens next.';
+  panel.append(button,caption);
+  header.insertAdjacentElement('afterend',panel);
+ }
+ if(!seen){
+  // render() can run during save restoration and character changes;
+  // verify the story still matches before opening its iframe.
+  Promise.resolve().then(()=>{
+   if(state&&illustratedSceneKey()===key&&!hasSeenIllustratedScene(key)&&!ptcVNDialog.open)startIllustratedScene(key);
+  });
+ }
+}
+if(ptcVNDialog&&ptcVNFrame){
+ document.getElementById('illustrated-close').addEventListener('click',completeIllustratedScene);
+ ptcVNDialog.addEventListener('close',()=>{
+  if(ptcActiveIllustratedKey)completeIllustratedScene(); // closing is a deliberate skip
+ });
+ window.addEventListener('message',event=>{
+  if(!ptcVNDialog.open||event.origin!==window.location.origin||event.source!==ptcVNFrame.contentWindow)return;
+  const scene=ptcVNScenes[ptcActiveIllustratedKey];
+  if(!scene||event.data?.type!=='power-to-change-vn-finished')return;
+  const expected=scene.newId?'illustrated-'+scene.newId:scene.signal;
+  if(event.data.scene!==expected)return;
+  completeIllustratedScene();
+ });
 }
 
 render();

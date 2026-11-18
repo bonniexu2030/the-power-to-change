@@ -9,14 +9,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="game.css?v=20261117-approved-art-v1">
+  <link rel="stylesheet" href="game.css?v=20261118-full-vn-v1">
   <script src="chapter-two.js?v=20261117-story-review-v1" defer></script>
   <script src="chapter-three.js?v=20261117-ch3-v1" defer></script>
   <script src="chapter-four.js?v=20261117-ch4-v1" defer></script>
   <script src="chapter-five.js?v=20261117-ch5-v1" defer></script>
   <script src="gameplay-extras.js?v=20261117-light-gameplay-v1" defer></script>
   <script src="artwork/portraits.js?v=20261117-approved-art-v1"></script>
-  <script src="game.js?v=20261117-approved-art-v1" defer></script>
+  <script src="game.js?v=20261118-full-vn-v1" defer></script>
 </head>
 <body>
   <div class="grain" aria-hidden="true"></div>
@@ -226,6 +226,13 @@
       <button type="button" class="vn-modal-close" id="vn-daniel-ch1-close" aria-label="Close Daniel's Chapter 1 conversation">× CLOSE</button>
     </div>
     <iframe id="vn-daniel-ch1-frame" title="Illustrated Chapter 1 conversation in Bennett's Hardware" loading="eager"></iframe>
+  </dialog>
+  <dialog id="illustrated-dialog" class="vn-dialog" aria-labelledby="illustrated-dialog-title">
+    <div class="vn-modal-top">
+      <div><span class="small-caps">THE POWER TO CHANGE · ILLUSTRATED STORY</span><h2 id="illustrated-dialog-title">Illustrated conversation</h2></div>
+      <button type="button" class="vn-modal-close" id="illustrated-close" aria-label="Skip illustrated dialogue and continue to chapter choices">× SKIP SCENE</button>
+    </div>
+    <iframe id="illustrated-frame" title="Illustrated dialogue; use Continue, Back, or Skip to navigate" loading="eager"></iframe>
   </dialog>
   <dialog id="cast-dialog" class="cast-dialog" aria-labelledby="cast-title">
     <header class="cast-head"><div><p class="small-caps">THE PEOPLE OF 381 DAYS</p><h2 id="cast-title">Meet the Characters</h2><p>Three playable perspectives, and the neighbors, family, and employers who shape their stories.</p></div><button type="button" id="cast-close" class="vn-modal-close" aria-label="Close character gallery">× CLOSE</button></header>
