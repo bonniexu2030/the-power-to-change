@@ -100,3 +100,65 @@ test('reloading a viewed chapter shows original choices and replay control witho
  await page.locator('#illustrated-close').click();
  await expect(page.locator('#illustrated-dialog')).toBeHidden();
 });
+
+
+for(const [role,choice,expected] of [
+ ['evelyn','walk',{stability:46,network:55,contribution:55}],
+ ['marcus','public',{stability:50,network:62,contribution:56}],
+ ['daniel','agree',{stability:66,network:53,contribution:36}]
+]){
+ test(role+' Chapter I decision still changes stats and persists on reload',async({page})=>{
+  await page.goto(base,{waitUntil:'domcontentloaded'});
+  const state=fixture(role,1);
+  await page.evaluate(s=>localStorage.setItem('power-to-change-381-days-v1',JSON.stringify(s)),state);
+  await page.reload({waitUntil:'domcontentloaded'});
+  await expect(page.locator('#illustrated-dialog')).toBeVisible();
+  await page.locator('#illustrated-close').click();
+  await expect(page.locator('#choices .choice').first()).toBeVisible();
+  await page.locator('#choices .choice').first().click();
+  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('power-to-change-381-days-v1')));
+  expect(saved.screen).toBe('result');
+  expect(saved.choices.ch1).toBe(choice);
+  expect(saved.stats).toEqual(expected);
+  await page.reload({waitUntil:'domcontentloaded'});
+  await expect(page.locator('#illustrated-dialog')).toBeHidden();
+  await expect(page.locator('#scene-body .consequence')).toBeVisible();
+  const again=await page.evaluate(()=>JSON.parse(localStorage.getItem('power-to-change-381-days-v1')));
+  expect(again.choices.ch1).toBe(choice);
+ });
+}
+test('Chapter IV still requires examining the courthouse file before choosing',async({page})=>{
+ await page.goto(base,{waitUntil:'domcontentloaded'});
+ const state=fixture('evelyn',4);
+ await page.evaluate(s=>localStorage.setItem('power-to-change-381-days-v1',JSON.stringify(s)),state);
+ await page.reload({waitUntil:'domcontentloaded'});
+ await expect(page.locator('#illustrated-dialog')).toBeVisible();
+ await page.locator('#illustrated-close').click();
+ await expect(page.locator('#ch4-choice-area')).toBeHidden();
+ await page.locator('#ch4-open-file').click();
+ await expect(page.locator('#casefile')).toBeVisible();
+ await page.locator('#casefile [data-close="casefile"]').click();
+ await expect(page.locator('#ch4-choice-area')).toBeVisible();
+ await page.locator('#ch4-choices .choice').first().click();
+ const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('power-to-change-381-days-v1')));
+ expect(saved.ch4caseOpened).toBe(true);
+ expect(saved.choices.ch4).toBe('recover');
+ expect(saved.screen).toBe('result');
+});
+test('Chapter V completes its choice and personal ending without loss of saved progress',async({page})=>{
+ await page.goto(base,{waitUntil:'domcontentloaded'});
+ const state=fixture('evelyn',5);
+ await page.evaluate(s=>localStorage.setItem('power-to-change-381-days-v1',JSON.stringify(s)),state);
+ await page.reload({waitUntil:'domcontentloaded'});
+ await expect(page.locator('#illustrated-dialog')).toBeVisible();
+ await page.locator('#illustrated-close').click();
+ await page.locator('#chapter-five-choices .choice').first().click();
+ await expect(page.locator('#continue-actions button').first()).toBeVisible();
+ await page.locator('#continue-actions button').first().click();
+ await expect(page.locator('.epilogue-title')).toBeVisible();
+ await page.reload({waitUntil:'domcontentloaded'});
+ await expect(page.locator('.epilogue-title')).toBeVisible();
+ const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('power-to-change-381-days-v1')));
+ expect(saved.screen).toBe('ending');
+ expect(saved.choices.ch5).toBe('ride');
+});
