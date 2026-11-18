@@ -1213,6 +1213,8 @@ function completeIllustratedScene(){
  document.body.classList.add('illustrated-ready');
  const cue=document.getElementById('illustrated-caption');
  if(cue)cue.textContent='Illustrated dialogue finished · Make your choice below, or replay the conversation';
+ const replay=app.querySelector('.illustrated-cue button');
+ if(replay)replay.textContent='Replay illustrated conversation ↗';
 }
 function prepareIllustratedPresentation(){
  const key=illustratedSceneKey();
