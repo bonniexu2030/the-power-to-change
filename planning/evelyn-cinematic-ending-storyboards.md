@@ -9,6 +9,19 @@
 - **Accessibility and control:** Subtitles always visible; player-controlled shot pacing; if voiced audio is eventually approved, it is optional/mutable rather than mandatory autoplay. Respect reduced motion.
 - **Example: “Ruth: What happens next?” / “Evelyn: We keep going.”** These words appear as captions. If the user approves audio, each could be narrated with its own chosen character voice, **without moving the mouth**.
 
+## Director-approved staging revision — supersedes earlier conflicting shot directions
+
+The creator specifically chose **mostly bus-arrival moment A**, supplemented by **the tenderness of mother/daughter moment C**. Ruth's emotion proceeds **determination → cautious hope → excitement**, not a generic passive expression.
+
+**Common cinematic sequence:** (1) Ruth in foreground watching the bus approach, Evelyn behind; (2) an intimate **hug**; (3) the final-choice-specific public action, with Evelyn giving a **private, loving, meaningful glance** that Ruth doesn't notice as Ruth's attention turns to the bus/street; (4) wide generational tableau, Evelyn still participating in present-day change while Ruth faces new possibilities. Keep four main beats even if a shot has two layered transitions. Do not require lip-synced acting; slow pans, bus-layer motion, gentle dissolves and varied still poses convey gestures.
+
+**Branch-specific logic is mandatory:**
+- \`ride\`: **Ruth steps aboard the first integrated bus**, excited after the hug, choosing the window seat as established in Chapter V. Evelyn's unseen look takes place as Ruth approaches/boards, and Evelyn **also rides with Ruth**; don't show Ruth leaving Evelyn permanently or separated from her.
+- \`wait\`: Evelyn and Ruth hug near their home; Ruth **watches the bus approach and depart but does not board**. Evelyn looks toward her daughter with private pride before taking her normal route to work; the shared ride is planned for another day.
+- \`neighbors\`: Evelyn and Ruth hug; then Evelyn and Lottie Mae help nervous neighbors at the stop. Ruth watches a **neighbor** board as Evelyn gives her an unobserved glance; Ruth accompanies the work when possible, no unsupported boarding.
+- Across \`rebuilding\`, \`ties\`, \`footing\`, select lighting/props to highlight financial pressures, durable neighborhood solidarity, or mother–daughter steadiness respectively. **One primary image, distinct context by outcome.**
+**Score:** warm cinematic strings/piano with a trace of jazz harmony and a brief shared motif; build from cautious determination to an optimistic peak when the bus arrives or the hug/glance occurs; keep bus Foley subtle, especially before music's rise. Choice-specific melancholy/hope preserves honest ending tone. Off-screen Ruth/Evelyn vocals are **not yet recorded**; consult creator profiles in the [voice/music brief](./user-led-cinematic-creative-direction.md).
+
 ## Why these three stories differ
 Evelyn's **stat-derived epilogue** is selected by the existing game engine, not exclusively by her final Chapter V decision:
 - **Still Rebuilding** (\`rebuilding\`): she continues coping with financial instability.
