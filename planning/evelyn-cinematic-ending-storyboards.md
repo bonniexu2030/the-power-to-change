@@ -2,6 +2,13 @@
 **Status:** First storyboard draft for creative review, November 23, 2026. **Not yet implemented.**
 **Approved creative direction:** Four cinematic beats per ending; **moderate motion (Option B)**; sparse captions, wide painterly compositions, quiet object movement, slow camera pans and dissolves. No automatic audio.
 
+## Updated audio-and-animation direction — confirmed November 23, 2026
+- **Visual style:** Silent-film-like miniature movie, not speaking-character animation. Keep portraits and painted figures still; emphasize cinematic editing, pans, zooms, gentle light, paper or curtain movement, and 4 shot progression. **No lip sync, mouth movement, or full character animation.**
+- **Character dialogue:** Display each character's lines as elegant on-screen subtitles/captions. If audio is added, an **off-screen, character-appropriate voice-over** can narrate those lines while the figures remain still. Voice-over is **not yet approved or recorded**.
+- **Voice consultation required:** Ask the user **before** selecting any voice or narration system. Review Evelyn, Ruth, Lottie Mae, Marcus, David, Daniel, Sarah and other speaking roles as appropriate: approximate vocal age, tone, gender presentation, pacing, emotions, accent/dialect, voice differentiation, narration style, and willingness to use synthetic voice. Do not assume caricatured Southern accents or stereotypes.
+- **Accessibility and control:** Subtitles always visible; player-controlled shot pacing; if voiced audio is eventually approved, it is optional/mutable rather than mandatory autoplay. Respect reduced motion.
+- **Example: “Ruth: What happens next?” / “Evelyn: We keep going.”** These words appear as captions. If the user approves audio, each could be narrated with its own chosen character voice, **without moving the mouth**.
+
 ## Why these three stories differ
 Evelyn's **stat-derived epilogue** is selected by the existing game engine, not exclusively by her final Chapter V decision:
 - **Still Rebuilding** (\`rebuilding\`): she continues coping with financial instability.
