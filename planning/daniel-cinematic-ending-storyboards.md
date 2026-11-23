@@ -3,6 +3,21 @@
 **Status:** First full storyboard draft for creative review; not yet implemented in the game.  
 **User-approved direction:** Four illustrated cinematic shots per outcome, moderate camera motion (Option B), silent-film-inspired and no lip-sync. **Sarah must appear directly as a person** because she is an important character and a meaningful influence on Daniel, not just an off-screen voice, note or prop. The appearance of Sarah should carry distinct dramatic weight across all three endings. No voices or recordings are selected: ask the user about casting/tone before any voice decisions.
 
+## Director-approved staging revision — supersedes earlier conflicting shot directions
+
+**Signature action:** Daniel visibly **serves customers equally, then meets Bennett's gaze without looking away or delivering an additional speech**. His expression/still posture conveys quiet **strength, determination and an actual step after the boycott**. Stage as two composed illustrated stills or a gentle pan, not animated speaking. Keep Sarah **physically visible**; her small, **supportive smile or touch** should mean companionship without erasing her worries or the consequences of his actions. No obligatory Sarah dialogue.
+
+**Final-choice honesty takes priority:**
+- \`consistent\`: show the actual quiet, consistent equal treatment and the direct, wordless glance toward Bennett. This is the creator's primary visual example.
+- \`clear\`: he does challenge a customer's discriminatory remark **verbally as the original story states** and can still hold Bennett's gaze afterward in silence. Never erase the existing final-choice consequence.
+- \`comfort\`: **do not show the equal-service stand or heroic confrontation**. He avoids involvement at work, and at home a genuine, unresolved moment with Sarah gives the player a **reflective, motivating** impression of agency still possible. Even with a high stat-derived ending, portray what happened in *this* choice accurately.
+- \`observer\`: viewer should leave **reflective and motivated**, not condemned, frustrated or punished. A visible opportunity, a missed action and Sarah's independent presence make the difference apparent.
+- In every category, keep the original \`stand\`/\`hesitant\`/\`observer\` stats and history intact; visual variation reflects accumulated behavior without changing what happened on December 21.
+
+**Score:** modern restrained film-scoring with **low cello** as tension/weight, sparse jazz-informed piano chords and the shared game motif in a different voicing. Music may grow toward Daniel's resolved gaze (where earned and chosen), but **observer** should resolve into thoughtful restraint rather than a villain sting. Foley of store door, quiet bus, cash register is most audible before/after music swells and must not overpower narration.
+
+**Voices:** one narrator plus distinct Daniel and Sarah voices *if implemented*, but no voice models/performers selected. Daniel: middle-class white male sound without marked accent; Sarah: young white woman's natural, period-appropriate vocal warmth. Get user approval for actual samples, narration and accent before generating/recording audio. No lip-sync.
+
 ## Narrative guardrails
 
 The scene begins in Montgomery on **Friday, December 21, 1956**, the first day of integrated bus service. The original fictional story is centered on Daniel at Bennett's Hardware, his employer Bennett, his wife Sarah, and remembered encounters with Thomas Reed. These are fictional personal scenes. **The boycott's victory belongs to the Black Montgomery residents who walked, organized, testified, and challenged segregation, not Daniel.**
