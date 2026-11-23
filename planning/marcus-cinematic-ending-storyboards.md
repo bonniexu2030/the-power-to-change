@@ -4,6 +4,19 @@
 
 **Approved direction:** Four cinematic shots per ending, miniature-movie composition, moderate motion (Option B), silent-film-inspired still characters. No speaking mouth animation or lip sync. Captions are always readable. If voice-over is considered later, **first ask the user** about ages, vocal texture, accents, emotion, pacing and whether different characters speak; do not choose or generate voices without consultation.
 
+## Director-approved staging revision — supersedes earlier conflicting shot directions
+
+**Signature moment common to all three Marcus endings:** an illustrated, movie-like sequence moving **from Marcus's desk → to the bus outside the window → back to his desk**, with a change in the light and his demeanor so the desk is suddenly filled with possibility. His emotion is **energetic determination, assurance and renewed ambition**, more than instant intellectual certainty. A short musical theme broadens with an elegant crescendo here. Do not animate his face or mouth; use two or three painted still poses and camera/paper/light layers. The sequence can occupy **one multi-layered shot** within the four-beat ending structure.
+
+**Outcome adaptations:**
+- \`costly\`: his returned glance still falls on genuinely unfinished coursework and the real sacrifices that cannot disappear; purpose = learning to sustain commitments.
+- \`organizer\`: his glance returns to the community notes, showing his capacity to coordinate people and responsibilities; David appears **if materially helpful** to the partnership and relationship save.
+- \`teacher\`: he returns to an open notebook, where the experiences of real people have changed what he wants to teach; **do not depict a future classroom as though he already has that job**.
+
+**Final-choice fidelity:** \`teach\` shows teaching notes and a letter home; \`organize\` shows future organizing plans; \`balance\` shows a realistic division of coursework and community responsibilities. If a late choice seems to contrast with the earned ending, show both truthfully. **David should only appear where narratively important**—a relationship may appear through authentic notes/visual clues rather than a mandatory cameo. Visual poetry comes from notebook/paper/light motifs and the desk–window–desk rhythm.
+
+**Score:** modern film-score piano and strings with a small jazz color; a brief statement of the game's shared theme, building with the *second glance at the desk* to satisfyingly assured optimism without swelling over dialogue. Environmental bus sound softly heard between music phrases. Narrator plus Marcus **tenor**, medium-volume, kind/intelligent character voice are potential recorded voice parts; details/samples to be approved by creator before audio is made.
+
 ## Story and continuity rules
 
 The opening takes place **Thursday night, December 20, 1956, in Marcus's college room**. The boycott has ended, but buses do **not** begin integrated service until **Friday, December 21**. David has just brought the news; Marcus still hopes to become a teacher. The story respects the fictional character continuity and does not suggest Marcus alone secured the historical victory.
