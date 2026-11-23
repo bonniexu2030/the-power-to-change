@@ -51,6 +51,39 @@
 
 **Creative responsibility:** These are the creator's selected emotions, music, scene beats, and vocal directions. The assistant may translate them into visual assets/code and existing prose but must not present assistant-written implementation text as creator-authored dialogue. Ask **batched** meaningful follow-up questions only when real decisions remain; don't ask the same choice repeatedly across nine endings.
 
+## Evelyn "Finding Her Footing" keyframe art direction — user choices November 23, 2026
+
+**Status:** All ten selections below are **creator-approved creative directions**; illustrative concept art is only a draft for review, not yet an approved in-game asset or implemented animation. The creator prefers **multiple-choice questions with an unmarked free-text blank for each question**, and **no assistant recommendation printed next to an answer option**. Questions should be grouped meaningfully, avoiding repetitive decisions across nine endings.
+
+**Selected 6 initial image controls:**
+1. Prototype **Finding Her Footing**, focusing on the Evelyn–Ruth bond.
+2. **1950s neighborhood bus stop**, modest houses, street receding into the distance.
+3. **Brief, reassuring hug**, then Ruth turns toward the bus.
+4. **Ruth foreground, Evelyn behind**, with Evelyn's proud glance unseen by Ruth.
+5. **Muted gray light brightening** as the bus approaches.
+6. **Layered moderate motion:** moving bus, soft wind, shifting light, foreground/background parallax. No spins.
+
+**Selected 10 refining choices:**
+1. **B — Ruth looks older child/preteen**, not a toddler or too mature.
+2. **D — soft excitement already appearing** just after the hug.
+3. **A+B — Evelyn proud and emotional, yet calm, loving and steady**, no melodramatic tears required.
+4. **A — the bus remains distant enough for anticipation** in keyframe, rather than already looming close.
+5. **B — a handful of neighbors farther away**, but Evelyn and Ruth remain the foreground subjects.
+6. **A+B — neighborhood quiet, modest, lived-in and warm**.
+7. **A+B — the opening keyframe gives equal weight to the hug and the street/approaching bus**, allowing the social moment to sit within the neighborhood.
+8. **All of A+B+C+D** — final composition combines Ruth facing her future, Evelyn's unseen proud glance, the bus as a symbol, and gray-to-gold lighting. Prioritize readable composition; they can be distributed across the last two shots, not all crammed into one image.
+9. **A+B, with hard limitation:** very little text, poetic phrasing permitted **ONLY if it is the exact narrated/spoken text**. **No decorative text, intertitles, labels, or captions that are not spoken aloud.** Display legible matched subtitles for any narration and character voice-over when it plays; no text when no words are spoken. The separate full written epilogue/historical afterword remains intact.
+10. **A+D — score starts gently reflective and almost still, then gradually blooms.** Music rises with Ruth's emotional shift and the bus drawing closer; very soft street Foley.
+
+**Three proposed static image/keyframe beats, not yet implementation:**
+- K1: Wider neighborhood bus-stop composition and brief reassuring hug. Soft gray light, a far street, a few distant neighbors. A little excitement emerges on Ruth's face as the hug ends.
+- K2: Ruth in foreground looking toward the approaching **distant** 1956 bus; Evelyn behind, muted light breaking through clouds, gentle wind and slow environmental parallax planned.
+- K3: After the hug, as Ruth prepares for the bus, Evelyn gives the **unseen** proud-and-steady glance, and the light blooms warmer. Ruth turns toward the bus with visible excitement. If the \`ride\` branch is active, the following animated beat or transition eventually shows **both** Evelyn and Ruth boarding; it should NOT suggest a permanent mother–daughter goodbye. In the \`wait\` branch no one boards the first morning, and \`neighbors\` focuses Evelyn/Lottie Mae assisting others.
+
+**Art provenance:** Original approved portraits sourced from the game repo's \`artwork/portraits.js\` for Evelyn and Ruth, and visually inspected as references. Generated paintings in the current chat are **concepts**, not guaranteed exact matches to the approved portraits, and have **not been uploaded to the public game**. One exploratory draft erroneously added text not spoken; **reject that lettering**. Do not approve any draft that changes the canonical approved character designs without permission.
+
+**Other production constraints:** Single coherent cinematic scene, 16:9 aim, painterly film stills faithful to the game aesthetic, approved clothing/hair/skin tones, no lip sync, no fast spins, no generic romantic farewell framing, and respect the historical timeline that integrated Montgomery buses began December 21, 1956. Narrator and character voices still need user approval of actual voice samples and recordings. The narrator has not been cast.
+
 ## Ideas to discuss (NOT yet decisions)
 - **Evelyn:** Move between a close-up of Ruth looking forward and Evelyn working in the background, then a shared gesture or exchange, retaining meaningful agency for both.
 - **Marcus:** A decisive physical image (turning a notebook page, uniting learning and civic-action notes, or another symbol chosen by the creator); show a genuine realization, not an unearned professional future.
