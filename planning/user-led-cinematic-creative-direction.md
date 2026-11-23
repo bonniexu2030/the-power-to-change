@@ -13,6 +13,44 @@
 8. **Poetic elements:** Creator likes poetic expression through **images, motifs, color, rhythm, echoes, composition, and visual symbolism**, rather than being asked to write lyrical prose.
 9. **Animation/audio:** The approved base is a four-beat miniature-movie cutscene with moderate movement, still illustrated characters, **no lip-sync**. Any later spoken words would be off-screen voice-over; **before selecting or generating narration voices, ask targeted questions about voice casting and delivery**. Captions must remain visible.
 
+## Creator's 15-question director selections — November 23, 2026 (these supersede conflicting earlier ideas)
+
+**Evelyn / Ruth**
+- Emotional arc: **determination → cautious hope → excitement**.
+- Main cinematic shot: **Ruth watches the bus arrive** in foreground, Evelyn behind; add a **hug** and Evelyn's unobserved meaningful glance at Ruth as she moves toward the bus. The gesture conveys generational continuity while Evelyn keeps working herself.
+- **Branch fidelity:** Only the \`ride\` final choice permits Ruth to **board the bus on December 21** (Evelyn follows/boards with her per the existing game result). For \`wait\`, use a hug and then Ruth looking toward an arriving/passing bus as Evelyn leaves for work; they plan a **later** shared ride, with **no boarding**. For \`neighbors\`, the hug and unseen glance can occur before Evelyn joins Lottie Mae helping neighbors; Ruth watches a **neighbor's** bus boarding rather than being shown boarding herself unless the story explicitly supports it.
+- Tailor camera emphasis and intensity across \`rebuilding\`, \`ties\`, and \`footing\` without asking creator to approve the same compositional details nine times.
+
+**Marcus**
+- Signature realization: **desk → outside window, watching a bus → back to the desk**. His expression/lighting brightens when he looks out, and the work on the desk suddenly appears full of possibilities on the return. Use crossfades or adjacent layered painted stills, not facial rigging.
+- Emotional tone: **energetic determination and assurance, renewed ambition**, more than an overly tidy epiphany. Build the music subtly toward this moment.
+- Preserve distinctions: \`costly\` means he must face educational consequences even if he feels motivated; \`organizer\` emphasizes the work of community organizing; \`teacher\` points to the civic teaching future he hopes for. No invented later classroom career. **David appears only where his presence is meaningful**, not by default.
+
+**Daniel**
+- Signature act for \`consistent\` choice: **serve customers equally, then hold eye contact with Bennett without looking away**, *without saying anything*. Visually communicate determination and strength, with subtle movement and expression.
+- For \`clear\`: preserve the existing story's **verbal challenge** when appropriate; after the interaction, Daniel can hold Bennett's gaze without an extra speech. For \`comfort\`: do **not** add an unearned equal-service stand. His scene should visibly portray his selected passivity and lingering opportunity to act, with a **reflective/motivating** (not punitive) ending.
+- Sarah is physically present in Daniel's final movie; she can give a **subtle supportive smile or touch**, without a mandatory line or implying she unconditionally endorses his behavior. Adjust warmth/distance to the recorded relationship; she is an independent person, not a reward.
+- \`observer\` must be reflective and motivate the player to reconsider, not simply chastise them.
+
+**Music / sound (approved direction, compositions not made yet)**
+- Primarily **modern cinematic original film score**, with elegant **jazz-informed harmonies and period-friendly timbres**. Laufey is a *mood reference* for warmth/poise, **not** a request to imitate any protected recording, singer's voice, or melody. If period tunes are later considered, use verified public-domain or appropriately licensed compositions/recordings, or write originals.
+- One brief **shared melodic motif**, harmonized/instrumented differently by role/scene; give each character distinctive sections and mood. **Daniel's low cello** provides tension, not a villain motif.
+- **Gradual builds** to emotionally satisfying peaks, but avoid oversized blockbuster scoring. Build along with the arc of the four shots.
+- Quiet **bus engine, footsteps, papers, door** and other realistic Foley, most noticeable at the beginning/end before/after music swells; keep Foley underneath score and voices.
+- Subtle music **ducking** during spoken narration that sounds musically natural, with composer-planned gaps/changes (not an obvious abrupt volume drop). Respect user volume controls, captions, no surprising autoplay, and reduced-motion settings.
+
+**Voices (creator-selected casting direction; no voice synthesis or casting has occurred)**
+- **Architecture:** one distinct overall narrator **plus separate voices for each speaking character**, with no on-screen lip-sync. Character lines retain readable subtitles. Narrator voice texture is **still undecided** and must be discussed with creator.
+- **Evelyn:** Black grandmother-like vocal warmth and lived-in steadiness; gentle, kind, firm, quietly powerful. This describes the **desired vocal character** and does **not** establish that Evelyn is literally a grandmother or prescribe a stereotyped accent.
+- **Ruth:** Black child's voice, emotionally mature/understanding, authentic childlike joy, never shrill or cartoonishly childish.
+- **Marcus:** Black young man's voice, intelligent, kind, **tenor (not bass)**, medium volume.
+- **Daniel:** White middle-class man's voice, relatively neutral accent without pronounced regional markers.
+- **Sarah:** Younger white woman's voice, appropriate to the 1950s setting, naturally warm; avoid affected "period" caricature.
+- **All other speaking roles:** to be directed by creator when necessary, not silently assigned.
+- Need additional approval/choice of *narrator* voice (age, warmth, weight, pacing), speaking style, final samples, accent authenticity and mixing *before audio is created*. No assumption that vocal racial identities can be determined by or reduced to accent alone.
+
+**Creative responsibility:** These are the creator's selected emotions, music, scene beats, and vocal directions. The assistant may translate them into visual assets/code and existing prose but must not present assistant-written implementation text as creator-authored dialogue. Ask **batched** meaningful follow-up questions only when real decisions remain; don't ask the same choice repeatedly across nine endings.
+
 ## Ideas to discuss (NOT yet decisions)
 - **Evelyn:** Move between a close-up of Ruth looking forward and Evelyn working in the background, then a shared gesture or exchange, retaining meaningful agency for both.
 - **Marcus:** A decisive physical image (turning a notebook page, uniting learning and civic-action notes, or another symbol chosen by the creator); show a genuine realization, not an unearned professional future.
@@ -25,9 +63,9 @@
 ## Project roadmap
 - [x] Draft nine ending storyboards (Evelyn 3, Marcus 3, Daniel 3).
 - [x] Gather creator's visual/animation/emotional authorship preferences.
-- [ ] Co-direct Evelyn/Ruth's final emotionally central image with creator, then Marcus purpose shot, then Daniel's meaningful changes.
+- [x] Co-direct Evelyn/Ruth's signature hug, glance and bus arrival; Marcus desk–window–desk assurance moment; Daniel equal-service / Bennett gaze with Sarah's support. The visual concepts are creator-selected; art and storyboards still require review.
 - [ ] Revise all nine storyboards to reflect **creator-chosen emotions and scenes**; do not mark these creatively approved yet.
 - [ ] Discuss and approve reusable artwork and motion approach.
-- [ ] Ask detailed voice-over questions **before any casting or voice selection**.
+- [x] Gather creator's preferred architecture and five role voice profiles. [ ] Still select narrator qualities, approve samples and any remaining characters **before** voice synthesis or casting.
 - [ ] Implement and test all nine cinematic endings.
 - [ ] **After the endings are finished:** remind creator of the reserved dramatic all-character cinematic opening, placed before character selection, coordinated with the tutorial.
