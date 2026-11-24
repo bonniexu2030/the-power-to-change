@@ -16,7 +16,8 @@
   <script src="chapter-five.js?v=20261117-ch5-v1" defer></script>
   <script src="gameplay-extras.js?v=20261117-light-gameplay-v1" defer></script>
   <script src="artwork/portraits.js?v=20261117-approved-art-v1"></script>
-  <script src="game.js?v=20261118-full-vn-v1" defer></script>
+  <link rel="stylesheet" href="poetic-final-overlay.css?v=20261123-parchment-nine-v1">
+  <script src="game.js?v=20261123-parchment-nine-v1" defer></script>
 </head>
 <body>
   <div class="grain" aria-hidden="true"></div>
@@ -238,6 +239,13 @@
     <header class="cast-head"><div><p class="small-caps">THE PEOPLE OF 381 DAYS</p><h2 id="cast-title">Meet the Characters</h2><p>Three playable perspectives, and the neighbors, family, and employers who shape their stories.</p></div><button type="button" id="cast-close" class="vn-modal-close" aria-label="Close character gallery">× CLOSE</button></header>
     <div id="cast-grid" class="cast-grid"></div>
     <p class="cast-footnote">Illustrated fictional characters. Their experiences are inspired by documented realities of the Montgomery Bus Boycott; they do not represent specific historical individuals.</p>
+  </dialog>
+  <dialog id="poetic-final-dialog" class="poetic-final-dialog" aria-label="Final historical and poetic reflection">
+    <iframe id="poetic-final-frame" title="Animated final conclusion: character summary and a sourced historical quotation" loading="eager"></iframe>
+    <div class="poetic-modal-toolbar">
+      <button type="button" id="poetic-final-close" class="poetic-toolbar-button">← Back to epilogue</button>
+      <button type="button" id="poetic-final-other" class="poetic-toolbar-button">Explore another perspective →</button>
+    </div>
   </dialog>
   <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
 </body>
