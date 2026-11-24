@@ -9,6 +9,7 @@ const PTC_FULL_ILLUSTRATED = true;
 const SAVE_KEY = 'power-to-change-381-days-v1';
 const ROLE_SAVE_PREFIX = 'power-to-change-381-days-role-v1-';
 const MOTION_KEY = 'power-to-change-animated-text-v1';
+const TUTORIAL_KEY = 'power-to-change-381-days-tutorial-v1';
 // Respect the reader's accessibility preference initially; they can opt in.
 function getTextRevealSetting() {
   try {
@@ -232,6 +233,57 @@ function switchCharacter(){
  screen='roles';
  render();
 }
+/* First-time orientation is deliberately separate from gameplay state.
+ * Existing saved characters resume without interruption, and no tutorial
+ * action modifies the character's statistics, choices, or saved screen.
+ */
+let tutorialEntryMode=null;
+function hasSeenTutorial(){
+ try{return localStorage.getItem(TUTORIAL_KEY)==='seen';}catch(error){return false;}
+}
+function hasAnySavedRole(){
+ return ['evelyn','marcus','daniel'].some(role=>!!readRoleSave(role));
+}
+function needFirstRunTutorial(){
+ return !hasSeenTutorial()&&!state&&!hasAnySavedRole();
+}
+function openGameTutorial(onboarding=false){
+ const dialog=document.getElementById('game-tutorial-dialog');
+ const frame=document.getElementById('game-tutorial-frame');
+ if(!dialog||!frame||dialog.open)return;
+ tutorialEntryMode=onboarding?'onboarding':'replay';
+ frame.src='preview/tutorial-onboarding.html?embed=1&v=20261123-tutorial-v1';
+ dialog.showModal();
+ document.getElementById('game-tutorial-close').focus({preventScroll:true});
+}
+function finishGameTutorial(){
+ const mode=tutorialEntryMode;
+ tutorialEntryMode=null;
+ const frame=document.getElementById('game-tutorial-frame');
+ if(frame)frame.removeAttribute('src');
+ if(mode==='onboarding'){
+   try{localStorage.setItem(TUTORIAL_KEY,'seen');}catch(error){}
+   if(!state){screen='roles';render();}
+ }
+}
+function openStoryWithTutorial(){
+ if(needFirstRunTutorial()){openGameTutorial(true);return;}
+ screen=state?state.screen:'roles';render();
+}
+const gameTutorialDialog=document.getElementById('game-tutorial-dialog');
+if(gameTutorialDialog){
+ document.getElementById('game-tutorial-close').addEventListener('click',()=>gameTutorialDialog.close());
+ document.getElementById('help-tutorial').addEventListener('click',()=>openGameTutorial(false));
+ gameTutorialDialog.addEventListener('close',finishGameTutorial);
+ window.addEventListener('message',event=>{
+   const frame=document.getElementById('game-tutorial-frame');
+   if(event.origin!==window.location.origin||!frame||event.source!==frame.contentWindow)return;
+   if(event.data?.type!=='power-to-change-tutorial')return;
+   if(!['complete','skip'].includes(event.data.action))return;
+   if(gameTutorialDialog.open)gameTutorialDialog.close();
+ });
+}
+
 function clamp(n,min,max){return Math.min(max,Math.max(min,n));}
 function roleData(){return state?game[state.role]:null;}
 function scrollTop(){window.scrollTo({top:0,behavior:'instant'});}
@@ -358,7 +410,7 @@ function makeButton(label,handler,classes='btn btn-primary'){
 function renderCover(){
  app.innerHTML=`<div class="chapter-cover"><section class="cover-copy"><p class="eyebrow">BOOK ONE · THE MONTGOMERY BUS BOYCOTT</p><h1 class="hero-title">381 <em>Days.</em></h1><p class="lede">One city. Three lives. A movement that changes history.</p><p class="lede">Step into Montgomery in December 1955. Your choices shape a person's relationships, security, and place in a larger struggle—but history was never made by one person alone.</p><div class="cover-actions" id="cover-actions"></div><p class="disclaimer">Historical fiction: playable characters and dialogue are invented. Major events and historical documents are drawn from the documented Montgomery Bus Boycott. All five chapters are playable. Your decisions shape your character's story, while documented history remains unchanged.</p></section><div class="collage" aria-hidden="true"><div class="collage-sheet"><p class="date">MONTGOMERY · 1955</p><div class="big-type">THE<br>LONG<br>WALK</div></div><div class="collage-polaroid"><div class="polaroid-illustration"></div><span class="polaroid-caption">ORDINARY DAYS. EXTRAORDINARY DECISIONS.</span></div><div class="collage-note"><p>What would<br>you have<br>done?</p></div><div class="tape"></div><div class="round-seal">FILE<br>NO. 01</div></div></div>`;
  const actions=document.getElementById('cover-actions');
- actions.append(makeButton(state?'Continue your story →':'Open the story →',()=>{screen=state?state.screen:'roles';render()}));
+ actions.append(makeButton(state?'Continue your story →':'Open the story →',openStoryWithTutorial));
  if(state)actions.append(makeButton('Choose another character →',switchCharacter,'btn btn-secondary'));
 }
 function renderRoles(){
