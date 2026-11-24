@@ -853,7 +853,7 @@ function openMarcusDavidScene(){
  const dialog=document.getElementById('vn-marcus-dialog');
  const frame=document.getElementById('vn-marcus-frame');
  if(!dialog||!frame)return;
- frame.src='vn-marcus-david.html?v=20261117-approved-art-v1';
+ frame.src='vn-marcus-david.html?v=20261124-portrait-headroom-v1';
  if(!dialog.open)dialog.showModal();
 }
 function onMarcusDavidSceneDone(event){
@@ -923,7 +923,7 @@ function openDanielBennettScene(){
  const dialog=document.getElementById('vn-daniel-ch1-dialog');
  const frame=document.getElementById('vn-daniel-ch1-frame');
  if(!dialog||!frame)return;
- frame.src='vn-daniel-bennett-ch1.html?v=20261117-approved-art-v1';
+ frame.src='vn-daniel-bennett-ch1.html?v=20261124-portrait-headroom-v1';
  if(!dialog.open)dialog.showModal();
 }
 function onDanielBennettSceneDone(event){
@@ -973,7 +973,7 @@ function openEvelynRuthScene(){
  const dialog=document.getElementById('vn-dialog');
  const frame=document.getElementById('vn-frame');
  if(!dialog||!frame)return;
- frame.src='vn-evelyn-ruth.html?v=20261117-approved-art-v1';
+ frame.src='vn-evelyn-ruth.html?v=20261124-portrait-headroom-v1';
  if(!dialog.open)dialog.showModal();
 }
 function onEvelynRuthSceneDone(event){
@@ -1265,7 +1265,7 @@ function startIllustratedScene(key){
  if(!scene||!state||illustratedSceneKey()!==key||!ptcVNDialog||ptcVNDialog.open)return;
  const choices=state.choices||{};
  const args=new URLSearchParams({
-  v:'20261118-full-vn-v1',
+  v:'20261124-portrait-headroom-v1',
   first:choices.ch1||'',second:choices.ch2||'',third:choices.ch3||'',
   fourth:choices.ch4||'',talk:choices.ch3talk||'',prep:choices.ch2prep||'',
   rel:String(state.role==='marcus'?(state.relationships.david||0):(state.role==='evelyn'?(state.relationships.lottie||0):(state.relationships.sarah||0)))
