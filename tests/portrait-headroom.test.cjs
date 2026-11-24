@@ -30,7 +30,8 @@ test('all eight legacy illustrated conversations share lower picture frames and 
   assert.match(h,/object-fit:cover;object-position:center top;/,'full face/hair: '+f);
   assert.doesNotMatch(h,/object-position:center (?:20|24)%/,'legacy override must not crop the hair: '+f);
   assert.match(h,/\.portrait\{bottom:22%;width:36%;height:32%;border-width:4px\}/,'responsive shift: '+f);
-  assert.match(h,/\.portrait-label\{position:absolute;/,'nameplate retained: '+f);
+  assert.match(h,/\.portrait-label\{position:absolute;bottom:32%;/,'desktop nameplates clear the text box: '+f);
+  assert.match(h,/\.portrait-label\{bottom:36%;font-size:9px;padding:5px\}/,'mobile nameplates clear the text box: '+f);
   assert.match(h,/\.portrait\.active/,'active/inactive appearance retained: '+f);
   if(f.startsWith('vn-daniel'))assert.match(h,/height:35%;bottom:24%/,'Daniel extra narrow case: '+f);
   const inline=[...h.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].map(m=>m[1]).filter(Boolean);
