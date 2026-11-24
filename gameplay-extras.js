@@ -1,29 +1,10 @@
 /* The Power to Change — Light Gameplay Additions, November 2026
    Optional exploration, keepsakes, activities, and discovery stamps.
    No framework. Preserves the original five-chapter decisions and save key.
-   Map is a schematic of story settings, NOT a geographic Montgomery map.
+   The optional map has been retired; keepsakes, field activities and stamps remain.
 */
 (function(){
   'use strict';
-  const places=[
-    {id:'homes',name:'Neighborhood Homes',short:'Homes',chapter:1,x:18,y:27,kind:'Fictional story setting',
-      text:'Kitchen tables, front steps, and neighbors helped sustain the boycott. These particular homes belong to our fictional characters; they are not mapped to historical addresses.'},
-    {id:'holt',name:'Holt Street Baptist Church',short:'Holt Street',chapter:1,x:48,y:17,kind:'Documented historical location',
-      text:'On December 5, 1955, thousands gathered here for the Montgomery Improvement Association’s mass meeting and supported continuing the boycott.',
-      url:'https://kinginstitute.stanford.edu/holt-street-baptist-church-montgomery-alabama'},
-    {id:'college',name:'Alabama State College',short:'College',chapter:1,x:78,y:32,kind:'Documented institution',
-      text:'Alabama State College was important to the boycott’s organizing. Jo Ann Robinson prepared leaflets with help from a network of students and others.',
-      url:'https://kinginstitute.stanford.edu/montgomery-bus-boycott'},
-    {id:'hardware',name:'Bennett’s Hardware',short:'Hardware',chapter:1,x:17,y:70,kind:'Fictional story setting',
-      text:'This invented store belongs to Daniel’s storyline. It invites players to consider how everyday work can reinforce or challenge unequal treatment.'},
-    {id:'carpool',name:'Volunteer Route Desk',short:'Route Desk',chapter:2,x:46,y:60,kind:'Illustrative organizing setting',
-      text:'The Montgomery Improvement Association coordinated an extensive carpool. This fictional planning desk represents the careful work behind the real transportation system.',
-      url:'https://kinginstitute.stanford.edu/montgomery-bus-boycott'},
-    {id:'court',name:'Federal Case Records',short:'Case File',chapter:4,x:79,y:69,kind:'Historical case, illustrative pin',
-      text:'The Browder v. Gayle plaintiffs challenged compulsory bus segregation in federal court. This pin represents the case file, not a particular courtroom address.'},
-    {id:'bus',name:'Integrated Bus Stop',short:'Bus Stop',chapter:5,x:50,y:87,kind:'Illustrative story setting',
-      text:'Montgomery buses began integrated service on December 21, 1956. This is a representative bus stop, not a claimed historical stop location.'}
-  ];
   const memories={
     evelyn:[
       ['leaflet','Folded Boycott Leaflet','A fictional copy of the leaflet Ruth asked about on the first Sunday evening.',1],
@@ -86,13 +67,12 @@
   };
   const milestones=[
     {id:'first',icon:'✳',title:'First Step',description:'Make the first major decision.',check:(s)=>!!s.choices?.ch1},
-    {id:'places',icon:'⌖',title:'Around Montgomery',description:'Explore three places on the story map.',check:(s)=>getExtras(s).visits.length>=3},
     {id:'desk',icon:'▤',title:'Hands-on History',description:'Complete an optional field activity.',check:(s)=>Object.keys(getExtras(s).activities).length>=1},
     {id:'archive',icon:'◈',title:'Archive Reader',description:'Open at least three historical documents.',check:(s)=>documentCount(s)>=3},
     {id:'keepsakes',icon:'✉',title:'Keepsake Collector',description:'Gather four story keepsakes.',check:(s)=>getMemories(s).length>=4},
     {id:'finish',icon:'★',title:'381 Days',description:'Finish the fifth chapter of one character’s story.',check:(s)=>!!s.choices?.ch5}
   ];
-  let currentState=null,saveState=null,viewer=null,section='map',selectedPlace='homes',status='';
+  let currentState=null,saveState=null,viewer=null,section='keepsakes',status='';
   const escape=(v)=>String(v).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;");
   const chapter=(s)=>Math.max(1,Math.min(5,Number(s?.chapter)||1));
   function getExtras(s){
@@ -119,7 +99,6 @@
         rows.push({id:task.souvenir[0],title:task.souvenir[1],detail:task.souvenir[2],chapter:task.chapter});
       }
     }
-    if(extra.visits.length>=3)rows.push({id:'postcard',title:'Montgomery Story Postcard',detail:'An illustrated postcard from exploring three places on the schematic story map.',chapter:chapter(s)});
     return rows;
   }
   function achievements(s){return milestones.map(x=>({...x,earned:!!x.check(s)}));}
@@ -132,7 +111,7 @@
     if(viewer)return;
     const actions=document.querySelector('.topbar-actions');
     if(!actions)return;
-    for(const [view,icon,label] of [['map','⌖','Story map'],['keepsakes','▧','Keepsakes'],['achievements','✳','Stamps']]){
+    for(const [view,icon,label] of [['keepsakes','▧','Keepsakes'],['achievements','✳','Stamps']]){
       const btn=document.createElement('button');
       btn.type='button';btn.className='icon-button extras-header-button';btn.hidden=true;
       btn.setAttribute('aria-label','Open '+label.toLowerCase());
@@ -143,8 +122,8 @@
     }
     viewer=document.createElement('dialog');
     viewer.className='extras-dialog';viewer.id='gameplay-extras';
-    viewer.setAttribute('aria-label','Explore Montgomery, keepsakes, field activities and achievements');
-    viewer.innerHTML='<div class="extras-shell"><div class="extras-head"><div><p class="extras-eyebrow">THE POWER TO CHANGE · PERSONAL ARCHIVE</p><h2 id="extras-title">Explore Montgomery</h2></div><button class="extras-close" type="button" aria-label="Close exploration panel">×</button></div><nav class="extras-nav" aria-label="Exploration menu"></nav><div class="extras-body" id="extras-body"></div></div>';
+    viewer.setAttribute('aria-label','Keepsakes, field activities and discovery stamps');
+    viewer.innerHTML='<div class="extras-shell"><div class="extras-head"><div><p class="extras-eyebrow">THE POWER TO CHANGE · PERSONAL ARCHIVE</p><h2 id="extras-title">Your Keepsakes</h2></div><button class="extras-close" type="button" aria-label="Close exploration panel">×</button></div><nav class="extras-nav" aria-label="Exploration menu"></nav><div class="extras-body" id="extras-body"></div></div>';
     document.body.append(viewer);
     viewer.querySelector('.extras-close').addEventListener('click',()=>viewer.close());
     viewer.addEventListener('click',ev=>{if(ev.target===viewer)viewer.close()});
@@ -170,7 +149,7 @@
     if(!sidebar||sidebar.querySelector('.extras-side-card'))return;
     const el=document.createElement('div');
     el.className='extras-side-card';
-    el.innerHTML='<p class="side-label">EXPLORE THE STORY</p><p>A schematic city map, keepsakes, and discovery stamps.</p><button type="button" class="extras-side-link" data-extra-side="map">OPEN THE MAP ↗</button>';
+    el.innerHTML='<p class="side-label">YOUR STORY RECORD</p><p>Collect story keepsakes and discover what your choices leave behind.</p><button type="button" class="extras-side-link" data-extra-side="keepsakes">VIEW KEEPSAKES ↗</button>';
     if([2,4].includes(chapter(s))){
       const id=chapter(s)===2?'route':'evidence';
       el.innerHTML+='<div class="extras-side-divider"></div><p class="side-label">OPTIONAL FIELD ACTIVITY</p><p>'+escape(challenges[id].title)+'</p><button type="button" class="extras-side-link" data-extra-side="activities">OPEN FIELD DESK ↗</button>';
@@ -194,18 +173,17 @@
   function open(view){
     if(!currentState)return;
     init();
-    section=['map','keepsakes','activities','achievements'].includes(view)?view:'map';
+    section=['keepsakes','activities','achievements'].includes(view)?view:'keepsakes';
     status='';
-    if(section==='map' && chapter(currentState)>=2 && !getExtras(currentState).visits.includes(selectedPlace))selectedPlace='carpool';
     draw();
     if(!viewer.open)viewer.showModal();
   }
   function draw(){
     if(!viewer||!currentState)return;
-    const names={map:'Explore Montgomery',keepsakes:'Your Keepsakes',activities:'The Field Desk',achievements:'Discovery Stamps'};
+    const names={keepsakes:'Your Keepsakes',activities:'The Field Desk',achievements:'Discovery Stamps'};
     viewer.querySelector('#extras-title').textContent=names[section];
     const nav=viewer.querySelector('.extras-nav');
-    nav.innerHTML=[['map','⌖ Map'],['keepsakes','▧ Keepsakes'],['activities','◫ Field Desk'],['achievements','✳ Stamps']].map(([id,label])=>
+    nav.innerHTML=[['keepsakes','▧ Keepsakes'],['activities','◫ Field Desk'],['achievements','✳ Stamps']].map(([id,label])=>
       '<button type="button" class="extras-tab'+(id===section?' is-active':'')+'" data-extras-tab="'+id+'" aria-pressed="'+(id===section?'true':'false')+'">'+label+'</button>'
     ).join('');
     nav.querySelectorAll('[data-extras-tab]').forEach(btn=>btn.addEventListener('click',()=>{
@@ -213,34 +191,8 @@
     }));
     const area=viewer.querySelector('#extras-body');
     const notice=status?'<p role="status" class="extras-notice">'+escape(status)+'</p>':'';
-    area.innerHTML=notice+(section==='map'?drawMap():section==='keepsakes'?drawKeepsakes():section==='activities'?drawActivities():drawAchievements());
-    if(section==='map')bindMap(area);
+    area.innerHTML=notice+(section==='keepsakes'?drawKeepsakes():section==='activities'?drawActivities():drawAchievements());
     if(section==='activities')bindActivities(area);
-  }
-  function drawMap(){
-    const ch=chapter(currentState),extra=getExtras(currentState);
-    const available=places.filter(p=>p.chapter<=ch);
-    if(!available.some(p=>p.id===selectedPlace))selectedPlace=available[0].id;
-    const chosen=places.find(p=>p.id===selectedPlace)||available[0];
-    const pins=available.map(p=>'<button type="button" class="story-map-pin'+(selectedPlace===p.id?' is-selected':'')+(extra.visits.includes(p.id)?' is-visited':'')+'" data-map-place="'+p.id+'" style="left:'+p.x+'%;top:'+p.y+'%" title="'+escape(p.name)+'" aria-label="Explore '+escape(p.name)+'"><span class="map-pin-symbol">✳</span><span class="map-pin-label">'+escape(p.short)+'</span></button>').join('');
-    const legend=available.map(p=>'<button type="button" class="map-legend-button'+(selectedPlace===p.id?' selected':'')+'" data-map-place="'+p.id+'">'+(extra.visits.includes(p.id)?'✓ ':'○ ')+escape(p.name)+'</button>').join('');
-    return '<p class="extras-intro">Explore a few story settings in any order. New places unlock as the historical timeline advances. This map is <strong>schematic and not to scale</strong>; fictional locations and pin positions are illustrative, not historical addresses.</p>'+
-      '<div class="story-map-board"><div class="map-road map-road-a"></div><div class="map-road map-road-b"></div><div class="map-road map-road-c"></div><div class="map-crossing"></div><span class="map-watermark">MONTGOMERY · 1955–56</span>'+pins+'</div>'+
-      '<div class="map-legend">'+legend+'</div><div class="map-discovery"><p class="extras-eyebrow">'+escape(chosen.kind)+' · '+(extra.visits.includes(chosen.id)?'VISITED':'NEW DISCOVERY')+'</p><h3>'+escape(chosen.name)+'</h3><p>'+escape(chosen.text)+'</p>'+(chosen.url?'<a href="'+chosen.url+'" target="_blank" rel="noopener noreferrer">READ THE HISTORICAL SOURCE ↗</a>':'')+'</div>'+
-      '<p class="extras-footer">'+extra.visits.filter(id=>places.some(p=>p.id===id)).length+' of '+places.length+' story settings discovered · Exploring does not alter your character’s decisions.</p>';
-  }
-  function bindMap(area){
-    area.querySelectorAll('[data-map-place]').forEach(btn=>btn.addEventListener('click',()=>{
-      const id=btn.getAttribute('data-map-place');
-      const item=places.find(p=>p.id===id&&p.chapter<=chapter(currentState));
-      if(!item)return;
-      selectedPlace=id;
-      const visits=getExtras(currentState).visits;
-      if(!visits.includes(id)){
-        visits.push(id);notify('Discovered '+item.name+' · A new story-map note was recorded.');persist();
-      }else status='';
-      draw();
-    }));
   }
   function drawKeepsakes(){
     const items=getMemories(currentState);
@@ -284,5 +236,5 @@
     return '<p class="extras-intro">These stamps recognize curiosity, exploration, and completing the story. They are <strong>not grades or measures of morality</strong>, and no ending requires collecting them.</p>'+
       '<div class="extras-counter">'+count+' of '+a.length+' discovery stamps</div><div class="extras-stamp-grid">'+items+'</div>';
   }
-  window.GameplayExtras={render,open,places,memories,achievements,getMemories,documentCount};
+  window.GameplayExtras={render,open,memories,achievements,getMemories,documentCount};
 })();
