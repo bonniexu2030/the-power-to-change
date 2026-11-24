@@ -17,14 +17,15 @@
   <script src="gameplay-extras.js?v=20261117-light-gameplay-v1" defer></script>
   <script src="artwork/portraits.js?v=20261117-approved-art-v1"></script>
   <link rel="stylesheet" href="poetic-final-overlay.css?v=20261123-parchment-nine-v2">
-  <script src="game.js?v=20261123-parchment-nine-v2" defer></script>
+  <link rel="stylesheet" href="game-tutorial.css?v=20261123-tutorial-v1">
+  <script src="game.js?v=20261123-tutorial-v1" defer></script>
 </head>
 <body>
   <div class="grain" aria-hidden="true"></div>
   <header class="topbar">
     <a class="brand" href="index.html" title="Return to The Power to Change homepage"><span class="brand-star">✳</span><span>THE POWER<br>TO CHANGE</span></a>
     <div class="topbar-mid"><span class="small-caps">AN INTERACTIVE HISTORY OF RESISTANCE</span><span class="topbar-divider">/</span><span class="small-caps">BOOK 01</span></div>
-    <div class="topbar-actions"><button id="open-cast" class="icon-button" type="button" aria-label="Meet all ten characters" aria-haspopup="dialog"><span aria-hidden="true">♙</span><span class="button-label">Characters</span></button><button id="change-character" class="icon-button character-switch" type="button" aria-label="Return to character selection" hidden><span aria-hidden="true">↶</span><span class="button-label">Change Character</span></button><button id="open-journal" class="icon-button" type="button" aria-label="Open your character journal" hidden><span aria-hidden="true">▤</span><span class="button-label">Journal</span></button><a href="index.html" class="exit-link">← THE ARCHIVE</a></div>
+    <div class="topbar-actions"><button id="help-tutorial" class="icon-button" type="button" aria-label="Open Help and interactive tutorial" title="Help / Tutorial"><span aria-hidden="true">?</span><span class="button-label">Help / Tutorial</span></button><button id="open-cast" class="icon-button" type="button" aria-label="Meet all ten characters" aria-haspopup="dialog"><span aria-hidden="true">♙</span><span class="button-label">Characters</span></button><button id="change-character" class="icon-button character-switch" type="button" aria-label="Return to character selection" hidden><span aria-hidden="true">↶</span><span class="button-label">Change Character</span></button><button id="open-journal" class="icon-button" type="button" aria-label="Open your character journal" hidden><span aria-hidden="true">▤</span><span class="button-label">Journal</span></button><a href="index.html" class="exit-link">← THE ARCHIVE</a></div>
   </header>
   <main id="app" class="app" aria-live="off"></main>
   <footer class="bottom-bar"><span>381 DAYS · MONTGOMERY, ALABAMA · 1955–1956</span><span>FICTIONAL CHARACTERS · DOCUMENTED HISTORY</span></footer>
@@ -246,6 +247,13 @@
       <button type="button" id="poetic-final-close" class="poetic-toolbar-button">← Back to epilogue</button>
       <button type="button" id="poetic-final-other" class="poetic-toolbar-button">Explore another perspective →</button>
     </div>
+  </dialog>
+  <dialog id="game-tutorial-dialog" class="game-tutorial-dialog" aria-label="How to play — interactive tutorial">
+    <div class="tutorial-modal-bar">
+      <span>ARCHIVE FILE 00 · HOW TO PLAY</span>
+      <button type="button" id="game-tutorial-close" aria-label="Close tutorial and return to the game">× Close tutorial</button>
+    </div>
+    <iframe id="game-tutorial-frame" title="Four-step interactive how-to-play tutorial" loading="eager"></iframe>
   </dialog>
   <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
 </body>
