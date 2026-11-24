@@ -59,3 +59,17 @@ The creator **does not approve the first version** of the mockup. They supplied 
 - This update is a **second iteration, awaiting creator visual review**, not final approved gameplay.
 - Source visual reference was attached by the creator in the conversation. The mockup uses editable SVG/CSS floral decorations to interpret that look; these are *not* exact image textures from the attachment.
 - Preview continues to be `https://bonniexu2030.github.io/the-power-to-change/preview/poetic-book-ending.html`; no changes to main game and no final narration/music selected.
+
+## Physical book-motion reference — latest revision (November 23, 2026)
+
+**User's latest creative request:** simplify the cover by **removing the ornate/decorative botanical outline on the *front cover*** and keeping only **one clean square rectangular gold border** around the traditional antique book title. Keep the vintage burgundy cloth/aged binding feel and the reduced quote size. The user uploaded `istockphoto-1180809193-640_adpp_is.mp4` as a **motion reference**. The attached 15.3-second stock video shows the *continuous physical action of paper leaves fanning/settling into a book until a hard cover lays down*, then repeating. **The video is reference material only and was not copied or embedded into the site**.
+
+**Animation refactor in the same standalone mockup:**
+- Replaced the disconnected book-fade/cover-fade with **one physically attached front board**: the book's left leaf has a reverse-facing cover that turns around the shared spine with a smooth eased `rotateY` closure.
+- Added **six small paper leaves** that rotate one after another to mimic the staggered fan visible in the supplied stock clip, before the heavier cover settles on them.
+- Eliminated the separate floating cover overlay; the book shifts toward the center as it closes.
+- Simplified front appearance to **one square rectangular gold border and historically styled lettering**; no floral border around the cover. Botanical page decorations remain, as the request concerned the *front cover*.
+- Retained the warm paper pages, reflective quotation and 15%-smaller cursive quote; automatic animation now approximately **16 seconds**, with pause/replay/skip and reduced-motion controls.
+- Source is editable HTML/CSS/JS in `preview/poetic-book-ending.html`; the playable game is still unchanged.
+
+**QA limits:** Code syntax and exact DOM-style presence confirmed through GitHub. New animation is a hand-implemented simulation of the reference's feel, **not a frame-for-frame match or licensed reuse**, and awaits the creator's live browser review for smoothness. Browser screenshot/visual QA of the live revision has not yet been independently completed.
