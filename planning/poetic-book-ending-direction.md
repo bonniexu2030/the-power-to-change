@@ -73,3 +73,25 @@ The creator **does not approve the first version** of the mockup. They supplied 
 - Source is editable HTML/CSS/JS in `preview/poetic-book-ending.html`; the playable game is still unchanged.
 
 **QA limits:** Code syntax and exact DOM-style presence confirmed through GitHub. New animation is a hand-implemented simulation of the reference's feel, **not a frame-for-frame match or licensed reuse**, and awaits the creator's live browser review for smoothness. Browser screenshot/visual QA of the live revision has not yet been independently completed.
+
+## Simplified full-screen parchment ending — creator's latest approved concept
+
+The creator **rejected the book-closing animation entirely** after several drafts. Do not reintroduce a book/cover/page flip unless explicitly asked.
+
+The creator selected:
+1. **B**: antique parchment background with subtle, faint floral decorations.
+2. **D**: understated, soft typewriter-like appearance of the ending summary.
+3. **A + D**: summary fades out as a whole with a little blur.
+4. **B**: final cursive quote fades in with a gentle glow.
+5. **B**: quote lingers for about five seconds.
+6. **C**: muted dusty rose, brown, antique cream palette.
+7. **A**: summary text → fade out → historical quotation. **No separate opening title** on the stage.
+8. **D**: sample role doesn't matter; the standalone preview uses Evelyn as placeholder.
+
+**Production plan:** One full-screen parchment scene with SVG botanical decoration and vintage texture. Summary reveals quietly over ~4 seconds, lingers, then dims/blurs away. A smaller-than-first-draft cursive public-domain Harper quotation fades in and glows subtly, lingering ~5 seconds. No book props, character animation, or embedded stock video. Keep main gameplay unaffected.
+
+**Implemented mockup:** `preview/poetic-book-ending.html` overwritten with the new HTML/CSS/JS version (same public GitHub Pages address). Includes silent automatic playback (~15 s), Replay, Pause, Skip to quote, and reduced-motion support. It is **not yet integrated into the game's nine endings** and awaits user's review.
+
+**Historical quote:** Frances Ellen Watkins Harper, `We Are All Bound Up Together` (1866), source link embedded in preview; character summary is original draft, not from an archival source.
+
+**Quality:** Verified repository contains correct markup and JavaScript syntax; GitHub Pages build to be checked. Browser screenshot/visual review from actual user is still outstanding.
