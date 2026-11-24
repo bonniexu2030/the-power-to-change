@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#eae0cf">
+<meta name="description" content="Interactive how-to-play tutorial design preview for The Power to Change.">
+<title>The Power to Change — Tutorial Design Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#302b25;--muted:#73695e;--paper:#f5eddd;--cream:#fbf7ee;--sand:#ded0b8;--accent:#8a3e35;--olive:#717858;--line:#bba98e;--gold:#a58a60}
+*{box-sizing:border-box}
+html{min-height:100%;background:#e8ddca}
+body{min-height:100vh;margin:0;color:var(--ink);background:radial-gradient(ellipse at 50% 15%,#faf4e9 0%,#e5d9c5 75%,#d8c8ac);font:16px/1.55 Georgia,serif}
+button,a{font:inherit}button{cursor:pointer}
+button:disabled{cursor:not-allowed;opacity:.55}
+button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+button:hover:not(:disabled){filter:brightness(.965)}
+button:active:not(:disabled){transform:translateY(1px)}
+a{color:var(--accent)}
+.shell{max-width:1160px;margin:0 auto;padding:clamp(12px,3vw,32px)}
+.masthead{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding:4px 0 18px;border-bottom:1px solid #ab987e}
+.brand{display:flex;gap:12px;align-items:center;text-decoration:none;color:#45352a}
+.brand-mark{width:45px;height:45px;border:1px solid #8a5141;display:grid;place-items:center;font:600 31px/1 "Cormorant Garamond",serif;color:#8b4035}
+.brand strong{font:700 15px/1.05 "Cormorant Garamond",serif;letter-spacing:.14em;text-transform:uppercase}
+.mast-caption{font:10px/1.5 "DM Mono",monospace;letter-spacing:.12em;color:#776654;text-transform:uppercase}
+.tools{display:flex;gap:8px;align-items:center}
+.plain{background:#f8f0e3;border:1px solid #b9a58a;color:#604438;border-radius:3px;padding:9px 12px;font:12px/1.25 "DM Mono",monospace}
+.plain[aria-pressed="true"]{background:#e8d4bf;border-color:#9a6d58}
+.hero{display:flex;align-items:start;justify-content:space-between;gap:14px;padding:22px 2px 16px}
+.overline{font:11px/1.5 "DM Mono",monospace;letter-spacing:.17em;text-transform:uppercase;color:#7f5747}
+h1{font:600 clamp(35px,5vw,61px)/.95 "Cormorant Garamond",Georgia,serif;letter-spacing:-.014em;margin:5px 0 6px}
+.tagline{font:16px/1.6 "Cormorant Garamond",serif;color:#665749;margin:2px 0}
+.stamp{font:500 11px/1.4 "DM Mono",monospace;white-space:nowrap;border:2px double #9f6448;color:#995a42;padding:12px;transform:rotate(4deg);letter-spacing:.05em;text-align:center;align-self:center}
+.progress-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid #c8b59b;background:#e9deca;padding:5px;gap:5px}
+.progress-step{border:0;background:transparent;color:#766653;font:11px/1.35 "DM Mono",monospace;padding:10px 6px;letter-spacing:.01em;text-align:center;border-radius:2px;cursor:pointer}
+.progress-step[aria-current="step"]{background:#f8f1e6;color:#7d3930;box-shadow:0 1px 4px #3d33201f}
+.progress-step .num{display:inline-block;border:1px solid currentColor;border-radius:100%;min-width:23px;height:23px;line-height:21px;margin-right:6px}
+.progress-step.done .num{color:#366347;border-color:#63846c}
+.workspace{display:grid;grid-template-columns:minmax(240px,.78fr) minmax(0,1.35fr);min-height:480px;background:var(--cream);box-shadow:0 11px 36px #574b3340;border:1px solid #b8a68c;margin-top:16px;position:relative;overflow:hidden}
+.workspace:before{content:"";position:absolute;top:0;bottom:0;left:0;right:0;pointer-events:none;z-index:10;opacity:.18;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.16' numOctaves='3' seed='10' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' opacity='.09' filter='url(%23g)'/%3E%3C/svg%3E")}
+.guide{padding:clamp(23px,3.5vw,44px);background:linear-gradient(146deg,#f0e3cb,#e7d6bb 90%);border-right:1px solid #b9a588;display:flex;flex-direction:column;min-height:480px}
+.guide-label{font:10px/1.5 "DM Mono",monospace;letter-spacing:.14em;color:#8b5948;text-transform:uppercase}
+.guide h2{font:600 clamp(31px,4vw,46px)/.98 "Cormorant Garamond",serif;margin:15px 0 15px;color:#3d322a}
+.guide p{font:16px/1.67 "Cormorant Garamond",Georgia,serif;margin:0 0 12px;max-width:39ch}
+.guide em{color:#784339}
+.guide-note{margin-top:auto;border-top:1px solid #bba785;padding-top:17px;font:12px/1.7 Georgia,serif;color:#665442}
+.guide-note:before{content:"NOTE FROM THE ARCHIVIST";display:block;font:10px/1.7 "DM Mono",monospace;color:#8b5948;letter-spacing:.1em;margin-bottom:5px}
+.motif{display:flex;align-items:center;gap:12px;opacity:.75;font:14px "Caveat",cursive;color:#77654e}
+.motif:before,.motif:after{content:"";height:1px;background:#aa9775;flex:1}
+.demo{position:relative;min-width:0;padding:clamp(20px,3vw,38px);background:linear-gradient(110deg,#fff9ee,#f7edda);display:flex;flex-direction:column}
+.demo-header{display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid #d4c5ad;padding-bottom:12px;margin-bottom:18px}
+.demo-kicker{font:11px/1.4 "DM Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:#836b53}
+.demo-status{font:10px/1.3 "DM Mono",monospace;color:#776c5b}
+.demo-main{flex:1;display:flex;flex-direction:column;justify-content:center}
+.demo-main h3{font:600 clamp(27px,3.4vw,40px)/1.04 "Cormorant Garamond",serif;margin:0 0 12px}
+.demo-main p{line-height:1.55;color:#64564a;margin:5px 0 13px}
+.handwriting{font:500 clamp(25px,3vw,37px)/1.2 "Caveat",cursive;color:#8d493d;margin:8px 0 14px}
+.antique-card{background:linear-gradient(125deg,#fffaf0,#f0e2c9);border:1px solid #c8b292;box-shadow:0 4px 0 #d4c2a5,4px 6px 14px #4d371c16;padding:clamp(17px,2.3vw,26px);position:relative}
+.antique-card:before{content:"";position:absolute;inset:7px;border:1px solid #cfbea68e;pointer-events:none}
+.scenario{background:#f3ead9;border:1px solid #cab69a;padding:22px;min-height:235px;position:relative;display:flex;flex-direction:column;justify-content:space-between}
+.speaker{font:10px/1.5 "DM Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:#8a4438;margin-bottom:10px}
+.dialogue{font:500 clamp(24px,3.25vw,37px)/1.22 "Cormorant Garamond",Georgia,serif;min-height:110px;color:#46382e}
+.controls-row{display:flex;align-items:center;flex-wrap:wrap;justify-content:space-between;gap:8px;margin-top:14px}
+.btn{border:1px solid #a58f71;background:#fff8ed;color:#554436;padding:10px 14px;border-radius:3px;font:12px/1.35 "DM Mono",monospace}
+.btn-primary{background:#8c4138;border-color:#76372e;color:#fff9ed}
+.btn-small{font-size:11px;padding:8px 10px}
+.btn-dark{background:#514b43;color:#fff8e9;border-color:#514b43}
+.btn-outline{background:transparent}
+.btn:disabled{opacity:.43}
+.helper{margin:12px 0 0!important;color:#785b49!important;font:12px/1.6 Georgia,serif!important}
+.preview-tag{display:inline-flex;align-items:center;gap:8px;font:10px/1.45 "DM Mono",monospace;color:#856b52;text-transform:uppercase;letter-spacing:.06em}
+.pill{display:inline-block;background:#efe2c9;border:1px solid #cdb89a;padding:5px 9px;font:10px "DM Mono",monospace;color:#6e5441}
+.choice-box{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.choice{border:1px solid #c0ad8f;padding:15px;text-align:left;background:#fff9f0;color:#4c3c30;min-height:110px;font:15px/1.45 "Cormorant Garamond",Georgia,serif;border-radius:2px}
+.choice strong{display:block;font:10px "DM Mono",monospace;color:#8a4d3a;margin-bottom:10px}
+.choice.active{border:2px solid #8c4c3c;background:#f4e5d4;padding:14px;box-shadow:0 0 0 3px #caa9874d}
+.score-list{display:grid;gap:9px}
+.score-row{display:grid;grid-template-columns:120px minmax(0,1fr) 46px;gap:10px;align-items:center}
+.score-row label{font:11px/1.25 Georgia,serif;color:#6a5848}
+.track{background:#dfd2bf;height:8px;position:relative;border-radius:10px;overflow:hidden}
+.fill{height:100%;background:#9f6750;width:50%;border-radius:10px;transition:width .65s ease}
+.fill.network{background:#7c8b69}.fill.contribution{background:#6e7889}
+.score-value{font:11px "DM Mono",monospace;color:#665649;text-align:right}
+.change{color:#7e4636;font:11px/1.4 "DM Mono",monospace;min-height:19px;margin:10px 0 0}
+.try-tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:8px 0 16px}
+.tool-btn{border:1px solid #bda88c;background:#fff9ed;padding:14px 10px;text-align:left;min-height:66px;color:#5e4c3f;display:flex;flex-direction:column;gap:6px}
+.tool-btn span{font:10px "DM Mono",monospace;color:#876653}
+.tool-btn strong{font:600 20px "Cormorant Garamond",serif}
+.tool-btn[aria-pressed="true"]{border-color:#874e3d;background:#f2e0cd}
+.panel{border:1px solid #c6b095;background:#fff8e9;padding:18px;min-height:145px}
+.panel h4{font:600 25px "Cormorant Garamond",serif;margin:0 0 5px}
+.panel p{font:14px/1.6 Georgia,serif;margin:2px 0 6px}
+.panel .mini{font-size:12px;color:#745f4e}
+.mini-meter{display:flex;align-items:center;gap:9px;margin:6px 0;font:12px Georgia,serif}
+.mini-meter span{min-width:94px}
+.mini-meter b{font-weight:normal;color:#9c5744}
+.mock-role-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}
+.mock-role{border:1px solid #ae987f;padding:7px 9px;background:#fff9ee;font-size:12px}
+.mock-archive{border-left:2px solid #a37359;padding-left:12px;font-size:13px}
+.bottom-nav{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:15px 0 8px}
+.bottom-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.small-note{max-width:600px;font-size:13px;line-height:1.65;color:#736153;margin:12px 0}
+.selection{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.selection article{min-height:142px;background:#f7e9d3;border:1px solid #bda68b;padding:14px}
+.selection article span{font:10px "DM Mono",monospace;color:#935b46}
+.selection article strong{display:block;font:600 26px/1 "Cormorant Garamond",serif;margin:8px 0}
+.selection article p{font:13px/1.4 Georgia,serif}
+.tiny-divider{height:1px;background:#d1bea4;margin:10px 0}
+.footer-meta{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;color:#756653;font:11px/1.6 "DM Mono",monospace;padding:15px 0}
+.footer-meta a{text-decoration:underline}
+[hidden]{display:none!important}
+.demo-popover{border:1px solid #b8a486;background:#faf0df;padding:13px;margin-top:10px;box-shadow:0 7px 15px #594d3c1e;color:#594738}
+.demo-popover h4{font:600 24px "Cormorant Garamond",serif;margin:0}
+.demo-popover p{font:13px/1.5 Georgia,serif;margin:5px 0}
+@media(max-width:780px){
+ .workspace{grid-template-columns:1fr}.guide{min-height:unset;border-right:0;border-bottom:1px solid #b9a588;padding:25px}.guide h2{margin:5px 0;font-size:35px}.guide-note{margin-top:14px}.demo{min-height:420px}.stamp{display:none}
+ .masthead{align-items:start}
+}
+@media(max-width:500px){
+ .shell{padding:10px}.masthead{padding:8px 0 12px}.brand strong{font-size:12px}.brand-mark{height:38px;width:38px}.top{gap:8px}.tools .plain{font-size:10px;padding:7px}.mast-caption{display:none}
+ .hero{padding:14px 2px}.hero h1{font-size:38px}.progress-step{font-size:9px;padding:8px 0}.progress-step .num{display:block;margin:0 auto 3px}
+ .demo{padding:19px}.demo-main h3{font-size:30px}.choice-box{grid-template-columns:1fr}.choice{min-height:80px}.selection{grid-template-columns:1fr}
+ .score-row{grid-template-columns:97px minmax(0,1fr) 42px;gap:7px}
+ .footer-meta{font-size:10px}.bottom-nav{flex-direction:column-reverse;align-items:stretch}.bottom-actions{justify-content:stretch}.bottom-actions .btn{flex:1}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="shell">
+ <header class="masthead">
+  <a class="brand" href="../game.html" title="Return to the playable game"><span class="brand-mark" aria-hidden="true">T</span><strong>THE POWER<br>TO CHANGE</strong></a>
+  <span class="mast-caption">ARCHIVE TRAINING DESK / FILE 00<br>MONTGOMERY, 1955–1956</span>
+  <div class="tools">
+   <button class="plain" id="music" type="button" aria-pressed="false" title="Original ambient music, optional">♪ Music off</button>
+   <button class="plain" id="skip" type="button">Skip tutorial ↗</button>
+  </div>
+ </header>
+ <section class="hero">
+  <div><span class="overline">THE POWER TO CHANGE · BEFORE YOU BEGIN</span><h1>How to read the record.</h1>
+   <p class="tagline">Four brief lessons. A little practice. Then the story belongs to you.</p></div>
+  <span class="stamp" aria-hidden="true">FILE 00<br>HOW TO PLAY</span>
+ </section>
+ <nav class="progress-nav" aria-label="Tutorial steps">
+  <button class="progress-step" data-step="0" type="button"><span class="num">01</span>Welcome</button>
+  <button class="progress-step" data-step="1" type="button"><span class="num">02</span>Conversations</button>
+  <button class="progress-step" data-step="2" type="button"><span class="num">03</span>Decisions</button>
+  <button class="progress-step" data-step="3" type="button"><span class="num">04</span>Your tools</button>
+ </nav>
+ <section class="workspace" aria-label="Interactive tutorial practice desk">
+  <aside class="guide" aria-live="polite">
+    <div class="guide-label" id="guide-step">ARCHIVIST'S INTRODUCTION / 01 OF 04</div>
+    <h2 id="guide-heading">History is made in the ordinary moments.</h2>
+    <div id="guide-copy"></div>
+    <div class="guide-note" id="guide-note">The three playable characters are fictional. Their decisions unfold within the documented Montgomery Bus Boycott.</div>
+  </aside>
+  <div class="demo">
+    <div class="demo-header"><span class="demo-kicker" id="demo-kicker">OPEN FILE · INSTRUCTIONS</span><span class="demo-status" id="demo-status">TRAINING DESK / DEMO ONLY</span></div>
+    <div class="demo-main" id="demo-main" aria-live="polite"></div>
+  </div>
+ </section>
+ <footer class="bottom-nav">
+  <button type="button" class="btn btn-outline" id="back">← Previous lesson</button>
+  <div class="bottom-actions"><span class="demo-status" id="progress-copy">LESSON 01 / 04</span><button type="button" class="btn btn-primary" id="continue">Open the file →</button></div>
+ </footer>
+ <div class="footer-meta"><span>STANDALONE DESIGN PREVIEW · DOES NOT CHANGE YOUR SAVE</span><span><a href="../game.html">Return to playable game</a> · Music plays only if switched on.</span></div>
+</div>
+<script>
+(()=>{
+  'use strict';
+  const $=id=>document.getElementById(id);
+  const lessonNames=['Welcome','Conversations','Decisions','Your tools'];
+  const guides=[
+    {
+     tag:"ARCHIVIST'S INTRODUCTION / 01 OF 04",
+     heading:"History is made in the ordinary moments.",
+     html:"<p>Welcome to the Montgomery file. You'll follow one of three fictional people as a real historical movement unfolds.</p><p>Choices matter here. They can change a person's <em>security, connections, and contributions</em>—not erase the history that brought everyone to this moment.</p>",
+     note:"The boycott's milestones and archival sources are grounded in history. Evelyn, Marcus, Daniel, and their personal scenes are fictional."
+    },
+    {
+     tag:"FIELD NOTES / 02 OF 04",
+     heading:"Listen before you decide.",
+     html:"<p>Each chapter includes an illustrated conversation. Use <em>Continue</em> to move forward, <em>Back</em> to revisit a line, and <em>Skip Scene</em> to go straight to the choice.</p><p>Try those controls on this sample exchange. The text is demonstration dialogue, not a scene from the playable story.</p>",
+     note:"Some scenes offer additional history or replay controls. Your choices are made after the conversation, not during this practice."
+    },
+    {
+     tag:"DECISION RECORD / 03 OF 04",
+     heading:"Every choice has a cost.",
+     html:"<p>Your decisions change three measures: <em>Personal Stability</em>, <em>Support Network</em>, and <em>Movement Contribution</em>. They can also affect relationships and what your character remembers.</p><p>Try one sample decision to see the meters move. You can try the alternative, too.</p>",
+     note:"These practice numbers are illustrative. Neither option changes the actual game or any saved character."
+    },
+    {
+     tag:"YOUR REFERENCE DESK / 04 OF 04",
+     heading:"Keep the record close.",
+     html:"<p>Explore the <em>Journal</em>, an historical <em>Archive</em>, <em>Characters</em>, and your <em>saved progress</em> using the buttons beside this note.</p><p>In the real game, documents are found in chapters; your Journal follows your decisions. Choose a different character without losing their progress.</p>",
+     note:"Resume continues a saved character from the browser. Restart begins only that character's story again and asks for confirmation."
+    }
+  ];
+  const dialogue=[
+   {speaker:'The archivist',text:'Before a choice, there is a story. Open the first page and listen.'},
+   {speaker:'A fictional neighbor',text:'The bus boycott begins tomorrow. Even getting to work may require help.'},
+   {speaker:'The archivist',text:'Now you can decide what a person might do. The meaning of a choice depends on their circumstances.'}
+  ];
+  const baseline={stability:50,network:50,contribution:40};
+  const options=[
+   {name:'Help organize rides for neighbors.',delta:{stability:-3,network:10,contribution:6},memory:'You helped neighbors coordinate transportation.'},
+   {name:'Walk to distribute information before work.',delta:{stability:-8,network:2,contribution:12},memory:'You volunteered time and energy to share information.'}
+  ];
+  let step=0,line=0,option=null,tool='journal',opened=new Set(),touchedDialogue=false,music=null,ctx=null,tones=[];
+  const escapeHTML=text=>String(text).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
+  const percentages=(n)=>Math.max(0,Math.min(100,n));
+  function meterRow(key,label,n,delta){
+    return '<div class="score-row"><label>'+label+'</label><div class="track"><div class="fill '+key+'" data-meter="'+key+'" style="width:'+percentages(n)+'%"></div></div><span class="score-value">'+n+'</span></div>';
+  }
+  function draw(){
+    document.querySelectorAll('.progress-step').forEach((btn,i)=>{
+      btn.setAttribute('aria-current',i===step?'step':'false');
+      btn.classList.toggle('done',i<step);
+    });
+    const g=guides[step]||guides[3];
+    $('guide-step').textContent=step<4?g.tag:"ARCHIVE TRAINING COMPLETE";
+    $('guide-heading').textContent=step<4?g.heading:"The file is yours to open.";
+    $('guide-copy').innerHTML=step<4?g.html:"<p>You know how to follow a conversation, make a meaningful decision, and consult your Journal and historical documents.</p><p>Choose a perspective in the real game when you're ready.</p>";
+    $('guide-note').textContent=step<4?g.note:"This tutorial is a preview. Your actual saved progress has not been touched, and the game has not been changed.";
+    $('progress-copy').textContent=step<4?'LESSON 0'+(step+1)+' / 04':'READY TO BEGIN';
+    $('back').disabled=step===0;
+    $('continue').textContent=step===0?'Practice the dialogue →':step===1?'Try a decision →':step===2?'Explore your tools →':step===3?'Complete tutorial →':'Return to the game ↗';
+    $('demo-status').textContent=step===4?'NO SAVE CHANGES':'TRAINING DESK / DEMO ONLY';
+    $('demo-kicker').textContent=step===0?'FILE NO. 00 · PLAYER ORIENTATION':step===1?'ILLUSTRATED CONVERSATION · PRACTICE':step===2?'MOVEMENT RECORD · PRACTICE':step===3?'PERSONAL ARCHIVE · HANDS ON':'CHARACTER FILES · PREVIEW';
+    if(step===0)renderWelcome();
+    if(step===1)renderDialogue();
+    if(step===2)renderDecision();
+    if(step===3)renderTools();
+    if(step===4)renderDone();
+  }
+  function renderWelcome(){
+    $('demo-main').innerHTML='<div class="antique-card"><div class="preview-tag">CASE FILE / BEGIN HERE</div><div class="handwriting">History is not a straight line.</div><h3>Three lives. One movement.</h3><p>This is a guided preview of how to explore The Power to Change. It will not start or reset a saved character.</p><div class="motif">Montgomery, Alabama · 1955–1956</div><div class="tiny-divider"></div><p class="helper">Select <strong>Practice the dialogue</strong> below, or use <strong>Skip tutorial</strong> to see a sample character-selection page.</p></div>';
+  }
+  function renderDialogue(){
+    const d=dialogue[line];
+    $('demo-main').innerHTML='<div class="scenario"><div><div class="speaker">'+escapeHTML(d.speaker)+' · '+(line+1)+' / '+dialogue.length+'</div><div class="dialogue">'+escapeHTML(d.text)+'</div></div>'+
+      '<div class="controls-row"><button class="btn btn-small" id="prev-line" '+(line===0?'disabled':'')+'>← Back</button>'+
+      '<button class="btn btn-small" id="history-toggle">History</button>'+
+      '<button class="btn btn-small btn-outline" id="skip-scene">Skip Scene ↗</button>'+
+      '<button class="btn btn-primary btn-small" id="next-line">'+(line===dialogue.length-1?'Finish scene →':'Continue →')+'</button></div></div>'+
+      '<p class="helper">Try <strong>Continue</strong> and <strong>Back</strong>. Use <strong>History</strong> to see earlier lines in this practice, or <strong>Skip Scene</strong> to move ahead.</p>'+
+      '<div id="history-panel" class="demo-popover" hidden><h4>Dialogue history</h4><p>'+dialogue.slice(0,line+1).map(x=>'<strong>'+escapeHTML(x.speaker)+':</strong> '+escapeHTML(x.text)).join('<br><br>')+'</p><button class="btn btn-small" id="history-close">Close history</button></div>';
+    $('prev-line').addEventListener('click',()=>{touchedDialogue=true;line=Math.max(0,line-1);renderDialogue()});
+    $('next-line').addEventListener('click',()=>{touchedDialogue=true;if(line===dialogue.length-1){step=2;draw()}else{line++;renderDialogue()}});
+    $('skip-scene').addEventListener('click',()=>{touchedDialogue=true;step=2;draw()});
+    $('history-toggle').addEventListener('click',()=>{$('history-panel').hidden=!$('history-panel').hidden;touchedDialogue=true;if(!$('history-panel').hidden)$('history-close').focus()});
+    $('history-close').addEventListener('click',()=>{$('history-panel').hidden=true;$('history-toggle').focus()});
+  }
+  function renderDecision(){
+    const effective={...baseline};
+    if(option!==null)for(const [k,delta]of Object.entries(options[option].delta))effective[k]+=delta;
+    const meters=['stability','network','contribution'].map((k,i)=>meterRow(k,['Personal Stability','Support Network','Movement Contribution'][i],effective[k],option===null?0:options[option].delta[k])).join('');
+    $('demo-main').innerHTML='<p class="preview-tag">SAMPLE CASE · NOT A PLAYABLE GAME CHOICE</p>'+
+      '<h3>How can you help tomorrow?</h3><p>A fictional neighbor asks for help preparing for the boycott. Choose a response to watch the circumstances change.</p>'+
+      '<div class="choice-box">'+options.map((x,i)=>'<button type="button" class="choice '+(option===i?'active':'')+'" data-choice="'+i+'"><strong>OPTION '+String.fromCharCode(65+i)+'</strong>'+escapeHTML(x.name)+'</button>').join('')+'</div>'+
+      '<div class="score-list">'+meters+'</div><p class="change" id="result-msg">'+(option===null?'Select an option to see how the example scores change.':escapeHTML(options[option].memory))+'</p>'+
+      '<div class="controls-row"><span class="pill">Illustrative scores, not saved</span><button class="btn btn-small" id="try-again">Reset example ↺</button></div>';
+    document.querySelectorAll('[data-choice]').forEach(btn=>btn.addEventListener('click',()=>{
+      option=Number(btn.dataset.choice);renderDecision();
+      const value=options[option].delta;
+      $('result-msg').textContent=options[option].memory+' · '+Object.entries(value).map(([k,v])=>(v>0?'+':'')+v+' '+({stability:'Stability',network:'Network',contribution:'Contribution'}[k])).join(' · ');
+    }));
+    $('try-again').addEventListener('click',()=>{option=null;renderDecision()});
+  }
+  function renderTools(){
+    const tabs=[['journal','Journal','Your choices & relationships'],['archive','Archive','Documents from history'],['characters','Characters','Meet the cast'],['saves','Resume / Restart','Keep your progress']];
+    $('demo-main').innerHTML='<p class="preview-tag">TRY THE DESK CONTROLS</p><div class="try-tools">'+tabs.map(([id,title,subtitle])=>
+      '<button class="tool-btn" type="button" data-tool="'+id+'" aria-pressed="'+(tool===id?'true':'false')+'"><strong>'+title+'</strong><span>'+subtitle+'</span></button>').join('')+'</div>'+
+      '<div class="panel" id="tool-panel"></div>'+
+      '<p class="helper" id="tool-hint">Try opening both <strong>Journal</strong> and <strong>Archive</strong>. You can explore the other controls too.</p>';
+    document.querySelectorAll('[data-tool]').forEach(btn=>btn.addEventListener('click',()=>{tool=btn.dataset.tool;opened.add(tool);document.querySelectorAll('[data-tool]').forEach(b=>b.setAttribute('aria-pressed',b===btn?'true':'false'));drawToolPanel()}));
+    opened.add(tool);drawToolPanel();
+  }
+  function drawToolPanel(){
+    const p=$('tool-panel');
+    if(tool==='journal'){
+      p.innerHTML='<h4>Your Journal</h4><p>Here you can review your three meters, relationships, and remembered decisions.</p>'+
+      '<div class="mini-meter"><span>Stability</span><b>Steady</b></div><div class="mini-meter"><span>Support Network</span><b>Steady</b></div>'+
+      '<div class="mini-meter"><span>Contribution</span><b>Growing</b></div><p class="mini">The Journal also records which historical documents you examined.</p>';
+    }else if(tool==='archive'){
+      p.innerHTML='<h4>Historical Archive</h4><p class="mock-archive">Archival record · December 1955<br><strong>Montgomery boycott leaflet</strong><br>A real movement used leaflets and shared information to coordinate collective action.</p>'+
+      '<p class="mini">Open documents from the sidebar within chapters. Some chapter decisions require examining a historical file.</p>';
+    }else if(tool==='characters'){
+      p.innerHTML='<h4>Meet the Cast</h4><p>Three playable perspectives, alongside family members, neighbors, friends, and employers.</p>'+
+      '<div class="mock-role-row"><span class="mock-role">Evelyn Brooks</span><span class="mock-role">Marcus Ellis</span><span class="mock-role">Daniel Carter</span></div>'+
+      '<p class="mini">Use the Characters button on the top navigation to revisit the character gallery.</p>';
+    }else{
+      p.innerHTML='<h4>Resume or Restart</h4><p>Progress is stored separately for each of the three characters in this browser.</p>'+
+      '<p><span class="pill">Resume</span> Pick up where you stopped. <span class="pill">Restart</span> Begin that character again after confirming.</p>'+
+      '<p class="mini">Changing perspectives does not erase a character’s progress. The real game asks before Restart.</p>';
+    }
+    const complete=opened.has('journal')&&opened.has('archive');
+    $('tool-hint').innerHTML=complete?'You have tried the <strong>Journal</strong> and <strong>Archive</strong>. The other buttons can be explored whenever you like.':'Try opening both <strong>Journal</strong> and <strong>Archive</strong>. You can explore the other controls too.';
+  }
+  function renderDone(){
+    $('demo-main').innerHTML='<div class="antique-card"><div class="preview-tag">TRAINING COMPLETE</div><div class="handwriting">The next chapter is yours.</div>'+
+      '<h3>Choose your perspective.</h3><p>Three fictional lives unfold inside the same historical movement, but each faces different obligations and choices.</p>'+
+      '<div class="selection"><article><span>FILE / 01</span><strong>Evelyn Brooks</strong><p>Domestic worker and mother</p></article>'+
+      '<article><span>FILE / 02</span><strong>Marcus Ellis</strong><p>College student</p></article>'+
+      '<article><span>FILE / 03</span><strong>Daniel Carter</strong><p>Hardware-store employee</p></article></div>'+
+      '<p class="small-note">In the finished game, the tutorial would appear before this selection, and you could replay it using <strong>Help / Tutorial</strong> in the top navigation. This preview does not change your actual game.</p>'+
+      '<div class="controls-row"><button class="btn btn-outline" type="button" id="replay-all">Replay tutorial ↺</button><a class="btn btn-primary" href="../game.html">Open the playable game ↗</a></div></div>';
+    $('replay-all').addEventListener('click',()=>{step=0;line=0;option=null;opened.clear();draw()});
+  }
+  function setStep(n){
+    step=Math.max(0,Math.min(4,n));draw();
+    window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});
+  }
+  $('continue').addEventListener('click',()=>{
+    if(step===4){window.location.href='../game.html';return;}
+    setStep(step+1);
+  });
+  $('back').addEventListener('click',()=>setStep(step-1));
+  $('skip').addEventListener('click',()=>setStep(4));
+  document.querySelectorAll('[data-step]').forEach(btn=>btn.addEventListener('click',()=>setStep(Number(btn.dataset.step))));
+  // Optional ambient original music. Created with gentle synth tones, no recording,
+  // no third-party media, and no audio until the player explicitly opts in.
+  const chord=[174.61,220.00,261.63,349.23];
+  async function toggleMusic(){
+    if(music){
+      if(ctx){try{await ctx.suspend()}catch(e){}}
+      music=false;$('music').textContent='♪ Music off';$('music').setAttribute('aria-pressed','false');return;
+    }
+    if(!ctx){
+      const A=window.AudioContext||window.webkitAudioContext;
+      if(!A){$('music').textContent='Music unavailable';$('music').disabled=true;return;}
+      ctx=new A();
+      const master=ctx.createGain();master.gain.value=0.025;master.connect(ctx.destination);
+      chord.forEach((hz,index)=>{
+        const osc=ctx.createOscillator(),level=ctx.createGain();
+        osc.type='sine';osc.frequency.value=hz;level.gain.value=[.26,.19,.12,.08][index];
+        osc.connect(level);level.connect(master);osc.start();tones.push(osc);
+      });
+      const vibrato=ctx.createOscillator(),lfo=ctx.createGain();
+      vibrato.type='sine';vibrato.frequency.value=.1;lfo.gain.value=.009;
+      vibrato.connect(lfo);lfo.connect(master.gain);vibrato.start();tones.push(vibrato);
+    }
+    try{await ctx.resume();music=true;$('music').textContent='♪ Music on';$('music').setAttribute('aria-pressed','true')}catch(e){$('music').textContent='Music unavailable'}
+  }
+  $('music').addEventListener('click',toggleMusic);
+  window.addEventListener('pagehide',()=>{if(ctx){try{ctx.close()}catch(e){}}});
+  draw();
+})();
+</script>
+</body>
+</html>
