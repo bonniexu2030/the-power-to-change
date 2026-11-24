@@ -199,6 +199,7 @@ h2{font:600 23px/1.2 "Cormorant Garamond",Georgia,serif;margin:0 0 6px}
  const quote=document.querySelector(".quote span");
  const source=document.getElementById("source");
  const book=document.getElementById("book");
+ const leftLeaf=document.querySelector(".left-leaf");
  const status=document.getElementById("status");
  const progress=document.getElementById("progress");
  const pauseBtn=document.getElementById("pause");
@@ -218,6 +219,8 @@ h2{font:600 23px/1.2 "Cormorant Garamond",Georgia,serif;margin:0 0 6px}
   source.style.opacity=String(pct(t,9,9.8));
   const fold=smooth(pct(t,10.9,13.6));
   book.style.setProperty("--fold",fold.toFixed(4));
+  book.style.transform="translateX("+(-25*fold)+"%) scale("+(1+.075*fold)+")";
+  leftLeaf.style.transform="rotateY("+(-180*fold)+"deg)";
   progress.style.width=(t/duration*100)+"%";
   if(t<7.1)status.textContent="Ink settles onto the page";
   else if(t<10.9)status.textContent="The final words linger";
