@@ -241,12 +241,12 @@ h2{font:600 23px/1.2 "Cormorant Garamond",Georgia,serif;margin:0 0 6px}
   if(playing)raf=requestAnimationFrame(frame);
  }
  function play(){
-  if(prefersReduced){elapsed=duration;animate(duration);playing=false;pauseBtn.textContent="Replay without motion";return;}
+  if(prefersReduced){elapsed=10.5;animate(elapsed);playing=false;pauseBtn.textContent="Close the book";return;}
   if(elapsed>=duration)elapsed=0;
   lastTime=0;playing=true;pauseBtn.textContent="Pause";cancelAnimationFrame(raf);raf=requestAnimationFrame(frame);
  }
  function rewind(){stopVoice();elapsed=0;lastTime=0;animate(0);play()}
- function toggle(){if(prefersReduced){rewind();return;}
+ function toggle(){if(prefersReduced){if(elapsed>=13.6){elapsed=10.5;pauseBtn.textContent="Close the book";}else{elapsed=duration;pauseBtn.textContent="Read the page";}animate(elapsed);return;}
   if(playing){playing=false;cancelAnimationFrame(raf);pauseBtn.textContent="Continue";stopVoice();}
   else play();
  }
@@ -265,7 +265,7 @@ h2{font:600 23px/1.2 "Cormorant Garamond",Georgia,serif;margin:0 0 6px}
  document.addEventListener("visibilitychange",()=>{if(document.hidden&&playing){playing=false;cancelAnimationFrame(raf);pauseBtn.textContent="Continue";stopVoice();}});
  document.addEventListener("keydown",e=>{if(e.code==="Space"&&!["BUTTON","INPUT"].includes(document.activeElement?.tagName)){e.preventDefault();toggle();}});
  animate(0);
- if(!prefersReduced)raf=requestAnimationFrame(frame);else finish();
+ if(!prefersReduced)raf=requestAnimationFrame(frame);else{playing=false;elapsed=10.5;animate(elapsed);pauseBtn.textContent="Close the book";}
 })();
 </script>
 </body>
