@@ -28,6 +28,7 @@ test('all eight legacy illustrated conversations share lower picture frames and 
   const h=read(f);
   assert.match(h,/\.portrait\{position:absolute;bottom:17%;/,'legacy desktop bottom: '+f);
   assert.match(h,/object-fit:cover;object-position:center top;/,'full face/hair: '+f);
+  assert.doesNotMatch(h,/object-position:center (?:20|24)%/,'legacy override must not crop the hair: '+f);
   assert.match(h,/\.portrait\{bottom:22%;width:36%;height:32%;border-width:4px\}/,'responsive shift: '+f);
   assert.match(h,/\.portrait-label\{position:absolute;/,'nameplate retained: '+f);
   assert.match(h,/\.portrait\.active/,'active/inactive appearance retained: '+f);
