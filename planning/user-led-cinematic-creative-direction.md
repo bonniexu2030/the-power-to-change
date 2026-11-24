@@ -84,6 +84,19 @@
 
 **Other production constraints:** Single coherent cinematic scene, 16:9 aim, painterly film stills faithful to the game aesthetic, approved clothing/hair/skin tones, no lip sync, no fast spins, no generic romantic farewell framing, and respect the historical timeline that integrated Montgomery buses began December 21, 1956. Narrator and character voices still need user approval of actual voice samples and recordings. The narrator has not been cast.
 
+## Evelyn concept-review round 3 — creator decisions (November 23, 2026)
+
+The creator selected:
+1. **B — develop the text-free three-frame sequence**, rather than a single large close-up or a composite of both alternatives.
+2. **B — prioritize expressions and emotional connection** when refining (while retaining character continuity).
+3. **A + C — keep the overall scene soft and intimate AND accentuate the progression from cool gray, muted early shots to brighter hopeful light**, not bigger dramatic poses or exaggerated acting.
+
+**Creative translation:** Each of the three keyframes should feel like one uninterrupted tender 1956 bus-stop moment. Frame 1: brief reassurance and hug in soft gray. Frame 2: Ruth's anticipatory smile as a **distant** bus approaches, Evelyn behind. Frame 3: warm light highlights Evelyn's proud, loving but steady unseen glance; Ruth's attention is ahead. Film-score begins almost still and blooms; atmosphere stays intimate even during the strongest warm light.
+
+**Prototype limitations:** A text-free painterly triptych concept was created in the chat to illustrate this direction. This is **concept art awaiting visual approval, not a final asset**. The final/bus-boarding panel of the draft needs a continuity fix: in the `ride` branch Evelyn **also boards with Ruth** as written in Chapter V; don't make the image imply that she leaves her daughter alone or that this is a permanent goodbye. Preserve exact approved portraits and clothing as far as possible. No non-narrated labels anywhere.
+
+**Feedback format going forward:** Batch multiple-choice questions with a blank for free-typed alternatives **for every question**; do not mark an option as the assistant's recommendation.
+
 ## Ideas to discuss (NOT yet decisions)
 - **Evelyn:** Move between a close-up of Ruth looking forward and Evelyn working in the background, then a shared gesture or exchange, retaining meaningful agency for both.
 - **Marcus:** A decisive physical image (turning a notebook page, uniting learning and civic-action notes, or another symbol chosen by the creator); show a genuine realization, not an unearned professional future.
