@@ -76,6 +76,9 @@ html.embedded .notes{display:none}
 }
 body[data-role="marcus"] .paper-tint{background:linear-gradient(120deg,#8e947228,transparent 35%,#927f5a2a)}
 body[data-role="daniel"] .paper-tint{background:linear-gradient(120deg,#87717d26,transparent 35%,#77647130)}
+.quote-source{font:400 12px/1.5 Georgia,serif;color:#74483a;text-decoration:underline;text-underline-offset:2px;opacity:.78;margin-top:3px}
+.quote-source:hover,.quote-source:focus{opacity:1}
+html.embedded .quote-source{font-size:12px}
 </style>
 </head>
 <body>
@@ -156,7 +159,7 @@ body[data-role="daniel"] .paper-tint{background:linear-gradient(120deg,#87717d26
  </div>
  <div class="quote-group" id="quoteGroup">
    <div class="quote" id="quote">“We are all bound up together<br>in one great bundle of humanity.”</div>
-   <div class="quote-auth">— Frances Ellen Watkins Harper, 1866</div>
+   <div class="quote-auth">— Frances Ellen Watkins Harper, 1866</div><a id="quote-source" class="quote-source" href="https://constitutioncenter.org/the-constitution/historic-document-library/detail/frances-ellen-watkins-harper-we-are-all-bound-up-together-1866" target="_blank" rel="noopener noreferrer">Historical quotation source ↗</a>
  </div>
 </div>
 </section>
@@ -292,6 +295,8 @@ const summaryLines=document.querySelectorAll('.summary-line .reveal');
 chosen.lines.forEach((line,index)=>{if(summaryLines[index])summaryLines[index].textContent=line;});
 document.getElementById('quote').textContent='“'+chosen.quote+'”';
 document.querySelector('.quote-auth').textContent='— '+chosen.credit;
+const selectedSource=document.getElementById('quote-source');
+if(selectedSource)selectedSource.href=chosen.source;
 const sourceLink=document.querySelector('.notes a:last-of-type');
 if(sourceLink){sourceLink.href=chosen.source;sourceLink.textContent='Quotation source';}
 const summary=document.getElementById('summary');
