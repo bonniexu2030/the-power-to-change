@@ -1,0 +1,63 @@
+// Run with node --test tests/onboarding-map-removal.test.cjs
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const {readFileSync}=require('node:fs');
+const {join}=require('node:path');
+const {Script}=require('node:vm');
+const read=name=>readFileSync(join(__dirname,'..',name),'utf8');
+
+test('approved interactive tutorial is present and uses only separate tutorial actions',()=>{
+  const html=read('preview/tutorial-onboarding.html');
+  const js=html.match(/<script>([\s\S]*?)<\/script>/)?.[1];
+  assert.ok(js,'tutorial script found');
+  assert.doesNotThrow(()=>new Script(js));
+  assert.match(html,/data-step="0"/);
+  assert.match(html,/data-step="3"/);
+  assert.match(html,/id="music"/);
+  assert.match(html,/id="skip"/);
+  assert.match(html,/data-choice/);
+  assert.match(html,/data-tool/);
+  assert.match(html,/power-to-change-tutorial/);
+  assert.match(html,/toGame\('complete'\)/);
+  assert.match(html,/toGame\('skip'\)/);
+  assert.doesNotMatch(html,/localStorage\.setItem|localStorage\.removeItem/,'standalone practice cannot modify game saves');
+  assert.match(html,/prefers-reduced-motion:reduce/);
+});
+test('first run tutorial precedes role selection, existing saves skip and Help can replay',()=>{
+  const js=read('game.js');
+  const html=read('game.html');
+  assert.doesNotThrow(()=>new Script(js));
+  assert.ok(js.includes('const TUTORIAL_KEY'), 'separate seen flag');
+  assert.ok(js.includes('function needFirstRunTutorial()'));
+  assert.ok(js.includes('!hasSeenTutorial()&&!state&&!hasAnySavedRole()'));
+  assert.ok(js.includes('screen=state?state.screen:\'roles\';render()'));
+  assert.ok(js.includes('openGameTutorial(true)'));
+  assert.ok(js.includes('if(mode===\'onboarding\')'));
+  assert.ok(js.includes("if(!state){screen='roles';render();}"));
+  assert.ok(js.includes("event.origin!==window.location.origin"));
+  assert.ok(js.includes("event.source!==frame.contentWindow"));
+  assert.ok(js.includes("'power-to-change-tutorial'"));
+  assert.ok(js.includes('gameTutorialDialog.addEventListener(\'close\',finishGameTutorial)'));
+  assert.match(html,/id="help-tutorial"/);
+  assert.match(html,/id="game-tutorial-dialog"/);
+  assert.match(js,/preview\/tutorial-onboarding\.html/);
+  assert.match(html,/game-tutorial\.css/);
+  assert.ok(js.includes("if(['scene','result','ending'].includes(screen))state.screen=screen"),'unchanged story saving rules');
+  assert.ok(js.includes("function finalEndingId()"),'ending selection retained');
+  assert.ok(!js.includes("screen='tutorial'"),'tutorial not added to old saved-screen states');
+});
+test('optional map removed completely while keeping existing keepsakes and activities',()=>{
+  const js=read('gameplay-extras.js');
+  assert.doesNotThrow(()=>new Script(js));
+  assert.doesNotMatch(js,/const places\s*=/);
+  assert.doesNotMatch(js,/function drawMap\(/);
+  assert.doesNotMatch(js,/function bindMap\(/);
+  assert.doesNotMatch(js,/Story map|OPEN THE MAP|Around Montgomery|data-map-place/);
+  assert.doesNotMatch(js,/data-extra-side="map"|data-extras-open="map"/);
+  assert.match(js,/function drawKeepsakes\(/);
+  assert.match(js,/function drawActivities\(/);
+  assert.match(js,/function drawAchievements\(/);
+  assert.match(js,/VIEW KEEPSAKES/);
+  assert.match(js,/achievements\(currentState\)/);
+  assert.match(js,/if\(!Array\.isArray\(s\.extras\.visits\)\)/,'old map save data left untouched');
+});
