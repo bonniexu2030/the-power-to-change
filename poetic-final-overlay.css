@@ -1,0 +1,70 @@
+/* The Power to Change — quiet full-screen parchment finale.
+   Appears only after the Chapter V epilogue, documented history and reflection. */
+.poetic-ending-entry{
+ margin-top:2.25rem;
+ padding:1.4rem 1.6rem 1.6rem;
+ background:linear-gradient(135deg,#f7efe1,#f1e5d2);
+ border:1px solid #c6b39a;
+ box-shadow:0 5px 24px #53432b10;
+}
+.poetic-ending-entry p:not(.chapter-eyebrow){margin:.65rem 0 1.05rem;color:#655548;line-height:1.7}
+.poetic-ending-entry button{min-width:min(280px,100%);white-space:normal}
+.poetic-final-dialog{
+ position:fixed;
+ inset:0;
+ display:none;
+ width:100vw;
+ height:100vh;
+ height:100dvh;
+ max-width:none;
+ max-height:none;
+ padding:0;
+ margin:0;
+ border:0;
+ background:#d8ad97;
+ overflow:hidden;
+ z-index:9999;
+}
+.poetic-final-dialog[open]{display:block}
+.poetic-final-dialog::backdrop{background:rgba(24,19,19,.83)}
+.poetic-final-dialog iframe{
+ position:absolute;
+ inset:0;
+ display:block;
+ width:100%;
+ height:100%;
+ border:0;
+ background:#d8ad97;
+}
+.poetic-modal-toolbar{
+ position:fixed;
+ z-index:2;
+ top:max(12px,env(safe-area-inset-top));
+ left:14px;
+ right:14px;
+ display:flex;
+ flex-wrap:wrap;
+ gap:9px;
+ align-items:center;
+ justify-content:space-between;
+ pointer-events:none;
+}
+.poetic-toolbar-button{
+ pointer-events:auto;
+ border:1px solid rgba(111,71,57,.53);
+ border-radius:8px;
+ padding:9px 13px;
+ color:#54382f;
+ background:rgba(251,237,223,.89);
+ font:600 12px/1.4 Georgia,serif;
+ box-shadow:0 3px 14px rgba(65,39,27,.12);
+ backdrop-filter:blur(9px);
+ cursor:pointer;
+}
+.poetic-toolbar-button:focus-visible{outline:3px solid #84513c;outline-offset:2px}
+.poetic-toolbar-button:hover{background:#fff7e9}
+@media(max-width:500px){
+ .poetic-modal-toolbar{left:7px;right:7px;top:max(6px,env(safe-area-inset-top));gap:5px}
+ .poetic-toolbar-button{padding:7px 8px;font-size:11px}
+ .poetic-ending-entry{padding:1.15rem 1rem}
+}
