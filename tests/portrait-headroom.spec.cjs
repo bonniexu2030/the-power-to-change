@@ -54,9 +54,14 @@ for(const viewport of [{width:1360,height:900},{width:390,height:844}]){
     const portraits=page.locator('.portrait');
     await expect(portraits).toHaveCount(2);
     if(shared){
-      for(let i=0;i<9&&await page.locator('.portrait:not([hidden])').count()===0;i++){
+      for(let i=0;i<9&&await page.locator('.portrait:not([hidden])').count()===0;i++)
         await page.locator('#next').click();
-      }
+    }else{
+      // Narration hides the legacy dialogue card; advance into a speaking beat
+      // so nameplate-to-dialogue clearance measures real visible surfaces.
+      for(let i=0;i<14&&!(await page.locator('.dialogue-box').isVisible());i++)
+        await page.locator('#next').click();
+      await expect(page.locator('.dialogue-box')).toBeVisible();
     }
     const metrics=await page.evaluate(shared=>{
       const box=document.querySelector(shared?'#stage':'.scene').getBoundingClientRect();
@@ -68,10 +73,15 @@ for(const viewport of [{width:1360,height:900},{width:390,height:844}]){
           height:Math.round(rect.height),width:Math.round(rect.width),pos:css.objectPosition,
           fit:css.objectFit,src:!!el.getAttribute('src'),naturalWidth:el.naturalWidth};
       });
-      const labels=[...document.querySelectorAll('.portrait-label')].map(el=>Math.round(el.getBoundingClientRect().bottom-dialogue.top));
+      const labels=[...document.querySelectorAll('.portrait-label')]
+        .filter(el=>getComputedStyle(el).visibility!=='hidden'&&!el.hasAttribute('hidden'))
+        .map(el=>Math.round(el.getBoundingClientRect().bottom-dialogue.top));
       return {frameHeight:Math.round(box.height),images,labelsFromDialogueTop:labels};
     },shared);
     console.log('VN_FRAMING '+viewport.width+' '+path+' '+JSON.stringify(metrics));
+    for(const labelBottomGap of metrics.labelsFromDialogueTop){
+      expect(labelBottomGap,path+' nameplate must stay above the dialogue text box').toBeLessThanOrEqual(15);
+    }
     for(const frame of metrics.images){
       // The art keeps its original width/height; only the box placement/crop changed.
       if(frame.height===0)continue; // a hidden portrait on a narrator beat
