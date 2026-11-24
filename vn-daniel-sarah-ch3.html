@@ -19,10 +19,10 @@ header{display:flex;align-items:center;justify-content:space-between;gap:15px;pa
 .kitchen-mark strong{display:block;font-size:19px;color:#523d30}.kitchen-mark small{font:600 10px Georgia,serif;letter-spacing:.1em;color:#806953}
 .scene-counter{position:absolute;top:24px;right:25px;padding:8px 12px;background:#332e28b7;color:#fae8cd;font:600 11px Georgia,serif;letter-spacing:.1em;z-index:3}
 .dialogue-layer{position:absolute;inset:0;z-index:8;pointer-events:none;display:flex;align-items:end;padding:0 2.8% 4%}
-.portrait{position:absolute;bottom:19%;width:clamp(130px,23%,270px);height:clamp(180px,43%,395px);object-fit:cover;object-position:center 24%;border:8px solid #eddcc0;outline:2px solid #947657;box-shadow:6px 12px 30px #34281b60;filter:saturate(.72) brightness(.82);opacity:.53;transition:filter .35s,opacity .35s,transform .35s;z-index:3;will-change:transform}
+.portrait{position:absolute;bottom:17%;width:clamp(130px,23%,270px);height:clamp(180px,43%,395px);object-fit:cover;object-position:center top;border:8px solid #eddcc0;outline:2px solid #947657;box-shadow:6px 12px 30px #34281b60;filter:saturate(.72) brightness(.82);opacity:.53;transition:filter .35s,opacity .35s,transform .35s;z-index:3;will-change:transform}
 .portrait.left{left:1.6%;transform:translateY(15px) rotate(-3deg)}.portrait.right{right:1.6%;transform:translateY(15px) rotate(3deg)}
 .portrait.active{opacity:1;filter:saturate(1) brightness(1.03);z-index:6}.portrait.active.left{transform:translateY(0px) rotate(-1deg)}.portrait.active.right{transform:translateY(0px) rotate(1deg)}
-.portrait-label{position:absolute;bottom:15%;font-size:11px;background:#e4cfaf;padding:8px 14px;z-index:7;color:#634935;border:1px solid #a48665;font-weight:bold;letter-spacing:.1em;transform:rotate(-1deg);opacity:.5;transition:opacity .2s}
+.portrait-label{position:absolute;bottom:32%;font-size:11px;background:#e4cfaf;padding:8px 14px;z-index:7;color:#634935;border:1px solid #a48665;font-weight:bold;letter-spacing:.1em;transform:rotate(-1deg);opacity:.5;transition:opacity .2s}
 .portrait-label.left{left:5%}.portrait-label.right{right:5%}.portrait-label.active{opacity:1}
 .dialogue-box{pointer-events:auto;position:relative;width:77%;min-height:148px;margin:0 auto 2px;z-index:10;background:linear-gradient(120deg,#fdf2d7eF,#f5e5c2f2);border:2px solid #8c6949;border-radius:8px;box-shadow:0 0 0 6px #ead5b3bc,0 17px 28px #2b211956;padding:28px 32px 22px;cursor:pointer;transition:opacity .15s}
 .dialogue-box:before{content:'';pointer-events:none;position:absolute;inset:6px;border:1px solid #ceb392;border-radius:3px}
@@ -45,7 +45,7 @@ header{display:flex;align-items:center;justify-content:space-between;gap:15px;pa
 .history{max-width:1280px;width:100%;margin:12px auto 0;background:#f7ebd7;padding:17px 23px;border:1px solid #bea88a;max-height:240px;overflow:auto;box-shadow:3px 5px 10px #4334211a}
 .history h2{font-size:16px;margin:0 0 9px}.history p{margin:6px 0;font-size:13px;line-height:1.6}.history strong{color:#825544}
 .footer-note{text-align:center;font-size:11px;color:#7d6d56;line-height:1.5;padding:12px 0 0}
-@media(max-width:750px){.shell{padding:12px}.scene{min-height:580px;border-width:5px;margin-top:14px}.kitchen-mark{left:12px;top:12px;padding:9px 10px}.kitchen-mark strong{font-size:14px}.kitchen-mark small{font-size:8px}.scene-counter{top:12px;right:11px;font-size:9px}.dialogue-layer{padding:0 3.5% 5%}.portrait{bottom:24%;width:36%;height:32%;border-width:4px}.portrait.left{left:2%}.portrait.right{right:2%}.portrait-label{bottom:20%;font-size:9px;padding:5px}.dialogue-box{width:100%;min-height:188px;padding:23px 17px 22px}.dialogue-box .speaker{top:-25px;min-width:105px;font-size:12px;padding:8px 13px}.dialogue-text{font-size:17px;line-height:1.55;min-height:100px}.narration{width:86%;padding:37px 17px 25px;min-height:180px}.narration .dialogue-text{font-size:17px}.tool-help{margin-left:0;width:100%}.header-right{display:none}}
+@media(max-width:750px){.shell{padding:12px}.scene{min-height:580px;border-width:5px;margin-top:14px}.kitchen-mark{left:12px;top:12px;padding:9px 10px}.kitchen-mark strong{font-size:14px}.kitchen-mark small{font-size:8px}.scene-counter{top:12px;right:11px;font-size:9px}.dialogue-layer{padding:0 3.5% 5%}.portrait{bottom:22%;width:36%;height:32%;border-width:4px}.portrait.left{left:2%}.portrait.right{right:2%}.portrait-label{bottom:36%;font-size:9px;padding:5px}.dialogue-box{width:100%;min-height:188px;padding:23px 17px 22px}.dialogue-box .speaker{top:-25px;min-width:105px;font-size:12px;padding:8px 13px}.dialogue-text{font-size:17px;line-height:1.55;min-height:100px}.narration{width:86%;padding:37px 17px 25px;min-height:180px}.narration .dialogue-text{font-size:17px}.tool-help{margin-left:0;width:100%}.header-right{display:none}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 
 /* Revision 2: richly illustrated kitchen and selective character appearances. */
@@ -58,7 +58,7 @@ header{display:flex;align-items:center;justify-content:space-between;gap:15px;pa
 @media(max-width:750px){.scene{background-position:43% center}}
 .wall,.window,.wall-art,.tabletop{display:none}
 .scene{background-size:cover;background-position:center}
-@media(max-width:700px){.portrait{width:23%;min-width:100px;height:35%;bottom:26%}.dialogue-box{width:96%}}
+@media(max-width:700px){.portrait{width:23%;min-width:100px;height:35%;bottom:24%}.dialogue-box{width:96%}}
 </style></head><body>
 <div class="shell"><header><div class="logo"><i>✳</i> THE POWER<br> &nbsp;&nbsp;&nbsp;TO CHANGE</div><div class="smallcaps">381 Days · Illustrated conversation · Chapter III</div><div class="header-right"><span class="pill">Chapter 3 · Daniel & Sarah</span><span class="pill">CHAPTER III</span></div></header>
 <main class="scene" id="scene"><div class="wall"></div><div class="window"></div><div class="wall-art"></div><div class="tabletop"></div><div class="kitchen-mark"><small>FEBRUARY 24, 1956</small><strong>The Carters’ home</strong></div><div class="scene-counter" id="counter">1 / 8</div>
@@ -75,7 +75,7 @@ header{display:flex;align-items:center;justify-content:space-between;gap:15px;pa
 <style id="ptc-approved-art-style">
 .scene{background-image:linear-gradient(180deg,rgba(34,24,18,.16),rgba(42,28,20,.12) 50%,rgba(35,25,19,.25)),var(--ptc-scene-bg)!important;background-size:cover!important;background-position:center center!important;}
 .wall,.window,.wall-art,.tabletop,.hardware-decor{display:none!important}
-.portrait{object-position:center 20%}
+.portrait{object-position:center top}
 </style>
 <script>
 const ptcArt=window.PTCArtwork||{};
