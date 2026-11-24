@@ -22,7 +22,7 @@ button:focus-visible,a:focus-visible{outline:3px solid #84543d;outline-offset:3p
 .paper-tint{position:absolute;inset:0;z-index:1;pointer-events:none;
 background:radial-gradient(ellipse at center,#fff1dc13 10%,transparent 70%),linear-gradient(115deg,#ae6f6520,transparent 34%,#a7675030);mix-blend-mode:multiply}
 .poetry{position:absolute;z-index:3;inset:0;display:grid;place-items:center;overflow:hidden;padding:clamp(26px,6vw,95px);text-align:center}
-.summary,.quote-group{position:absolute;inset:auto 10%;max-width:970px;margin:auto;display:flex;align-items:center;justify-content:center;flex-direction:column;will-change:opacity,filter,transform}
+.summary,.quote-group{position:absolute;top:50%;left:50%;width:min(80%,970px);transform:translate(-50%,-50%);max-width:970px;margin:0;display:flex;align-items:center;justify-content:center;flex-direction:column;will-change:opacity,filter,transform}
 .summary{font:500 clamp(28px,3.55vw,57px)/1.25 "Cormorant Garamond",Georgia,serif;color:#56372d;letter-spacing:.005em;gap:.06em;opacity:1;text-shadow:0 1px 1px #fff0e655}
 .summary-line{display:block;white-space:normal;line-height:1.2;overflow:visible}
 .reveal{display:inline-block;visibility:visible;max-width:100%}
@@ -32,13 +32,13 @@ background:radial-gradient(ellipse at center,#fff1dc13 10%,transparent 70%),line
 .flowers-near{transform-origin:center center}
 @media(max-width:800px){
  .viewport{height:min(78svh,750px);min-height:520px}
- .summary{font-size:clamp(28px,4.6vw,47px);inset:auto 8%}
+ .summary{font-size:clamp(28px,4.6vw,47px);width:84%}
  .quote{font-size:clamp(32px,5.7vw,53px)}
 }
 @media(max-width:520px){
  .viewport{min-height:590px;height:75svh}
  .poetry{padding:24px}
- .summary,.quote-group{inset:auto 7%}
+ .summary,.quote-group{width:86%}
  .summary{font-size:clamp(27px,7vw,39px);line-height:1.35}
  .quote{font-size:clamp(36px,8vw,48px)}
  .quote-auth{font-size:16px}
@@ -175,10 +175,10 @@ function render(t){
  const fade=smooth(proportion(t,6.1,7.35));
  summary.style.opacity=String(1-fade);
  summary.style.filter='blur('+(fade*7)+'px)';
- summary.style.transform='translateY('+(-4*fade)+'px)';
+ summary.style.transform='translate(-50%,calc(-50% - '+(fade*4)+'px))';
  const quoteIn=smooth(proportion(t,7.65,9.75));
  quoteGroup.style.opacity=String(quoteIn);
- quoteGroup.style.transform='translateY('+((1-quoteIn)*9)+'px)';
+ quoteGroup.style.transform='translate(-50%,calc(-50% + '+((1-quoteIn)*9)+'px))';
  const glow=smooth(proportion(t,8.25,10.25));
  quote.style.textShadow='0 0 '+(glow*14)+'px rgba(255,239,197,'+(glow*.78)+'),0 0 '+(glow*29)+'px rgba(247,215,151,'+(glow*.38)+')';
  status.textContent=t<6.15?'Writing the conclusion':t<7.65?'The words fade':t<10.1?'The quotation appears':'The final quotation';
