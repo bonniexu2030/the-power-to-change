@@ -2,304 +2,210 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light">
-<title>381 Days — Poetic Book Ending Mockup</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#d8b09a">
+<title>381 Days — Vintage Text Ending Preview</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Great+Vibes&family=IM+Fell+English+SC&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#48382c;--gold:#b69755;--dark:#18273f}
 *{box-sizing:border-box}
-html{min-height:100%;background:#d8cfbb}
-body{min-height:100vh;margin:0;background:radial-gradient(ellipse at 50% 30%,#f2ead8 0%,#e5dcc8 40%,#c2b7a5 100%);font:16px/1.5 Georgia,serif;color:#392f2a}
-button,a{font:inherit}
-button{cursor:pointer}
-button:focus-visible,a:focus-visible{outline:3px solid #8b5a32;outline-offset:3px}
-.shell{max-width:1200px;padding:clamp(14px,3vw,32px);margin:auto}
-.heading{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:20px}
-.eyebrow{font:700 11px/1.4 Arial,sans-serif;letter-spacing:.17em;text-transform:uppercase;color:#877160}
-h1{font:600 clamp(24px,3vw,38px)/1.2 "Cormorant Garamond",Georgia,serif;margin:4px 0}
-.status-tag{font:12px/1.5 Arial,sans-serif;background:#f7f0e1;border:1px solid #c9b79d;border-radius:25px;padding:7px 14px}
-.theater{border:1px solid #6e5f51;border-radius:13px;background:radial-gradient(ellipse at 50% 43%,#584d45,#26252a 75%);padding:clamp(7px,1.4vw,14px);box-shadow:0 18px 35px #483b3280}
-.stage{position:relative;aspect-ratio:16/9;width:100%;overflow:hidden;background:radial-gradient(ellipse at 65% 70%,#6c5b4e,#332d30 55%,#28232a);isolation:isolate;display:flex;align-items:center;justify-content:center}
-.stage:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 45% -17%,#bdab8754,transparent 65%);pointer-events:none;z-index:0}
-.stage:after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 45px #09070b9c;pointer-events:none;z-index:8}
-.book{--fold:0;position:relative;width:min(86%,1010px);height:78%;display:grid;grid-template-columns:1fr 1fr;isolation:isolate;transform-style:preserve-3d;perspective:1300px;transform:translateX(calc(var(--fold) * -25%)) scale(calc(1 + var(--fold) * .075));will-change:transform;filter:drop-shadow(5px 18px 18px #0b0d1480)}
-.left-leaf,.right-leaf{position:relative;width:100%;height:100%;background:#f6e9d0}
-.left-leaf{transform-origin:right center;transform:rotateY(calc(var(--fold) * -180deg));transform-style:preserve-3d;z-index:3;box-shadow:inset -12px 0 22px #6453462c}
-.right-leaf{z-index:1;background:linear-gradient(98deg,#e7d5b7 0%,#faf1de 9%,#f2e4cc 73%,#e3d1af 100%);border:2px solid #c4a77c;box-shadow:inset 8px 0 20px #59432d48}
-.inner-face,.cover-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden}
-.inner-face{background:linear-gradient(105deg,#ddc5a2,#f7ebd4 17%,#f4e6ca 75%,#dbc4a2);border:2px solid #c4a77c}
-.inner-face:after,.right-leaf:after{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent 0 4px,#74573206 5px 6px);mix-blend-mode:multiply;pointer-events:none}
-.cover-face{transform:rotateY(180deg);background:radial-gradient(ellipse at 44% 47%,#344865 0%,#20314c 58%,#142239 100%);border:6px solid #132035;box-shadow:inset 0 0 0 2px #b89a55,inset 0 0 0 13px #21354e,inset 0 0 0 15px #ab8b4f}
-.cover-face:after{content:"";position:absolute;inset:0;opacity:.34;mix-blend-mode:screen;background-image:repeating-linear-gradient(90deg,#f6ead511 0 1px,transparent 1px 4px)}
-.spine{position:absolute;right:0;top:0;bottom:0;width:8px;background:linear-gradient(90deg,#c6af86,#806c53,#f3e7d0);z-index:6}
-.page-side{position:absolute;inset:7%;border:1px solid #b5976559;display:flex;align-items:center;flex-direction:column;justify-content:center;text-align:center;color:#7e6a53}
-.floral{width:76%;max-height:90px;margin:6px auto;color:#7f7857;opacity:.84}
-.motif{position:relative;margin:8px auto;width:80%;height:27%;display:grid;place-items:center}
-.motif svg{width:90%;height:100%;max-height:140px}
-.warm-flourish{font:italic 22px/1.2 "Cormorant Garamond",Georgia,serif;letter-spacing:.12em;color:#8f7654}
-.stamp{font:600 clamp(11px,1.2vw,17px)/1.3 "Cormorant Garamond",serif;letter-spacing:.14em;margin:10px 0;color:#8f7355}
-.page-side .rule{width:42%;border-top:1px solid #af936d;margin:12px auto}
-.page-side .monogram{font:500 clamp(27px,3.1vw,46px)/1 "Cormorant Garamond",serif;color:#826d4b}
-.right-inner{position:absolute;inset:6%;border:1px solid #c8ac835d;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:clamp(8px,2.7vw,35px);text-align:center;z-index:2;color:var(--ink)}
-.right-inner:before,.right-inner:after{content:"❧";font-size:clamp(17px,2.4vw,34px);color:#9c8764;line-height:1}
-.right-inner:after{transform:rotate(180deg)}
-.role-label{font:600 clamp(8px,.87vw,12px)/1.3 "Cormorant Garamond",serif;letter-spacing:.23em;text-transform:uppercase;color:#8b6d54;margin:8px 0 4px}
-.ending-name{font:600 clamp(17px,2.3vw,31px)/1.1 "Cormorant Garamond",Georgia,serif;letter-spacing:.045em;color:#503b2d;margin:0 0 clamp(8px,1.5vw,18px)}
-.divider{display:flex;gap:8px;align-items:center;justify-content:center;width:45%;color:#947751;margin:0 auto 12px;font-size:13px}
-.divider:before,.divider:after{content:"";height:1px;flex:1;background:#b09b74}
-.story{font:500 clamp(10px,1.48vw,21px)/1.33 "Cormorant Garamond",Georgia,serif;letter-spacing:.018em;color:#4a3d2e;margin:0 auto;max-width:23em}
-.story span{display:block;margin:.15em 0;white-space:normal;overflow:hidden}
-.ink{display:inline-block;max-width:100%;clip-path:inset(0 100% 0 0);will-change:clip-path}
-.quote-wrap{margin:clamp(6px,1.15vw,13px) 0 1px;width:100%}
-.quote{font:400 clamp(20px,3.05vw,40px)/1.15 "Great Vibes","Brush Script MT",cursive;color:#765435;max-width:100%;overflow:visible;letter-spacing:.02em;text-shadow:0 0 0 transparent}
-.quote span{display:inline-block;max-width:100%;clip-path:inset(0 100% 0 0)}
-.source{font:italic clamp(9px,.98vw,13px)/1.2 "Cormorant Garamond",serif;letter-spacing:.035em;color:#7a6550;margin-top:4px;opacity:0}
-.cover-layout{position:absolute;inset:9%;border:1px solid #af9157;display:flex;align-items:center;justify-content:space-between;flex-direction:column;text-align:center;color:#eddaac;padding:clamp(12px,2vw,26px)}
-.cover-border{position:absolute;inset:4%;border:1px solid #987847;pointer-events:none}
-.cover-ornament{width:87%;height:24%;opacity:.85}
-.cover-title{font:600 clamp(25px,4vw,61px)/.99 "Cormorant Garamond",serif;letter-spacing:.055em;color:#f0dbac;text-shadow:0 1px 2px #020f24,0 0 15px #d6b46c4a;max-width:98%}
-.cover-small{font:600 clamp(9px,1vw,14px)/1.5 "Cormorant Garamond",serif;letter-spacing:.2em;text-transform:uppercase;color:#c9ad72}
-.cover-foil{position:absolute;inset:0;pointer-events:none;background:linear-gradient(100deg,transparent 12%,#edd59c0a 43%,#f9e6b93b 49%,transparent 62%);opacity:.1}
-.light-halo{position:absolute;z-index:0;bottom:5%;left:8%;width:78%;height:32%;background:radial-gradient(ellipse,#f3b67027,transparent 73%);filter:blur(14px);opacity:.3}
-.caption{padding:7px 4px;color:#e7d8c3;display:flex;justify-content:space-between;gap:10px;align-items:center;font:12px/1.4 Arial,sans-serif}
-.controls{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;margin:14px 0 8px}
-.controls button{border:1px solid #8f785e;background:#f8f1e5;color:#463729;border-radius:6px;padding:9px 13px;font:600 13px/1.3 Arial,sans-serif;min-height:37px}
-.controls button.primary{background:#304661;color:#fff0d3;border-color:#233147}
-.controls button:hover{filter:brightness(.96)}
-.controls button:disabled{opacity:.55;cursor:default}
-.progress{margin:0 auto;max-width:400px;height:3px;border-radius:2px;background:#d4c5ad;overflow:hidden}
-.progress-fill{height:100%;width:0;background:#8f7050}
-.below{display:grid;grid-template-columns:minmax(0,1fr) minmax(200px,.8fr);gap:23px;margin:22px 0}
-h2{font:600 23px/1.2 "Cormorant Garamond",Georgia,serif;margin:0 0 6px}
-.below p{font:14px/1.7 Georgia,serif;margin:3px 0 10px}
-.below .disclaimer{border-left:3px solid #9b7956;padding-left:13px}
-.below a{color:#65442d}
-.sr-only{position:absolute;clip:rect(0,0,0,0);height:1px;width:1px;overflow:hidden;white-space:nowrap}
-@media(max-width:750px){
- .stage{aspect-ratio:5/4}
- .book{height:77%;width:93%}
- .page-side .monogram{font-size:23px}
- .right-inner{inset:4%;padding:6px}
- .right-inner:before,.right-inner:after{font-size:16px}
- .role-label{font-size:7px;margin:0}
- .ending-name{font-size:clamp(15px,3.1vw,24px);margin-bottom:3px}
- .divider{margin-bottom:5px}
- .story{font-size:clamp(9.1px,2vw,15px);line-height:1.26}
- .quote{font-size:clamp(18px,4.4vw,31px)}
- .source{font-size:9px}
- .cover-title{font-size:clamp(23px,6vw,39px)}
- .stamp{font-size:11px}.warm-flourish{font-size:15px}
- .below{grid-template-columns:1fr}
+html{scroll-behavior:smooth}
+body{margin:0;color:#493029;background:#f0e3d7;font-family:Georgia,"Times New Roman",serif}
+button{cursor:pointer;font:inherit}
+button:focus-visible,a:focus-visible{outline:3px solid #84543d;outline-offset:3px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;max-width:1450px;margin:0 auto;padding:13px clamp(12px,2.6vw,30px)}
+.project{font:600 12px/1.4 Georgia,serif;text-transform:uppercase;letter-spacing:.11em;color:#815b4c}
+.top .details{font:12px/1.4 Georgia,serif;color:#886d5d}
+.viewport{position:relative;width:100%;height:min(82vh,850px);min-height:460px;overflow:hidden;isolation:isolate;background:#eac6a8}
+.parchment{position:absolute;inset:0;display:block;height:100%;width:100%;z-index:0}
+.paper-tint{position:absolute;inset:0;z-index:1;pointer-events:none;
+background:radial-gradient(ellipse at center,#fff1dc13 10%,transparent 70%),linear-gradient(115deg,#ae6f6520,transparent 34%,#a7675030);mix-blend-mode:multiply}
+.poetry{position:absolute;z-index:3;inset:0;display:grid;place-items:center;overflow:hidden;padding:clamp(26px,6vw,95px);text-align:center}
+.summary,.quote-group{position:absolute;inset:auto 10%;max-width:970px;margin:auto;display:flex;align-items:center;justify-content:center;flex-direction:column;will-change:opacity,filter,transform}
+.summary{font:500 clamp(28px,3.55vw,57px)/1.25 "Cormorant Garamond",Georgia,serif;color:#56372d;letter-spacing:.005em;gap:.06em;opacity:1;text-shadow:0 1px 1px #fff0e655}
+.summary-line{display:block;white-space:normal;line-height:1.2;overflow:visible}
+.reveal{display:inline;visibility:visible}
+.quote-group{opacity:0;gap:clamp(7px,1.3vw,20px)}
+.quote{font:400 clamp(37px,4.05vw,66px)/1.24 "Great Vibes","Brush Script MT",cursive;max-width:950px;color:#633721;letter-spacing:.011em;text-shadow:0 0 0 #f3ce9b}
+.quote-auth{font:400 clamp(15px,1.45vw,24px)/1.3 "Cormorant Garamond",Georgia,serif;color:#674438;letter-spacing:.01em}
+.flowers-near{transform-origin:center center}
+@media(max-width:800px){
+ .viewport{height:min(78svh,750px);min-height:520px}
+ .summary{font-size:clamp(28px,4.6vw,47px);inset:auto 8%}
+ .quote{font-size:clamp(32px,5.7vw,53px)}
 }
-@media(max-width:470px){
- .stage{aspect-ratio:4/5}
- .book{height:72%;width:92%}
- .page-side{inset:4%}
- .page-side .floral{max-height:45px}
- .page-side .motif{height:19%}
- .page-side .stamp{font-size:8px}
- .right-inner{padding:3px}
- .right-inner:before,.right-inner:after{font-size:14px}
- .ending-name{font-size:17px}
- .story{font-size:clamp(11px,2.6vw,14px);line-height:1.26}
- .quote{font-size:clamp(20px,5.6vw,30px);line-height:1.1}
- .quote-wrap{margin-top:4px}
- .source{font-size:8px}
- .divider{margin:0 auto 4px}
+@media(max-width:520px){
+ .viewport{min-height:590px;height:75svh}
+ .poetry{padding:24px}
+ .summary,.quote-group{inset:auto 7%}
+ .summary{font-size:clamp(27px,7vw,39px);line-height:1.35}
+ .quote{font-size:clamp(36px,8vw,48px)}
+ .quote-auth{font-size:16px}
 }
-@media(prefers-reduced-motion:reduce){.book,.left-leaf,.ink,.quote,.progress-fill{transition:none!important;animation:none!important}}
-
-/* Physically attached cover and layered turning pages.
-   The hardcover remains the back face of the same board. */
-.stage{perspective:1500px}
-.book{isolation:auto!important;perspective:1500px!important;transform-style:preserve-3d!important;overflow:visible;filter:none!important}
-.left-leaf{z-index:9;transform-style:preserve-3d;backface-visibility:visible;-webkit-backface-visibility:visible;will-change:transform;box-shadow:none}
-.inner-face{backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:translateZ(1px)}
-.cover-face{display:flex;align-items:center;justify-content:center;backface-visibility:hidden;-webkit-backface-visibility:hidden;
- transform:rotateY(180deg) translateZ(1px);border:5px solid #4b261e;border-radius:4px 9px 9px 4px;
- background:repeating-linear-gradient(90deg,transparent 0 3px,#f9dba008 3px 4px,transparent 4px 7px),
- radial-gradient(ellipse at 45% 44%,#995139 0%,#733a29 43%,#46231e 90%);
- box-shadow:inset 8px 0 13px #2b1512a3,inset -5px 0 10px #1d100da1,inset 0 0 24px #1e0d0c78}
-.cover-face:before,.cover-face:after{display:none!important}
-.cover-square{position:absolute;inset:7%;border:2px solid #c7a16a;box-shadow:0 0 0 1px #36221ac9,inset 0 0 0 1px #e1c58f66}
-.cover-title-block{position:relative;z-index:2;text-align:center;color:#f1d9a3;letter-spacing:.025em;
- font:normal clamp(25px,3.55vw,52px)/1.12 "IM Fell English SC",Georgia,serif;text-shadow:0 1px 2px #1708078c;max-width:87%}
-.spine{width:4px;background:linear-gradient(90deg,#70523b,#e0caa6,#a48d72);z-index:10}
-.page-side{inset:5%;border:1px solid #a78a6852;box-shadow:none}
-.page-botanical{width:80%;height:94%;opacity:.72}
-.page-botanical svg{width:100%;height:100%;filter:sepia(.4);opacity:.66}
-.divider{font-size:0;color:transparent}.divider:after{display:none}
-.quote{font-size:clamp(17px,2.5925vw,34px)}
-.right-leaf{z-index:1;box-shadow:inset 7px 0 22px #61432a36,5px 6px 0 #e8d4b4,8px 9px 0 #cbb99e,10px 13px 15px #180f0d54}
-.fan-leaf{position:absolute;top:0;left:0;width:50%;height:100%;transform-origin:right center;
- background:linear-gradient(100deg,#d8bea1 0%,#f7ecd8 7%,#f4e6cd 78%,#e0c8a6 100%);
- border:1px solid #d1b994;box-shadow:inset -6px 0 12px #6b513020,3px 3px 0 #d7c1a0;
- transform-style:preserve-3d;backface-visibility:visible;will-change:transform;z-index:3}
-.fan-leaf:after{content:"";position:absolute;inset:0;
- background:repeating-linear-gradient(0deg,transparent 0 12px,#ad937d09 13px 14px)}
-.fan-back{position:absolute;inset:0;transform:rotateY(180deg) translateZ(1px);
- background:linear-gradient(110deg,#e3ceb0,#fcf0db 19%,#ead7ba 100%);
- backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.fan-leaf[data-fan="0"]{z-index:3}.fan-leaf[data-fan="1"]{z-index:4}
-.fan-leaf[data-fan="2"]{z-index:5}.fan-leaf[data-fan="3"]{z-index:6}
-.fan-leaf[data-fan="4"]{z-index:7}.fan-leaf[data-fan="5"]{z-index:8}
-@media(max-width:750px){.quote{font-size:clamp(15.3px,3.74vw,26.35px)}.cover-title-block{font-size:clamp(19px,4.3vw,36px)}}
-@media(max-width:470px){.quote{font-size:clamp(17px,4.76vw,25.5px)}.cover-title-block{font-size:clamp(18px,4.6vw,28px)}.cover-square{inset:9%}}
-
+.footer{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:center;padding:13px 14px 5px}
+button{background:#f9f0e5;color:#5b3b31;border:1px solid #b39079;border-radius:7px;padding:9px 15px;min-width:90px}
+button:hover{background:#fff9ef}
+.state{font:12px/1.4 Georgia,serif;color:#8e6d5d;min-width:145px;text-align:center}
+.progress{height:3px;background:#e4d1c4;max-width:360px;margin:8px auto 0;border-radius:5px;overflow:hidden}
+.progress-bar{height:100%;width:0;background:#a26756}
+.notes{font-size:13px;color:#876d5e;text-align:center;margin:10px 10px 22px}
+.notes a{color:#765144}
+body.reduced .reveal{transition:none!important}
+@media(prefers-reduced-motion:reduce){.viewport *{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<main class="shell">
- <header class="heading">
-  <div><div class="eyebrow">The Power to Change · Design prototype 01</div><h1>An ending worth keeping</h1></div>
-  <div class="status-tag">Standalone mockup · Not in the game yet</div>
- </header>
- <section class="theater" aria-label="Interactive animated conclusion prototype">
-  <div class="stage">
-   <div class="light-halo"></div>
-   <div class="book" id="book">
-    <div class="left-leaf">
-      <div class="inner-face"><div class="page-side"><div class="page-botanical"><svg class="gilt-botanical" viewBox="0 0 400 600" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="#bf995e" stroke-width="2">
-<path d="M38 505C70 425 40 354 67 298C90 236 64 181 106 133C131 98 171 76 200 65M362 505C330 425 360 354 333 298C310 236 336 181 294 133C269 98 229 76 200 65"/>
-<path d="M47 310Q105 278 118 239M55 232Q93 200 112 179M63 391Q98 365 128 380M353 310Q295 278 282 239M345 232Q307 200 288 179M337 391Q302 365 272 380"/>
-<path d="M38 507Q100 559 200 548Q300 559 362 507M89 106Q144 58 200 65Q256 58 311 106"/>
-</g><g fill="#92855a" stroke="#b99c70" stroke-width="1.2">
-<path d="M112 239q-21-24-20-40q24 7 20 40M118 380q-16-32-38-29q13 28 38 29M288 239q21-24 20-40q-24 7-20 40M282 380q16-32 38-29q-13 28-38 29"/>
-</g><g transform="translate(200 66) scale(1.3)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(105 134) scale(1)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(295 134) scale(1)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(60 352) scale(1.15)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(340 352) scale(1.15)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(200 544) scale(1.2)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(145 76) scale(0.65)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(255 76) scale(0.65)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(86 517) scale(0.68)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(314 517) scale(0.68)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g></svg></div></div></div><div class="cover-face" aria-label="The Power to Change antique front cover"><div class="cover-square"></div><div class="cover-title-block">The Power<br>to Change</div></div>
-            <div class="spine"></div>
-    </div>
-    <div class="fan-leaf" data-fan="0" aria-hidden="true"><span class="fan-back"></span></div>
-    <div class="fan-leaf" data-fan="1" aria-hidden="true"><span class="fan-back"></span></div>
-    <div class="fan-leaf" data-fan="2" aria-hidden="true"><span class="fan-back"></span></div>
-    <div class="fan-leaf" data-fan="3" aria-hidden="true"><span class="fan-back"></span></div>
-    <div class="fan-leaf" data-fan="4" aria-hidden="true"><span class="fan-back"></span></div>
-    <div class="fan-leaf" data-fan="5" aria-hidden="true"><span class="fan-back"></span></div>
-    <div class="right-leaf">
-     <div class="right-inner">
-      <div class="role-label">Evelyn Brooks · A personal ending</div>
-      <h2 class="ending-name">Finding Her Footing</h2><div class="divider" aria-hidden="true"></div>
-      <p class="story" id="story">
-       <span><span class="ink" data-start="0.7" data-end="2.5">The buses began to change.</span></span>
-       <span><span class="ink" data-start="2.4" data-end="4.1">At home, the work of living went on.</span></span>
-       <span><span class="ink" data-start="4.0" data-end="5.7">Evelyn and Ruth faced tomorrow together,</span></span>
-       <span><span class="ink" data-start="5.5" data-end="7.0">with questions, courage, and hope.</span></span>
-      </p>
-      <div class="quote-wrap"><div class="quote" id="quote"><span data-start="7.1" data-end="9.2">“We are all bound up together<br>in one great bundle of humanity.”</span></div>
-       <div class="source" id="source">— Frances Ellen Watkins Harper, 1866</div>
-      </div>
-     </div>
-    </div>
-   </div>
-
-  </div>
-  <div class="caption"><span id="status" aria-live="polite">An open book · The story begins</span><span>~16-second conclusion</span></div>
- </section>
- <div class="controls" role="group" aria-label="Animation playback controls">
-  <button type="button" id="replay" class="primary">↻ Replay ending</button>
-  <button type="button" id="pause">Pause</button>
-  <button type="button" id="skip">Skip to closed book</button>
-  <button type="button" id="listen">Hear temporary browser narration</button>
+<header class="top">
+ <span class="project">The Power to Change · 381 Days</span>
+ <span class="details">Vintage ending animation — working preview, not yet part of the game</span>
+</header>
+<main>
+<section class="viewport" id="viewport" aria-label="Animated poetic ending">
+<svg class="parchment" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<defs>
+ <radialGradient id="paper" cx="50%" cy="42%" r="76%">
+ <stop offset="0" stop-color="#f7e5c9"/><stop offset=".43" stop-color="#ebcbae"/><stop offset=".78" stop-color="#d6a88e"/><stop offset="1" stop-color="#ac7b6d"/>
+ </radialGradient>
+ <radialGradient id="pinky"><stop stop-color="#b46e67" stop-opacity=".42"/><stop offset=".77" stop-color="#c68b80" stop-opacity=".17"/><stop offset="1" stop-color="#b97b75" stop-opacity="0"/></radialGradient>
+ <filter id="grain" x="0%" y="0%" width="100%" height="100%">
+   <feTurbulence type="fractalNoise" baseFrequency=".28" numOctaves="3" seed="7" stitchTiles="stitch" result="noise"/>
+   <feColorMatrix in="noise" type="saturate" values="0"/>
+   <feComponentTransfer><feFuncA type="linear" slope=".17"/></feComponentTransfer>
+ </filter>
+ <filter id="soft" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="2.5"/></filter>
+ <g id="flower" stroke="#8b6c58" stroke-width="1.25">
+   <g fill="#b27572" opacity=".6">
+    <ellipse cx="0" cy="-26" rx="14" ry="30" transform="rotate(0)"/>
+    <ellipse cx="0" cy="-26" rx="14" ry="30" transform="rotate(45)"/>
+    <ellipse cx="0" cy="-26" rx="14" ry="30" transform="rotate(90)"/>
+    <ellipse cx="0" cy="-26" rx="14" ry="30" transform="rotate(135)"/>
+    <ellipse cx="0" cy="-26" rx="14" ry="30" transform="rotate(180)"/>
+    <ellipse cx="0" cy="-26" rx="14" ry="30" transform="rotate(225)"/>
+    <ellipse cx="0" cy="-26" rx="14" ry="30" transform="rotate(270)"/>
+    <ellipse cx="0" cy="-26" rx="14" ry="30" transform="rotate(315)"/>
+   </g>
+   <g fill="#d29b8c" opacity=".68">
+    <ellipse cx="0" cy="-16" rx="9" ry="18" transform="rotate(20)"/>
+    <ellipse cx="0" cy="-16" rx="9" ry="18" transform="rotate(92)"/>
+    <ellipse cx="0" cy="-16" rx="9" ry="18" transform="rotate(164)"/>
+    <ellipse cx="0" cy="-16" rx="9" ry="18" transform="rotate(236)"/>
+    <ellipse cx="0" cy="-16" rx="9" ry="18" transform="rotate(308)"/>
+   </g>
+   <circle r="10" fill="#976d5d" opacity=".68"/><circle r="4.5" fill="#e4c49e"/>
+ </g>
+ <g id="branch" opacity=".63">
+  <path d="M0 0C75 13 118 54 178 108C220 151 270 167 360 185M145 77C186 51 216 49 247 63M246 169C266 130 306 112 341 116" fill="none" stroke="#85785c" stroke-width="3"/>
+  <g fill="#898b6a" opacity=".7">
+  <ellipse cx="92" cy="22" rx="12" ry="33" transform="rotate(-40 92 22)"/>
+  <ellipse cx="135" cy="63" rx="11" ry="29" transform="rotate(45 135 63)"/>
+  <ellipse cx="211" cy="138" rx="11" ry="31" transform="rotate(-44 211 138)"/>
+  <ellipse cx="280" cy="169" rx="10" ry="28" transform="rotate(51 280 169)"/>
+  <ellipse cx="221" cy="53" rx="9" ry="25" transform="rotate(-42 221 53)"/>
+  <ellipse cx="302" cy="121" rx="12" ry="28" transform="rotate(52 302 121)"/>
+  </g>
+  <use href="#flower" transform="translate(62 12) scale(.95)"/>
+  <use href="#flower" transform="translate(211 71) scale(.58)"/>
+  <use href="#flower" transform="translate(305 174) scale(.47)"/>
+ </g>
+</defs>
+<rect width="1600" height="900" fill="url(#paper)"/>
+<rect width="1600" height="900" filter="url(#grain)" opacity=".63"/>
+<ellipse cx="140" cy="45" rx="480" ry="290" fill="url(#pinky)"/>
+<ellipse cx="1460" cy="850" rx="470" ry="310" fill="url(#pinky)"/>
+<g opacity=".75" class="flowers-near">
+ <use href="#branch" transform="translate(-58 70) scale(1.50) rotate(-2)"/>
+ <use href="#branch" transform="translate(1670 832) scale(-1.35 -1.45) rotate(1)"/>
+</g>
+<g opacity=".35">
+ <use href="#branch" transform="translate(1555 28) scale(-.55 .52) rotate(-5)"/>
+ <use href="#branch" transform="translate(-22 890) scale(.47 -.52)"/>
+</g>
+<rect width="1600" height="900" fill="none" stroke="#8b6555" stroke-opacity=".11" stroke-width="30"/>
+</svg>
+<div class="paper-tint" aria-hidden="true"></div>
+<div class="poetry">
+ <div class="summary" id="summary">
+  <div class="summary-line"><span class="reveal">The buses began to change.</span></div>
+  <div class="summary-line"><span class="reveal">At home, the work of living went on.</span></div>
+  <div class="summary-line"><span class="reveal">Evelyn and Ruth faced tomorrow together,</span></div>
+  <div class="summary-line"><span class="reveal">with questions, courage, and hope.</span></div>
  </div>
- <div class="progress" aria-hidden="true"><div class="progress-fill" id="progress"></div></div>
- <section class="below">
-  <div><h2>What this mockup tests</h2>
-   <p>An aged-paper literary page, four short ink-written lines, a glowing public-domain historical quotation, and a burgundy antique book closing to reveal <em>The Power to Change</em>. The final nine endings would share the book structure but have different writing and character-specific page ornaments.</p>
-   <p class="disclaimer"><strong>Review draft, not a final game scene.</strong> This page doesn't replace any game ending, journal, or historical material. The original prose above is provisional, and the historical quote comes from Frances Ellen Watkins Harper's 1866 speech.</p>
-  </div>
-  <div><h2>Audio and accessibility</h2>
-   <p>The animation plays silently by default, so it cannot surprise visitors with sound. “Hear temporary browser narration” lets you test the rhythm with your device's built-in speech voice; this is <strong>not</strong> a selected narrator or a finished recording. The finished game can use an approved narrator and matching subtitles. Pause, replay, and skip are available.</p>
-   <p><a href="https://constitutioncenter.org/the-constitution/historic-document-library/detail/frances-ellen-watkins-harper-we-are-all-bound-up-together-1866" target="_blank" rel="noopener noreferrer">Historical quote source: National Constitution Center</a></p>
-   <p><a href="../game.html">← Return to the playable game</a></p>
-  </div>
- </section>
+ <div class="quote-group" id="quoteGroup">
+   <div class="quote" id="quote">“We are all bound up together<br>in one great bundle of humanity.”</div>
+   <div class="quote-auth">— Frances Ellen Watkins Harper, 1866</div>
+ </div>
+</div>
+</section>
+<div class="footer" role="group" aria-label="Preview playback">
+ <button id="replay" type="button">↻ Replay</button>
+ <button id="pause" type="button">Pause</button>
+ <button id="skip" type="button">Skip to quote</button>
+ <span class="state" id="status" aria-live="polite">Writing the conclusion</span>
+</div>
+<div class="progress" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<p class="notes">Preview of Evelyn's <em>Finding Her Footing</em> conclusion. Silent by default. <a href="../game.html">Back to the game</a> · <a href="https://constitutioncenter.org/the-constitution/historic-document-library/detail/frances-ellen-watkins-harper-we-are-all-bound-up-together-1866" target="_blank" rel="noopener noreferrer">Quotation source</a></p>
 </main>
 <script>
 (()=>{
- "use strict";
- const duration=16;
- const lines=Array.from(document.querySelectorAll(".ink"));
- const quote=document.querySelector(".quote span");
- const source=document.getElementById("source");
- const book=document.getElementById("book");
- const leftLeaf=document.querySelector(".left-leaf");
- const fanLeaves=Array.from(document.querySelectorAll(".fan-leaf"));
- const status=document.getElementById("status");
- const progress=document.getElementById("progress");
- const pauseBtn=document.getElementById("pause");
- const narrationBtn=document.getElementById("listen");
- let elapsed=0,playing=true,lastTime=0,raf=0,said=false;
- const prefersReduced=window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches||false;
- const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
- const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
- const pct=(t,a,b)=>clamp((t-a)/(b-a),0,1);
- function animate(t){
-  lines.forEach(el=>{const p=pct(t,+el.dataset.start,+el.dataset.end);el.style.clipPath="inset(0 "+(100-100*p)+"% 0 0)"});
-  quote.style.clipPath="inset(0 "+(100-100*pct(t,7.1,9.2))+"% 0 0)";
-  const shine=smooth(pct(t,8.5,10.1));
-  quote.parentElement.style.textShadow="0 0 "+(18*shine)+"px rgba(203,159,71,"+(.67*shine)+"), 0 0 "+(35*shine)+"px rgba(242,213,142,"+(.32*shine)+")";
-  quote.parentElement.style.color=shine>.3?"#946c32":"#765435";
-  source.style.opacity=String(pct(t,9,9.8));
-
-  // A small, staggered fan of paper leaves falls toward the still-open side,
-  // then the bound front cover closes over them without any cross-fade.
-  fanLeaves.forEach((leaf,i)=>{
-    const start=10.35+i*.20;
-    const end=13.1+i*.19;
-    const f=smooth(pct(t,start,end));
-    leaf.style.transform="rotateY("+(-179.7*f)+"deg)";
-  });
-  const close=smooth(pct(t,11.1,14.85));
-  leftLeaf.style.transform="rotateY("+(-179.7*close)+"deg)";
-  book.style.transform="translateX("+(-25*close)+"%) scale("+(1+.025*close)+")";
-  book.style.opacity="1";
-  progress.style.width=(t/duration*100)+"%";
-  if(t<7.1)status.textContent="Ink settles onto the page";
-  else if(t<10.9)status.textContent="The final words linger";
-  else if(t<14.85)status.textContent="The pages settle and the book closes";
-  else status.textContent="The Power to Change";
-  if(prefersReduced){status.textContent="Reduced motion — complete ending";progress.style.width="100%";}
- }
- function stopVoice(){
-  if("speechSynthesis" in window){try{window.speechSynthesis.cancel()}catch(e){}}
-  said=false;
- }
- function frame(now){
-  if(!playing)return;
-  if(lastTime){elapsed+=(now-lastTime)/1000;}
-  lastTime=now;
-  if(elapsed>=duration){elapsed=duration;playing=false;pauseBtn.textContent="Play";lastTime=0;}
-  animate(elapsed);
-  if(playing)raf=requestAnimationFrame(frame);
- }
- function play(){
-  if(prefersReduced){elapsed=10.5;animate(elapsed);playing=false;pauseBtn.textContent="Close the book";return;}
-  if(elapsed>=duration)elapsed=0;
-  lastTime=0;playing=true;pauseBtn.textContent="Pause";cancelAnimationFrame(raf);raf=requestAnimationFrame(frame);
- }
- function rewind(){stopVoice();elapsed=0;lastTime=0;animate(0);play()}
- function toggle(){if(prefersReduced){if(elapsed>=14.85){elapsed=10.5;pauseBtn.textContent="Close the book";}else{elapsed=duration;pauseBtn.textContent="Read the page";}animate(elapsed);return;}
-  if(playing){playing=false;cancelAnimationFrame(raf);pauseBtn.textContent="Continue";stopVoice();}
-  else play();
- }
- function finish(){stopVoice();playing=false;cancelAnimationFrame(raf);lastTime=0;elapsed=duration;animate(duration);pauseBtn.textContent="Replay"}
- function temporaryVoice(){
-  if(!("speechSynthesis" in window)){narrationBtn.textContent="Narration unavailable on this device";narrationBtn.disabled=true;return;}
-  rewind();
-  const speech=new SpeechSynthesisUtterance("The buses began to change. At home, the work of living went on. Evelyn and Ruth faced tomorrow together, with questions, courage, and hope. We are all bound up together in one great bundle of humanity. Frances Ellen Watkins Harper, eighteen sixty-six.");
-  speech.lang="en-US";speech.rate=1.12;speech.pitch=.94;speech.volume=.83;
-  try{window.speechSynthesis.speak(speech);said=true}catch(e){narrationBtn.textContent="Browser narration unavailable";}
- }
- pauseBtn.addEventListener("click",toggle);
- document.getElementById("replay").addEventListener("click",rewind);
- document.getElementById("skip").addEventListener("click",finish);
- narrationBtn.addEventListener("click",temporaryVoice);
- document.addEventListener("visibilitychange",()=>{if(document.hidden&&playing){playing=false;cancelAnimationFrame(raf);pauseBtn.textContent="Continue";stopVoice();}});
- document.addEventListener("keydown",e=>{if(e.code==="Space"&&!["BUTTON","INPUT"].includes(document.activeElement?.tagName)){e.preventDefault();toggle();}});
- animate(0);
- if(!prefersReduced)raf=requestAnimationFrame(frame);else{playing=false;elapsed=10.5;animate(elapsed);pauseBtn.textContent="Close the book";}
+'use strict';
+const summary=document.getElementById('summary');
+const quoteGroup=document.getElementById('quoteGroup');
+const quote=document.getElementById('quote');
+const status=document.getElementById('status');
+const progress=document.getElementById('progressBar');
+const pauseButton=document.getElementById('pause');
+const lineSpans=Array.from(document.querySelectorAll('.reveal'));
+const duration=15.0; // quote holds for approximately five seconds at the end
+const reduced=window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches||false;
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const proportion=(t,a,b)=>clamp((t-a)/(b-a),0,1);
+let elapsed=0,previous=null,running=false,raf=null;
+function render(t){
+ const reveal=proportion(t,.65,4.55);
+ let remaining=Math.round(lineSpans.reduce((n,el)=>n+el.textContent.length,0)*reveal);
+ lineSpans.forEach(el=>{
+   const n=el.textContent.length;
+   const visible=clamp(remaining,0,n);remaining-=visible;
+   // A quiet typed reveal: no cursor, no jitter, just an expanding ink mask.
+   const percent=Math.max(0,100-100*visible/n);
+   el.style.clipPath='inset(0 '+percent+'% 0 0)';
+ });
+ const fade=smooth(proportion(t,6.1,7.35));
+ summary.style.opacity=String(1-fade);
+ summary.style.filter='blur('+(fade*7)+'px)';
+ summary.style.transform='translateY('+(-4*fade)+'px)';
+ const quoteIn=smooth(proportion(t,7.65,9.75));
+ quoteGroup.style.opacity=String(quoteIn);
+ quoteGroup.style.transform='translateY('+((1-quoteIn)*9)+'px)';
+ const glow=smooth(proportion(t,8.25,10.25));
+ quote.style.textShadow='0 0 '+(glow*14)+'px rgba(255,239,197,'+(glow*.78)+'),0 0 '+(glow*29)+'px rgba(247,215,151,'+(glow*.38)+')';
+ status.textContent=t<6.15?'Writing the conclusion':t<7.65?'The words fade':t<10.1?'The quotation appears':'The final quotation';
+ progress.style.width=(100*t/duration)+'%';
+}
+function step(now){
+ if(!running)return;
+ if(previous!==null)elapsed+=(now-previous)/1000;
+ previous=now;
+ if(elapsed>=duration){elapsed=duration;running=false;pauseButton.textContent='Play again';previous=null;}
+ render(elapsed);
+ if(running)raf=requestAnimationFrame(step);
+}
+function stop(){running=false;cancelAnimationFrame(raf);previous=null;}
+function play(){stop();if(elapsed>=duration)elapsed=0;running=true;pauseButton.textContent='Pause';raf=requestAnimationFrame(step);}
+function replay(){elapsed=0;render(0);if(reduced){stop();return;}play();}
+document.getElementById('replay').addEventListener('click',replay);
+pauseButton.addEventListener('click',()=>{
+ if(reduced){elapsed=duration;render(elapsed);return;}
+ if(running){stop();pauseButton.textContent='Resume';}
+ else play();
+});
+document.getElementById('skip').addEventListener('click',()=>{stop();elapsed=duration;render(elapsed);pauseButton.textContent='Replay';});
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&running){stop();pauseButton.textContent='Resume';}});
+document.addEventListener('keydown',e=>{if(e.code==='Space'&&e.target.tagName!=='BUTTON'&&e.target.tagName!=='INPUT'){e.preventDefault();pauseButton.click();}});
+if(reduced){elapsed=duration;render(duration);pauseButton.textContent='Show quote';}
+else{render(0);play();}
 })();
 </script>
 </body>
