@@ -1,0 +1,31 @@
+/* First-run, skippable archive tutorial and permanent Help entry.
+   Same appearance as the creator-approved standalone four-lesson prototype. */
+.game-tutorial-dialog{
+ position:fixed;inset:0;
+ width:min(1190px,97vw);height:min(94dvh,960px);
+ max-width:none;max-height:none;
+ padding:0;border:1px solid #a78c70;
+ background:#eee2cd;box-shadow:0 20px 76px #211b16c0;
+ overflow:hidden;color:#42352c;
+}
+.game-tutorial-dialog::backdrop{background:rgba(21,19,16,.80)}
+.game-tutorial-dialog .tutorial-modal-bar{
+ display:flex;align-items:center;justify-content:space-between;gap:14px;
+ padding:7px 14px;min-height:44px;background:#e7d7bd;
+ border-bottom:1px solid #ad9777;
+ font:10px/1.3 "DM Mono",monospace;
+ text-transform:uppercase;letter-spacing:.08em;color:#735843;
+}
+.game-tutorial-dialog .tutorial-modal-bar button{
+ background:#f9f0e1;border:1px solid #a78b6e;color:#6d4839;
+ padding:6px 10px;cursor:pointer;font:11px/1.3 "DM Mono",monospace;
+}
+.game-tutorial-dialog .tutorial-modal-bar button:focus-visible{outline:3px solid #8a4438;outline-offset:2px}
+.game-tutorial-dialog iframe{display:block;width:100%;height:calc(100% - 44px);border:0;background:#ede0cd}
+#help-tutorial{flex-shrink:0}
+#help-tutorial>span:first-child{font-size:18px;font-weight:600}
+@media(max-width:680px){
+ .game-tutorial-dialog{width:100vw;height:100dvh;border:0}
+ .game-tutorial-dialog .tutorial-modal-bar{padding:6px 9px}
+ #help-tutorial{min-width:37px}
+}
