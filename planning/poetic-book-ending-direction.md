@@ -48,3 +48,14 @@ Both sample conclusion and historical quote selected for *prototype* only. The q
 - [ ] Move from prototype to full game only with approval.
 - [ ] Implement nine unique role/ending texts with creator review.
 - [ ] Verify mobile, accessibility, 9 endings, saving and production deployment.
+
+## Creator revision from antique-book reference — November 23, 2026
+
+The creator **does not approve the first version** of the mockup. They supplied a photographic reference of antique embossed poetry book bindings with intricate gilt/floral decoration and requested:
+- **Cover redesign:** richer, more traditional antique book styling with decorative botanical borders, worn burgundy/red-brown cloth tones and classic historical lettering; **not the original minimalist modern navy cover or font**.
+- **Smooth closing:** earlier 3D leaf/backface close felt janky. The revised standalone preview now uses a longer eased hinge movement plus an **independent cover reveal**, blending away the folded pages to avoid a sudden flip/glitch.
+- **No pictorial/graphic symbols:** removed the bus drawing, star divider, monogram and modern graphic symbols. Floral ornamentation remains because it is directly desired in the reference.
+- **Quotation:** **reduce final-quote type size 15%** at desktop, tablet and mobile breakpoints. Keep the reflective Harper quotation and gentle glow.
+- This update is a **second iteration, awaiting creator visual review**, not final approved gameplay.
+- Source visual reference was attached by the creator in the conversation. The mockup uses editable SVG/CSS floral decorations to interpret that look; these are *not* exact image textures from the attachment.
+- Preview continues to be `https://bonniexu2030.github.io/the-power-to-change/preview/poetic-book-ending.html`; no changes to main game and no final narration/music selected.
