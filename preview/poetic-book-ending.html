@@ -112,29 +112,43 @@ h2{font:600 23px/1.2 "Cormorant Garamond",Georgia,serif;margin:0 0 6px}
 }
 @media(prefers-reduced-motion:reduce){.book,.left-leaf,.ink,.quote,.progress-fill{transition:none!important;animation:none!important}}
 
-.cover-face{display:none!important}
-.book{perspective:1900px;transform-style:preserve-3d}
-.left-leaf,.inner-face{backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.page-side{inset:5%;border:1px solid #aa8e6c52}
-.page-botanical{width:80%;height:96%;opacity:.75}
-.page-botanical svg{width:100%;height:100%;filter:sepia(.4);opacity:.65}
+/* Physically attached cover and layered turning pages.
+   The hardcover remains the back face of the same board. */
+.stage{perspective:1500px}
+.book{isolation:auto!important;perspective:1500px!important;transform-style:preserve-3d!important;overflow:visible}
+.left-leaf{z-index:9;transform-style:preserve-3d;backface-visibility:hidden;-webkit-backface-visibility:hidden;will-change:transform;box-shadow:none}
+.inner-face{backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:translateZ(1px)}
+.cover-face{display:flex;align-items:center;justify-content:center;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+ transform:rotateY(180deg) translateZ(1px);border:5px solid #4b261e;border-radius:4px 9px 9px 4px;
+ background:repeating-linear-gradient(90deg,transparent 0 3px,#f9dba008 3px 4px,transparent 4px 7px),
+ radial-gradient(ellipse at 45% 44%,#995139 0%,#733a29 43%,#46231e 90%);
+ box-shadow:inset 8px 0 13px #2b1512a3,inset -5px 0 10px #1d100da1,inset 0 0 24px #1e0d0c78}
+.cover-face:before,.cover-face:after{display:none!important}
+.cover-square{position:absolute;inset:7%;border:2px solid #c7a16a;box-shadow:0 0 0 1px #36221ac9,inset 0 0 0 1px #e1c58f66}
+.cover-title-block{position:relative;z-index:2;text-align:center;color:#f1d9a3;letter-spacing:.025em;
+ font:normal clamp(25px,3.55vw,52px)/1.12 "IM Fell English SC",Georgia,serif;text-shadow:0 1px 2px #1708078c;max-width:87%}
+.spine{width:4px;background:linear-gradient(90deg,#70523b,#e0caa6,#a48d72);z-index:10}
+.page-side{inset:5%;border:1px solid #a78a6852;box-shadow:none}
+.page-botanical{width:80%;height:94%;opacity:.72}
+.page-botanical svg{width:100%;height:100%;filter:sepia(.4);opacity:.66}
 .divider{font-size:0;color:transparent}.divider:after{display:none}
 .quote{font-size:clamp(17px,2.5925vw,34px)}
-.antique-cover{position:absolute;z-index:7;left:50%;top:50%;width:min(42%,430px);height:78%;opacity:0;pointer-events:none;
- transform:translate(-50%,-50%) scale(.93);border:4px solid #422018;border-radius:5px 11px 11px 4px;
- background:repeating-linear-gradient(90deg,transparent 0 3px,#f1dcb609 3px 4px,transparent 4px 7px),
- radial-gradient(ellipse at 49% 45%,#944d31 0%,#693124 55%,#3b211c 100%);
- box-shadow:inset 0 0 0 3px #c4a169,inset 0 0 0 10px #5d3028,inset -9px 0 10px #160c0d88,
- 3px 4px 0 #bba885,6px 8px 0 #8c765b,15px 18px 25px #0a090ca9;will-change:transform,opacity}
-.antique-cover:before{content:"";position:absolute;inset:3%;border:2px double #d4b17e8c;z-index:1;box-shadow:inset 0 0 0 5px #bda06c25}
-.cloth-spine{position:absolute;z-index:2;top:0;bottom:0;left:0;width:7%;background:linear-gradient(90deg,#1f1111aa,#b27b4955,#3d201c88,transparent);border-right:1px solid #b78d58}
-.gilt-botanical{width:100%;height:100%;position:absolute;inset:0;z-index:2;filter:drop-shadow(0 1px 1px #20100c)}
-.cover-nameplate{position:absolute;z-index:4;inset:33% 18% 31%;display:flex;justify-content:center;align-items:center;text-align:center;
- background:#50251ca8;border:1px solid #d7ab69;box-shadow:0 0 0 3px #b5935c7d,inset 0 0 16px #200d0c5d}
-.antique-title{font:normal clamp(23px,3.45vw,50px)/1.02 "IM Fell English SC","Times New Roman",serif;color:#e8d099;
- text-shadow:0 2px 1px #190d0d,0 0 2px #d8b2748c;letter-spacing:.025em}
-@media(max-width:750px){.quote{font-size:clamp(15.3px,3.74vw,26.35px)}.antique-cover{width:43%;height:77%}.antique-title{font-size:clamp(20px,4.2vw,36px)}}
-@media(max-width:470px){.quote{font-size:clamp(17px,4.76vw,25.5px)}.antique-cover{width:46%;height:72%}.cover-nameplate{inset:34% 10% 32%}.antique-title{font-size:clamp(18px,4.2vw,29px)}}
+.right-leaf{z-index:1;box-shadow:inset 7px 0 22px #61432a36,5px 6px 0 #e8d4b4,8px 9px 0 #cbb99e,10px 13px 15px #180f0d54}
+.fan-leaf{position:absolute;top:0;left:0;width:50%;height:100%;transform-origin:right center;
+ background:linear-gradient(100deg,#d8bea1 0%,#f7ecd8 7%,#f4e6cd 78%,#e0c8a6 100%);
+ border:1px solid #d1b994;box-shadow:inset -6px 0 12px #6b513020,3px 3px 0 #d7c1a0;
+ transform-style:preserve-3d;backface-visibility:visible;will-change:transform;z-index:3}
+.fan-leaf:after{content:"";position:absolute;inset:0;
+ background:repeating-linear-gradient(0deg,transparent 0 12px,#ad937d09 13px 14px)}
+.fan-back{position:absolute;inset:0;transform:rotateY(180deg) translateZ(1px);
+ background:linear-gradient(110deg,#e3ceb0,#fcf0db 19%,#ead7ba 100%);
+ backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.fan-leaf[data-fan="0"]{z-index:3}.fan-leaf[data-fan="1"]{z-index:4}
+.fan-leaf[data-fan="2"]{z-index:5}.fan-leaf[data-fan="3"]{z-index:6}
+.fan-leaf[data-fan="4"]{z-index:7}.fan-leaf[data-fan="5"]{z-index:8}
+@media(max-width:750px){.quote{font-size:clamp(15.3px,3.74vw,26.35px)}.cover-title-block{font-size:clamp(19px,4.3vw,36px)}}
+@media(max-width:470px){.quote{font-size:clamp(17px,4.76vw,25.5px)}.cover-title-block{font-size:clamp(18px,4.6vw,28px)}.cover-square{inset:9%}}
+
 </style>
 </head>
 <body>
@@ -154,9 +168,15 @@ h2{font:600 23px/1.2 "Cormorant Garamond",Georgia,serif;margin:0 0 6px}
 <path d="M38 507Q100 559 200 548Q300 559 362 507M89 106Q144 58 200 65Q256 58 311 106"/>
 </g><g fill="#92855a" stroke="#b99c70" stroke-width="1.2">
 <path d="M112 239q-21-24-20-40q24 7 20 40M118 380q-16-32-38-29q13 28 38 29M288 239q21-24 20-40q-24 7-20 40M282 380q16-32 38-29q-13 28-38 29"/>
-</g><g transform="translate(200 66) scale(1.3)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(105 134) scale(1)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(295 134) scale(1)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(60 352) scale(1.15)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(340 352) scale(1.15)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(200 544) scale(1.2)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(145 76) scale(0.65)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(255 76) scale(0.65)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(86 517) scale(0.68)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(314 517) scale(0.68)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g></svg></div></div></div><div class="cover-face" aria-hidden="true"></div>
+</g><g transform="translate(200 66) scale(1.3)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(105 134) scale(1)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(295 134) scale(1)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(60 352) scale(1.15)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(340 352) scale(1.15)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(200 544) scale(1.2)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(145 76) scale(0.65)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(255 76) scale(0.65)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(86 517) scale(0.68)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(314 517) scale(0.68)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g></svg></div></div></div><div class="cover-face" aria-label="The Power to Change antique front cover"><div class="cover-square"></div><div class="cover-title-block">The Power<br>to Change</div></div>
             <div class="spine"></div>
     </div>
+    <div class="fan-leaf" data-fan="0" aria-hidden="true"><span class="fan-back"></span></div>
+    <div class="fan-leaf" data-fan="1" aria-hidden="true"><span class="fan-back"></span></div>
+    <div class="fan-leaf" data-fan="2" aria-hidden="true"><span class="fan-back"></span></div>
+    <div class="fan-leaf" data-fan="3" aria-hidden="true"><span class="fan-back"></span></div>
+    <div class="fan-leaf" data-fan="4" aria-hidden="true"><span class="fan-back"></span></div>
+    <div class="fan-leaf" data-fan="5" aria-hidden="true"><span class="fan-back"></span></div>
     <div class="right-leaf">
      <div class="right-inner">
       <div class="role-label">Evelyn Brooks · A personal ending</div>
@@ -173,15 +193,9 @@ h2{font:600 23px/1.2 "Cormorant Garamond",Georgia,serif;margin:0 0 6px}
      </div>
     </div>
    </div>
-   <div class="antique-cover" id="antiqueCover" aria-hidden="true"><div class="cloth-spine"></div><svg class="gilt-botanical" viewBox="0 0 400 600" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="#bf995e" stroke-width="2">
-<path d="M38 505C70 425 40 354 67 298C90 236 64 181 106 133C131 98 171 76 200 65M362 505C330 425 360 354 333 298C310 236 336 181 294 133C269 98 229 76 200 65"/>
-<path d="M47 310Q105 278 118 239M55 232Q93 200 112 179M63 391Q98 365 128 380M353 310Q295 278 282 239M345 232Q307 200 288 179M337 391Q302 365 272 380"/>
-<path d="M38 507Q100 559 200 548Q300 559 362 507M89 106Q144 58 200 65Q256 58 311 106"/>
-</g><g fill="#92855a" stroke="#b99c70" stroke-width="1.2">
-<path d="M112 239q-21-24-20-40q24 7 20 40M118 380q-16-32-38-29q13 28 38 29M288 239q21-24 20-40q-24 7-20 40M282 380q16-32 38-29q-13 28-38 29"/>
-</g><g transform="translate(200 66) scale(1.3)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(105 134) scale(1)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(295 134) scale(1)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(60 352) scale(1.15)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(340 352) scale(1.15)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(200 544) scale(1.2)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(145 76) scale(0.65)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(255 76) scale(0.65)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(86 517) scale(0.68)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(314 517) scale(0.68)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g></svg><div class="cover-nameplate"><div class="antique-title">The Power<br>to Change</div></div></div>
+
   </div>
-  <div class="caption"><span id="status" aria-live="polite">An open book · The story begins</span><span>~15-second conclusion</span></div>
+  <div class="caption"><span id="status" aria-live="polite">An open book · The story begins</span><span>~16-second conclusion</span></div>
  </section>
  <div class="controls" role="group" aria-label="Animation playback controls">
   <button type="button" id="replay" class="primary">↻ Replay ending</button>
@@ -192,7 +206,7 @@ h2{font:600 23px/1.2 "Cormorant Garamond",Georgia,serif;margin:0 0 6px}
  <div class="progress" aria-hidden="true"><div class="progress-fill" id="progress"></div></div>
  <section class="below">
   <div><h2>What this mockup tests</h2>
-   <p>An aged-paper literary page, four short ink-written lines, a glowing public-domain historical quotation, and a burgundy floral antique book closing to reveal <em>The Power to Change</em>. The final nine endings would share the book structure but have different writing and character-specific page ornaments.</p>
+   <p>An aged-paper literary page, four short ink-written lines, a glowing public-domain historical quotation, and a burgundy antique book closing to reveal <em>The Power to Change</em>. The final nine endings would share the book structure but have different writing and character-specific page ornaments.</p>
    <p class="disclaimer"><strong>Review draft, not a final game scene.</strong> This page doesn't replace any game ending, journal, or historical material. The original prose above is provisional, and the historical quote comes from Frances Ellen Watkins Harper's 1866 speech.</p>
   </div>
   <div><h2>Audio and accessibility</h2>
@@ -205,13 +219,13 @@ h2{font:600 23px/1.2 "Cormorant Garamond",Georgia,serif;margin:0 0 6px}
 <script>
 (()=>{
  "use strict";
- const duration=15;
+ const duration=16;
  const lines=Array.from(document.querySelectorAll(".ink"));
  const quote=document.querySelector(".quote span");
  const source=document.getElementById("source");
  const book=document.getElementById("book");
  const leftLeaf=document.querySelector(".left-leaf");
- const antiqueCover=document.getElementById("antiqueCover");
+ const fanLeaves=Array.from(document.querySelectorAll(".fan-leaf"));
  const status=document.getElementById("status");
  const progress=document.getElementById("progress");
  const pauseBtn=document.getElementById("pause");
@@ -228,18 +242,23 @@ h2{font:600 23px/1.2 "Cormorant Garamond",Georgia,serif;margin:0 0 6px}
   quote.parentElement.style.textShadow="0 0 "+(18*shine)+"px rgba(203,159,71,"+(.67*shine)+"), 0 0 "+(35*shine)+"px rgba(242,213,142,"+(.32*shine)+")";
   quote.parentElement.style.color=shine>.3?"#946c32":"#765435";
   source.style.opacity=String(pct(t,9,9.8));
-  const fold=smooth(pct(t,10.7,14.15));
-  const reveal=smooth(pct(t,12.2,13.75));
-  book.style.transform="translateX("+(-25*fold)+"%) scale("+(1+.045*fold)+")";
-  book.style.opacity=String(1-smooth(pct(t,12.15,13.55)));
-  leftLeaf.style.transform="rotateY("+(-160*fold)+"deg)";
-  antiqueCover.style.opacity=String(reveal);
-  antiqueCover.style.transform="translate(-50%,-50%) scale("+(0.93+.07*reveal)+")";
-  antiqueCover.setAttribute("aria-hidden",reveal>.90?"false":"true");
+
+  // A small, staggered fan of paper leaves falls toward the still-open side,
+  // then the bound front cover closes over them without any cross-fade.
+  fanLeaves.forEach((leaf,i)=>{
+    const start=10.35+i*.20;
+    const end=13.1+i*.19;
+    const f=smooth(pct(t,start,end));
+    leaf.style.transform="rotateY("+(-179.7*f)+"deg)";
+  });
+  const close=smooth(pct(t,11.1,14.85));
+  leftLeaf.style.transform="rotateY("+(-179.7*close)+"deg)";
+  book.style.transform="translateX("+(-25*close)+"%) scale("+(1+.025*close)+")";
+  book.style.opacity="1";
   progress.style.width=(t/duration*100)+"%";
   if(t<7.1)status.textContent="Ink settles onto the page";
   else if(t<10.9)status.textContent="The final words linger";
-  else if(t<14.15)status.textContent="The book closes";
+  else if(t<14.85)status.textContent="The pages settle and the book closes";
   else status.textContent="The Power to Change";
   if(prefersReduced){status.textContent="Reduced motion — complete ending";progress.style.width="100%";}
  }
@@ -261,7 +280,7 @@ h2{font:600 23px/1.2 "Cormorant Garamond",Georgia,serif;margin:0 0 6px}
   lastTime=0;playing=true;pauseBtn.textContent="Pause";cancelAnimationFrame(raf);raf=requestAnimationFrame(frame);
  }
  function rewind(){stopVoice();elapsed=0;lastTime=0;animate(0);play()}
- function toggle(){if(prefersReduced){if(elapsed>=14.15){elapsed=10.5;pauseBtn.textContent="Close the book";}else{elapsed=duration;pauseBtn.textContent="Read the page";}animate(elapsed);return;}
+ function toggle(){if(prefersReduced){if(elapsed>=14.85){elapsed=10.5;pauseBtn.textContent="Close the book";}else{elapsed=duration;pauseBtn.textContent="Read the page";}animate(elapsed);return;}
   if(playing){playing=false;cancelAnimationFrame(raf);pauseBtn.textContent="Continue";stopVoice();}
   else play();
  }
