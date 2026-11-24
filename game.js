@@ -1048,13 +1048,43 @@ function renderEndingChapter5(){
   '<p>'+safeText(role.reflection)+'</p>'+
   '<p class="mini-note">There is no graded answer. Consider whose work made the change possible, who bore the costs, and which injustices remained.</p></div>'+
   '<div class="scene-actions" id="ending-actions"></div>'+
-  '<p class="mini-note">You have completed this perspective in The Power to Change. Each character follows the same historical movement but faces different constraints and choices. The journal remains available.</p>';
+  '<p class="mini-note">You have completed this perspective in The Power to Change. Each character follows the same historical movement but faces different constraints and choices. The journal remains available.</p>'+ 
+  '<section class="poetic-ending-entry" aria-label="Final poetic conclusion"><p class="chapter-eyebrow">ONE FINAL THOUGHT</p>'+
+  '<p>When you are ready, close this perspective with a brief reflection inspired by historical voices.</p>'+
+  '<button type="button" class="btn btn-primary" id="open-poetic-conclusion">View final conclusion →</button></section>';
  const actions=body.querySelector('#ending-actions');
  if(state.role==='evelyn')actions.append(makeButton('Replay Evelyn & Ruth conversation ↗',openEvelynRuthScene,'btn btn-secondary'));
 
  actions.append(makeButton('Explore another perspective →',switchCharacter));
  actions.append(makeButton('Return to the introduction',()=>{screen='cover';render()},'btn btn-secondary'));
- revealStoryText('.epilogue-section .story-prose p, .epilogue-memories p:not(.chapter-eyebrow)', '.historical-afterword, .reflection-card, .scene-actions');
+ body.querySelector('#open-poetic-conclusion').addEventListener('click',openPoeticFinalConclusion);
+ revealStoryText('.epilogue-section .story-prose p, .epilogue-memories p:not(.chapter-eyebrow)', '.historical-afterword, .reflection-card, .scene-actions, .poetic-ending-entry');
+}
+
+function openPoeticFinalConclusion(){
+ // The literary conclusion comes AFTER the complete written ending, history, sources, and reflection.
+ if(!state||state.chapter!==5||screen!=='ending')return;
+ const id=finalEndingId();
+ if(!id||!window.chapterFiveData?.[state.role]?.endings?.[id])return;
+ const dialog=document.getElementById('poetic-final-dialog');
+ const frame=document.getElementById('poetic-final-frame');
+ if(!dialog||!frame)return;
+ frame.src='poetic-final.html?role='+encodeURIComponent(state.role)+
+   '&ending='+encodeURIComponent(id)+'&embed=1&v=20261123-parchment-nine-v1';
+ dialog.showModal();
+ document.getElementById('poetic-final-close').focus({preventScroll:true});
+}
+const poeticFinalDialog=document.getElementById('poetic-final-dialog');
+if(poeticFinalDialog){
+ document.getElementById('poetic-final-close').addEventListener('click',()=>poeticFinalDialog.close());
+ document.getElementById('poetic-final-other').addEventListener('click',()=>{
+   poeticFinalDialog.close();
+   switchCharacter();
+ });
+ poeticFinalDialog.addEventListener('close',()=>{
+   const frame=document.getElementById('poetic-final-frame');
+   if(frame)frame.removeAttribute('src'); // stop the timed text and free the iframe
+ });
 }
 
 function relationshipLabel(value){return value<=-2?'Strained':value===-1?'Uneasy':value===0?'Complicated':value===1?'Growing trust':'Strong trust';}

@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#d8b09a">
+<title>381 Days — Final Poetic Conclusion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:#493029;background:#f0e3d7;font-family:Georgia,"Times New Roman",serif}
+button{cursor:pointer;font:inherit}
+button:focus-visible,a:focus-visible{outline:3px solid #84543d;outline-offset:3px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;max-width:1450px;margin:0 auto;padding:13px clamp(12px,2.6vw,30px)}
+.project{font:600 12px/1.4 Georgia,serif;text-transform:uppercase;letter-spacing:.11em;color:#815b4c}
+.top .details{font:12px/1.4 Georgia,serif;color:#886d5d}
+.viewport{position:relative;width:100%;height:min(82vh,850px);min-height:460px;overflow:hidden;isolation:isolate;background:#eac6a8}
+.parchment{position:absolute;inset:0;display:block;height:100%;width:100%;z-index:0}
+.paper-tint{position:absolute;inset:0;z-index:1;pointer-events:none;
+background:radial-gradient(ellipse at center,#fff1dc13 10%,transparent 70%),linear-gradient(115deg,#ae6f6520,transparent 34%,#a7675030);mix-blend-mode:multiply}
+.poetry{position:absolute;z-index:3;inset:0;display:grid;place-items:center;overflow:hidden;padding:clamp(26px,6vw,95px);text-align:center}
+.summary,.quote-group{position:absolute;top:50%;left:50%;width:min(80%,970px);transform:translate(-50%,-50%);max-width:970px;margin:0;display:flex;align-items:center;justify-content:center;flex-direction:column;will-change:opacity,filter,transform}
+.summary{font:500 clamp(28px,3.55vw,57px)/1.25 "Cormorant Garamond",Georgia,serif;color:#56372d;letter-spacing:.005em;gap:.06em;opacity:1;text-shadow:0 1px 1px #fff0e655}
+.summary-line{display:block;white-space:normal;line-height:1.2;overflow:visible}
+.reveal{display:inline-block;visibility:visible;max-width:100%}
+.quote-group{opacity:0;gap:clamp(7px,1.3vw,20px)}
+.quote{font:400 clamp(37px,4.05vw,66px)/1.24 "Great Vibes","Brush Script MT",cursive;max-width:950px;color:#633721;letter-spacing:.011em;text-shadow:0 0 0 #f3ce9b}
+.quote-auth{font:400 clamp(15px,1.45vw,24px)/1.3 "Cormorant Garamond",Georgia,serif;color:#674438;letter-spacing:.01em}
+.flowers-near{transform-origin:center center}
+@media(max-width:800px){
+ .viewport{height:min(78svh,750px);min-height:520px}
+ .summary{font-size:clamp(28px,4.6vw,47px);width:84%}
+ .quote{font-size:clamp(32px,5.7vw,53px)}
+}
+@media(max-width:520px){
+ .viewport{min-height:590px;height:75svh}
+ .poetry{padding:24px}
+ .summary,.quote-group{width:86%}
+ .summary{font-size:clamp(27px,7vw,39px);line-height:1.35}
+ .quote{font-size:clamp(36px,8vw,48px)}
+ .quote-auth{font-size:16px}
+}
+.footer{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:center;padding:13px 14px 5px}
+button{background:#f9f0e5;color:#5b3b31;border:1px solid #b39079;border-radius:7px;padding:9px 15px;min-width:90px}
+button:hover{background:#fff9ef}
+.state{font:12px/1.4 Georgia,serif;color:#8e6d5d;min-width:145px;text-align:center}
+.progress{height:3px;background:#e4d1c4;max-width:360px;margin:8px auto 0;border-radius:5px;overflow:hidden}
+.progress-bar{height:100%;width:0;background:#a26756}
+.notes{font-size:13px;color:#876d5e;text-align:center;margin:10px 10px 22px}
+.notes a{color:#765144}
+body.reduced .reveal{transition:none!important}
+@media(prefers-reduced-motion:reduce){.viewport *{animation:none!important;transition:none!important}}
+
+/* The full-screen finale is shown only after the reader opens it from their completed epilogue. */
+html.embedded,html.embedded body{height:100%;overflow:hidden}
+html.embedded .top,html.embedded .notes{display:none}
+html.embedded .viewport{height:100svh;min-height:0;max-height:none}
+html.embedded .footer{position:fixed;z-index:20;left:50%;bottom:19px;transform:translateX(-50%);
+ max-width:calc(100vw - 25px);justify-content:center;border:1px solid #9b7c6b63;
+ border-radius:12px;background:#f9ebdfd9;backdrop-filter:blur(8px);box-shadow:0 3px 16px #4b2b2630;
+ padding:7px 10px}
+html.embedded .footer button{padding:7px 11px}
+html.embedded .progress{position:fixed;z-index:21;bottom:0;left:0;right:0;max-width:100%;margin:0}
+html.embedded .quote-group{padding-bottom:4vh}
+html.embedded .summary{padding-bottom:4vh}
+html.embedded .notes{display:none}
+@media(max-width:650px){
+ html.embedded .footer{bottom:12px;gap:6px}
+ html.embedded .footer button{min-width:65px;font-size:12px}
+ html.embedded .footer .state{min-width:80px;font-size:11px}
+ html.embedded .quote-group{padding-bottom:7vh}
+ html.embedded .summary{padding-bottom:7vh}
+}
+body[data-role="marcus"] .paper-tint{background:linear-gradient(120deg,#8e947228,transparent 35%,#927f5a2a)}
+body[data-role="daniel"] .paper-tint{background:linear-gradient(120deg,#87717d26,transparent 35%,#77647130)}
+</style>
+</head>
+<body>
+<header class="top">
+ <span class="project">The Power to Change · 381 Days</span>
+ <span class="details">Vintage ending animation — working preview, not yet part of the game</span>
+</header>
+<main>
+<section class="viewport" id="viewport" aria-label="Animated poetic ending">
+<svg class="parchment" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<defs>
+ <radialGradient id="paper" cx="50%" cy="42%" r="76%">
+ <stop offset="0" stop-color="#f7e5c9"/><stop offset=".43" stop-color="#ebcbae"/><stop offset=".78" stop-color="#d6a88e"/><stop offset="1" stop-color="#ac7b6d"/>
+ </radialGradient>
+ <radialGradient id="pinky"><stop stop-color="#b46e67" stop-opacity=".42"/><stop offset=".77" stop-color="#c68b80" stop-opacity=".17"/><stop offset="1" stop-color="#b97b75" stop-opacity="0"/></radialGradient>
+ <filter id="grain" x="0%" y="0%" width="100%" height="100%">
+   <feTurbulence type="fractalNoise" baseFrequency=".28" numOctaves="3" seed="7" stitchTiles="stitch" result="noise"/>
+   <feColorMatrix in="noise" type="saturate" values="0"/>
+   <feComponentTransfer><feFuncA type="linear" slope=".17"/></feComponentTransfer>
+ </filter>
+ <filter id="soft" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="2.5"/></filter>
+ <g id="flower" stroke="#8b6c58" stroke-width="1.25">
+   <g fill="#b27572" opacity=".6">
+    <ellipse cx="0" cy="-26" rx="14" ry="30" transform="rotate(0)"/>
+    <ellipse cx="0" cy="-26" rx="14" ry="30" transform="rotate(45)"/>
+    <ellipse cx="0" cy="-26" rx="14" ry="30" transform="rotate(90)"/>
+    <ellipse cx="0" cy="-26" rx="14" ry="30" transform="rotate(135)"/>
+    <ellipse cx="0" cy="-26" rx="14" ry="30" transform="rotate(180)"/>
+    <ellipse cx="0" cy="-26" rx="14" ry="30" transform="rotate(225)"/>
+    <ellipse cx="0" cy="-26" rx="14" ry="30" transform="rotate(270)"/>
+    <ellipse cx="0" cy="-26" rx="14" ry="30" transform="rotate(315)"/>
+   </g>
+   <g fill="#d29b8c" opacity=".68">
+    <ellipse cx="0" cy="-16" rx="9" ry="18" transform="rotate(20)"/>
+    <ellipse cx="0" cy="-16" rx="9" ry="18" transform="rotate(92)"/>
+    <ellipse cx="0" cy="-16" rx="9" ry="18" transform="rotate(164)"/>
+    <ellipse cx="0" cy="-16" rx="9" ry="18" transform="rotate(236)"/>
+    <ellipse cx="0" cy="-16" rx="9" ry="18" transform="rotate(308)"/>
+   </g>
+   <circle r="10" fill="#976d5d" opacity=".68"/><circle r="4.5" fill="#e4c49e"/>
+ </g>
+ <g id="branch" opacity=".63">
+  <path d="M0 0C75 13 118 54 178 108C220 151 270 167 360 185M145 77C186 51 216 49 247 63M246 169C266 130 306 112 341 116" fill="none" stroke="#85785c" stroke-width="3"/>
+  <g fill="#898b6a" opacity=".7">
+  <ellipse cx="92" cy="22" rx="12" ry="33" transform="rotate(-40 92 22)"/>
+  <ellipse cx="135" cy="63" rx="11" ry="29" transform="rotate(45 135 63)"/>
+  <ellipse cx="211" cy="138" rx="11" ry="31" transform="rotate(-44 211 138)"/>
+  <ellipse cx="280" cy="169" rx="10" ry="28" transform="rotate(51 280 169)"/>
+  <ellipse cx="221" cy="53" rx="9" ry="25" transform="rotate(-42 221 53)"/>
+  <ellipse cx="302" cy="121" rx="12" ry="28" transform="rotate(52 302 121)"/>
+  </g>
+  <use href="#flower" transform="translate(62 12) scale(.95)"/>
+  <use href="#flower" transform="translate(211 71) scale(.58)"/>
+  <use href="#flower" transform="translate(305 174) scale(.47)"/>
+ </g>
+</defs>
+<rect width="1600" height="900" fill="url(#paper)"/>
+<rect width="1600" height="900" filter="url(#grain)" opacity=".63"/>
+<ellipse cx="140" cy="45" rx="480" ry="290" fill="url(#pinky)"/>
+<ellipse cx="1460" cy="850" rx="470" ry="310" fill="url(#pinky)"/>
+<g opacity=".75" class="flowers-near">
+ <use href="#branch" transform="translate(-58 70) scale(1.50) rotate(-2)"/>
+ <use href="#branch" transform="translate(1670 832) scale(-1.35 -1.45) rotate(1)"/>
+</g>
+<g opacity=".35">
+ <use href="#branch" transform="translate(1555 28) scale(-.55 .52) rotate(-5)"/>
+ <use href="#branch" transform="translate(-22 890) scale(.47 -.52)"/>
+</g>
+<rect width="1600" height="900" fill="none" stroke="#8b6555" stroke-opacity=".11" stroke-width="30"/>
+</svg>
+<div class="paper-tint" aria-hidden="true"></div>
+<div class="poetry">
+ <div class="summary" id="summary">
+  <div class="summary-line"><span class="reveal">The buses began to change.</span></div>
+  <div class="summary-line"><span class="reveal">At home, the work of living went on.</span></div>
+  <div class="summary-line"><span class="reveal">Evelyn and Ruth faced tomorrow together,</span></div>
+  <div class="summary-line"><span class="reveal">with questions, courage, and hope.</span></div>
+ </div>
+ <div class="quote-group" id="quoteGroup">
+   <div class="quote" id="quote">“We are all bound up together<br>in one great bundle of humanity.”</div>
+   <div class="quote-auth">— Frances Ellen Watkins Harper, 1866</div>
+ </div>
+</div>
+</section>
+<div class="footer" role="group" aria-label="Preview playback">
+ <button id="replay" type="button">↻ Replay</button>
+ <button id="pause" type="button">Pause</button>
+ <button id="skip" type="button">Skip to quote</button>
+ <span class="state" id="status" aria-live="polite">Writing the conclusion</span>
+</div>
+<div class="progress" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<p class="notes">Preview of Evelyn's <em>Finding Her Footing</em> conclusion. Silent by default. <a href="../game.html">Back to the game</a> · <a href="https://constitutioncenter.org/the-constitution/historic-document-library/detail/frances-ellen-watkins-harper-we-are-all-bound-up-together-1866" target="_blank" rel="noopener noreferrer">Quotation source</a></p>
+</main>
+<script>
+(()=>{
+'use strict';
+// All character-specific conclusions were written against the existing Chapter V epilogues.
+// Quotations predate 1956; sources remain linked on the final screen.
+const ENDINGS={
+  "evelyn": {
+    "rebuilding": {
+      "lines": [
+        "The boycott has ended, but the bills remain.",
+        "Evelyn keeps working and caring for Ruth.",
+        "Victory has changed the rules of the bus;",
+        "security is still something she must build."
+      ],
+      "quote": "we knock at the bar of justice, asking an equal chance.",
+      "credit": "Mary Church Terrell · 1898",
+      "source": "https://www.loc.gov/item/90898298/"
+    },
+    "ties": {
+      "lines": [
+        "Not every victory is written on a courthouse wall.",
+        "Evelyn remembers shared rides, meals, and long walks.",
+        "The neighbors who carried one another through the boycott",
+        "still know how to show up."
+      ],
+      "quote": "lifting as we climb, onward and upward we go",
+      "credit": "Mary Church Terrell · 1898",
+      "source": "https://www.loc.gov/item/90898298/"
+    },
+    "footing": {
+      "lines": [
+        "The buses began to change.",
+        "At home, the work of living went on.",
+        "Evelyn and Ruth faced tomorrow together,",
+        "with questions, courage, and hope."
+      ],
+      "quote": "We are all bound up together in one great bundle of humanity.",
+      "credit": "Frances Ellen Watkins Harper · 1866",
+      "source": "https://constitutioncenter.org/the-constitution/historic-document-library/detail/frances-ellen-watkins-harper-we-are-all-bound-up-together-1866"
+    }
+  },
+  "marcus": {
+    "costly": {
+      "lines": [
+        "Marcus gave time to a movement that needed people.",
+        "Now the missed work and exhaustion are real.",
+        "His commitment still matters,",
+        "and so does learning how to sustain it."
+      ],
+      "quote": "If there is no struggle, there is no progress.",
+      "credit": "Frederick Douglass · 1857",
+      "source": "https://home.nps.gov/frdo/learn/historyculture/thoughts-for-all-time.htm"
+    },
+    "organizer": {
+      "lines": [
+        "Marcus once imagined leadership at the front of a room.",
+        "He found it in schedules, shared work, and trust.",
+        "The victory belongs to many hands;",
+        "the work ahead will, too."
+      ],
+      "quote": "Power concedes nothing without a demand.",
+      "credit": "Frederick Douglass · 1857",
+      "source": "https://home.nps.gov/frdo/learn/historyculture/thoughts-for-all-time.htm"
+    },
+    "teacher": {
+      "lines": [
+        "He returns to his books with different questions.",
+        "The city has taught Marcus about courage, sacrifice,",
+        "and the people whose work makes history.",
+        "He hopes to carry those lessons into a classroom."
+      ],
+      "quote": "Education must not simply teach work—it must teach Life.",
+      "credit": "W. E. B. Du Bois · 1903",
+      "source": "https://www.webdubois.org/dbTalentedTenth.html"
+    }
+  },
+  "daniel": {
+    "stand": {
+      "lines": [
+        "Daniel has made his opposition to unfairness visible.",
+        "Even a quiet act of fairness may cost him comfort.",
+        "He did not win the boycott for anyone.",
+        "He must choose how he behaves after it."
+      ],
+      "quote": "I would unite with anybody to do right and with nobody to do wrong.",
+      "credit": "Frederick Douglass · 1855",
+      "source": "https://home.nps.gov/frdo/learn/historyculture/thoughts-for-all-time.htm"
+    },
+    "hesitant": {
+      "lines": [
+        "Daniel has begun to see what silence protects.",
+        "At times he acts; at times he steps away.",
+        "Recognition is only a beginning.",
+        "The next ordinary decision is still his to make."
+      ],
+      "quote": "For action is indeed the sole medium of expression for ethics.",
+      "credit": "Jane Addams · 1902",
+      "source": "https://www.gutenberg.org/files/15487/15487-h/15487-h.htm"
+    },
+    "observer": {
+      "lines": [
+        "Outside Daniel's shop, the buses have changed.",
+        "Inside, familiar routines can still shelter him.",
+        "He has watched others bear the cost of progress.",
+        "His next choice remains unwritten."
+      ],
+      "quote": "The problem of the twentieth century is the problem of the color-line.",
+      "credit": "W. E. B. Du Bois · 1903",
+      "source": "https://avalon.law.yale.edu/20th_century/dubois_01.asp"
+    }
+  }
+};
+const params=new URLSearchParams(window.location.search);
+const role=params.get('role')||'evelyn';
+const ending=params.get('ending')||'footing';
+const chosen=Object.prototype.hasOwnProperty.call(ENDINGS,role)&&Object.prototype.hasOwnProperty.call(ENDINGS[role],ending)?ENDINGS[role][ending]:ENDINGS.evelyn.footing;
+if(params.get('embed')==='1')document.documentElement.classList.add('embedded');
+document.body.dataset.role=role;
+document.title='381 Days — '+(role==='evelyn'?'Evelyn Brooks':role==='marcus'?'Marcus Ellis':'Daniel Carter')+' — Final Conclusion';
+const summaryLines=document.querySelectorAll('.summary-line .reveal');
+chosen.lines.forEach((line,index)=>{if(summaryLines[index])summaryLines[index].textContent=line;});
+document.getElementById('quote').textContent='“'+chosen.quote+'”';
+document.querySelector('.quote-auth').textContent='— '+chosen.credit;
+const sourceLink=document.querySelector('.notes a:last-of-type');
+if(sourceLink){sourceLink.href=chosen.source;sourceLink.textContent='Quotation source';}
+const summary=document.getElementById('summary');
+const quoteGroup=document.getElementById('quoteGroup');
+const quote=document.getElementById('quote');
+const status=document.getElementById('status');
+const progress=document.getElementById('progressBar');
+const pauseButton=document.getElementById('pause');
+const lineSpans=Array.from(document.querySelectorAll('.reveal'));
+const duration=15.0; // quote holds for approximately five seconds at the end
+const reduced=window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches||false;
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const proportion=(t,a,b)=>clamp((t-a)/(b-a),0,1);
+let elapsed=0,previous=null,running=false,raf=null;
+function render(t){
+ const reveal=proportion(t,.65,4.55);
+ let remaining=Math.round(lineSpans.reduce((n,el)=>n+el.textContent.length,0)*reveal);
+ lineSpans.forEach(el=>{
+   const n=el.textContent.length;
+   const visible=clamp(remaining,0,n);remaining-=visible;
+   // A quiet typed reveal: no cursor, no jitter, just an expanding ink mask.
+   const percent=Math.max(0,100-100*visible/n);
+   el.style.clipPath='inset(0 '+percent+'% 0 0)';
+ });
+ const fade=smooth(proportion(t,6.1,7.35));
+ summary.style.opacity=String(1-fade);
+ summary.style.filter='blur('+(fade*7)+'px)';
+ summary.style.transform='translate(-50%,calc(-50% - '+(fade*4)+'px))';
+ const quoteIn=smooth(proportion(t,7.65,9.75));
+ quoteGroup.style.opacity=String(quoteIn);
+ quoteGroup.style.transform='translate(-50%,calc(-50% + '+((1-quoteIn)*9)+'px))';
+ const glow=smooth(proportion(t,8.25,10.25));
+ quote.style.textShadow='0 0 '+(glow*14)+'px rgba(255,239,197,'+(glow*.78)+'),0 0 '+(glow*29)+'px rgba(247,215,151,'+(glow*.38)+')';
+ status.textContent=t<6.15?'Writing the conclusion':t<7.65?'The words fade':t<10.1?'The quotation appears':'The final quotation';
+ progress.style.width=(100*t/duration)+'%';
+}
+function step(now){
+ if(!running)return;
+ if(previous!==null)elapsed+=(now-previous)/1000;
+ previous=now;
+ if(elapsed>=duration){elapsed=duration;running=false;pauseButton.textContent='Play again';previous=null;}
+ render(elapsed);
+ if(running)raf=requestAnimationFrame(step);
+}
+function stop(){running=false;cancelAnimationFrame(raf);previous=null;}
+function play(){stop();if(elapsed>=duration)elapsed=0;running=true;pauseButton.textContent='Pause';raf=requestAnimationFrame(step);}
+function replay(){elapsed=0;render(0);if(reduced){stop();return;}play();}
+document.getElementById('replay').addEventListener('click',replay);
+pauseButton.addEventListener('click',()=>{
+ if(reduced){elapsed=duration;render(elapsed);return;}
+ if(running){stop();pauseButton.textContent='Resume';}
+ else play();
+});
+document.getElementById('skip').addEventListener('click',()=>{stop();elapsed=duration;render(elapsed);pauseButton.textContent='Replay';});
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&running){stop();pauseButton.textContent='Resume';}});
+document.addEventListener('keydown',e=>{if(e.code==='Space'&&e.target.tagName!=='BUTTON'&&e.target.tagName!=='INPUT'){e.preventDefault();pauseButton.click();}});
+if(reduced){elapsed=duration;render(duration);pauseButton.textContent='Show quote';}
+else{render(0);play();}
+})();
+</script>
+</body>
+</html>
