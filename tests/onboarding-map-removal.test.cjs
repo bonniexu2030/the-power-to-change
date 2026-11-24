@@ -40,7 +40,7 @@ test('first run tutorial precedes role selection, existing saves skip and Help c
   assert.ok(js.includes('gameTutorialDialog.addEventListener(\'close\',finishGameTutorial)'));
   assert.match(html,/id="help-tutorial"/);
   assert.match(html,/id="game-tutorial-dialog"/);
-  assert.match(html,/preview\/tutorial-onboarding\.html/);
+  assert.match(js,/preview\/tutorial-onboarding\.html/);
   assert.match(html,/game-tutorial\.css/);
   assert.ok(js.includes("if(['scene','result','ending'].includes(screen))state.screen=screen"),'unchanged story saving rules');
   assert.ok(js.includes("function finalEndingId()"),'ending selection retained');
