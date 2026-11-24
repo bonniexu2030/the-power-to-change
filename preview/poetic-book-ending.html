@@ -7,7 +7,7 @@
 <title>381 Days — Poetic Book Ending Mockup</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Great+Vibes&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Great+Vibes&family=IM+Fell+English+SC&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#48382c;--gold:#b69755;--dark:#18273f}
 *{box-sizing:border-box}
@@ -111,6 +111,30 @@ h2{font:600 23px/1.2 "Cormorant Garamond",Georgia,serif;margin:0 0 6px}
  .divider{margin:0 auto 4px}
 }
 @media(prefers-reduced-motion:reduce){.book,.left-leaf,.ink,.quote,.progress-fill{transition:none!important;animation:none!important}}
+
+.cover-face{display:none!important}
+.book{perspective:1900px;transform-style:preserve-3d}
+.left-leaf,.inner-face{backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.page-side{inset:5%;border:1px solid #aa8e6c52}
+.page-botanical{width:80%;height:96%;opacity:.75}
+.page-botanical svg{width:100%;height:100%;filter:sepia(.4);opacity:.65}
+.divider{font-size:0;color:transparent}.divider:after{display:none}
+.quote{font-size:clamp(17px,2.5925vw,34px)}
+.antique-cover{position:absolute;z-index:7;left:50%;top:50%;width:min(42%,430px);height:78%;opacity:0;pointer-events:none;
+ transform:translate(-50%,-50%) scale(.93);border:4px solid #422018;border-radius:5px 11px 11px 4px;
+ background:repeating-linear-gradient(90deg,transparent 0 3px,#f1dcb609 3px 4px,transparent 4px 7px),
+ radial-gradient(ellipse at 49% 45%,#944d31 0%,#693124 55%,#3b211c 100%);
+ box-shadow:inset 0 0 0 3px #c4a169,inset 0 0 0 10px #5d3028,inset -9px 0 10px #160c0d88,
+ 3px 4px 0 #bba885,6px 8px 0 #8c765b,15px 18px 25px #0a090ca9;will-change:transform,opacity}
+.antique-cover:before{content:"";position:absolute;inset:3%;border:2px double #d4b17e8c;z-index:1;box-shadow:inset 0 0 0 5px #bda06c25}
+.cloth-spine{position:absolute;z-index:2;top:0;bottom:0;left:0;width:7%;background:linear-gradient(90deg,#1f1111aa,#b27b4955,#3d201c88,transparent);border-right:1px solid #b78d58}
+.gilt-botanical{width:100%;height:100%;position:absolute;inset:0;z-index:2;filter:drop-shadow(0 1px 1px #20100c)}
+.cover-nameplate{position:absolute;z-index:4;inset:33% 18% 31%;display:flex;justify-content:center;align-items:center;text-align:center;
+ background:#50251ca8;border:1px solid #d7ab69;box-shadow:0 0 0 3px #b5935c7d,inset 0 0 16px #200d0c5d}
+.antique-title{font:normal clamp(23px,3.45vw,50px)/1.02 "IM Fell English SC","Times New Roman",serif;color:#e8d099;
+ text-shadow:0 2px 1px #190d0d,0 0 2px #d8b2748c;letter-spacing:.025em}
+@media(max-width:750px){.quote{font-size:clamp(15.3px,3.74vw,26.35px)}.antique-cover{width:43%;height:77%}.antique-title{font-size:clamp(20px,4.2vw,36px)}}
+@media(max-width:470px){.quote{font-size:clamp(17px,4.76vw,25.5px)}.antique-cover{width:46%;height:72%}.cover-nameplate{inset:34% 10% 32%}.antique-title{font-size:clamp(18px,4.2vw,29px)}}
 </style>
 </head>
 <body>
@@ -124,39 +148,19 @@ h2{font:600 23px/1.2 "Cormorant Garamond",Georgia,serif;margin:0 0 6px}
    <div class="light-halo"></div>
    <div class="book" id="book">
     <div class="left-leaf">
-      <div class="inner-face"><div class="page-side">
-       <svg class="floral" viewBox="0 0 300 120" role="img" aria-label="Decorative ivy wreath" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M35 87C82 22 130 38 150 68C170 38 218 22 265 87M45 87Q145 120 255 87"/>
-        <g fill="currentColor" stroke="none"><ellipse cx="68" cy="59" rx="8" ry="16" transform="rotate(-51 68 59)"/><ellipse cx="85" cy="42" rx="7" ry="14" transform="rotate(-29 85 42)"/><ellipse cx="121" cy="47" rx="6" ry="13" transform="rotate(35 121 47)"/><ellipse cx="232" cy="59" rx="8" ry="16" transform="rotate(51 232 59)"/><ellipse cx="215" cy="42" rx="7" ry="14" transform="rotate(29 215 42)"/><ellipse cx="179" cy="47" rx="6" ry="13" transform="rotate(-35 179 47)"/></g>
-       </svg>
-       <div class="warm-flourish">A story of ordinary courage</div>
-       <div class="rule"></div>
-       <div class="motif">
-        <svg viewBox="0 0 320 150" fill="none" stroke="#8b7b5c" stroke-width="2.5" role="img" aria-label="Delicate line drawing of a 1950s bus">
-         <path d="M24 105V56Q25 38 41 38H269Q292 40 293 61V108H24Z"/><path d="M28 82H291"/><path d="M47 47H98V79H42Z M109 47H160V79H109Z M171 47H222V79H171Z M233 47H276V79H233Z"/><path d="M24 102H294"/><circle cx="75" cy="109" r="16"/><circle cx="247" cy="109" r="16"/><circle cx="75" cy="109" r="7"/><circle cx="247" cy="109" r="7"/><path d="M137 40H191V33H137Z M0 130H320" stroke-dasharray="3 9"/>
-        </svg>
-       </div>
-       <div class="rule"></div><div class="stamp">MONTGOMERY · 1956</div>
-       <div class="monogram">❦</div>
-      </div></div>
-      <div class="cover-face"><div class="cover-border"></div><div class="cover-layout">
-        <svg class="cover-ornament" viewBox="0 0 300 110" fill="none" stroke="#c7a668" stroke-width="2" aria-hidden="true">
-         <path d="M13 86C60 29 117 24 150 64C183 24 240 29 287 86M46 82Q150 106 254 82"/><path d="M150 65L150 17M139 28L150 16 161 28"/>
-         <g fill="#bc9e64" stroke="none"><ellipse cx="70" cy="52" rx="8" ry="15" transform="rotate(-43 70 52)"/><ellipse cx="104" cy="45" rx="7" ry="12" transform="rotate(32 104 45)"/><ellipse cx="230" cy="52" rx="8" ry="15" transform="rotate(43 230 52)"/><ellipse cx="196" cy="45" rx="7" ry="12" transform="rotate(-32 196 45)"/></g>
-        </svg>
-        <div class="cover-title">The Power<br>to Change</div>
-        <div class="cover-small">A story of choice and consequence</div>
-        <svg class="cover-ornament" viewBox="0 0 300 110" fill="none" stroke="#c7a668" stroke-width="2" aria-hidden="true" style="transform:rotate(180deg)">
-         <path d="M13 86C60 29 117 24 150 64C183 24 240 29 287 86M46 82Q150 106 254 82"/>
-         <circle cx="150" cy="64" r="10"/><path d="M150 38V13M113 40L102 27M187 40L198 27"/>
-        </svg>
-       </div><div class="cover-foil"></div></div>
-      <div class="spine"></div>
+      <div class="inner-face"><div class="page-side"><div class="page-botanical"><svg class="gilt-botanical" viewBox="0 0 400 600" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="#bf995e" stroke-width="2">
+<path d="M38 505C70 425 40 354 67 298C90 236 64 181 106 133C131 98 171 76 200 65M362 505C330 425 360 354 333 298C310 236 336 181 294 133C269 98 229 76 200 65"/>
+<path d="M47 310Q105 278 118 239M55 232Q93 200 112 179M63 391Q98 365 128 380M353 310Q295 278 282 239M345 232Q307 200 288 179M337 391Q302 365 272 380"/>
+<path d="M38 507Q100 559 200 548Q300 559 362 507M89 106Q144 58 200 65Q256 58 311 106"/>
+</g><g fill="#92855a" stroke="#b99c70" stroke-width="1.2">
+<path d="M112 239q-21-24-20-40q24 7 20 40M118 380q-16-32-38-29q13 28 38 29M288 239q21-24 20-40q-24 7-20 40M282 380q16-32 38-29q-13 28-38 29"/>
+</g><g transform="translate(200 66) scale(1.3)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(105 134) scale(1)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(295 134) scale(1)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(60 352) scale(1.15)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(340 352) scale(1.15)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(200 544) scale(1.2)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(145 76) scale(0.65)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(255 76) scale(0.65)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(86 517) scale(0.68)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(314 517) scale(0.68)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g></svg></div></div></div><div class="cover-face" aria-hidden="true"></div>
+            <div class="spine"></div>
     </div>
     <div class="right-leaf">
      <div class="right-inner">
       <div class="role-label">Evelyn Brooks · A personal ending</div>
-      <h2 class="ending-name">Finding Her Footing</h2><div class="divider">✦</div>
+      <h2 class="ending-name">Finding Her Footing</h2><div class="divider" aria-hidden="true"></div>
       <p class="story" id="story">
        <span><span class="ink" data-start="0.7" data-end="2.5">The buses began to change.</span></span>
        <span><span class="ink" data-start="2.4" data-end="4.1">At home, the work of living went on.</span></span>
@@ -169,6 +173,13 @@ h2{font:600 23px/1.2 "Cormorant Garamond",Georgia,serif;margin:0 0 6px}
      </div>
     </div>
    </div>
+   <div class="antique-cover" id="antiqueCover" aria-hidden="true"><div class="cloth-spine"></div><svg class="gilt-botanical" viewBox="0 0 400 600" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="#bf995e" stroke-width="2">
+<path d="M38 505C70 425 40 354 67 298C90 236 64 181 106 133C131 98 171 76 200 65M362 505C330 425 360 354 333 298C310 236 336 181 294 133C269 98 229 76 200 65"/>
+<path d="M47 310Q105 278 118 239M55 232Q93 200 112 179M63 391Q98 365 128 380M353 310Q295 278 282 239M345 232Q307 200 288 179M337 391Q302 365 272 380"/>
+<path d="M38 507Q100 559 200 548Q300 559 362 507M89 106Q144 58 200 65Q256 58 311 106"/>
+</g><g fill="#92855a" stroke="#b99c70" stroke-width="1.2">
+<path d="M112 239q-21-24-20-40q24 7 20 40M118 380q-16-32-38-29q13 28 38 29M288 239q21-24 20-40q-24 7-20 40M282 380q16-32 38-29q-13 28-38 29"/>
+</g><g transform="translate(200 66) scale(1.3)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(105 134) scale(1)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(295 134) scale(1)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(60 352) scale(1.15)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(340 352) scale(1.15)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(200 544) scale(1.2)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(145 76) scale(0.65)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(255 76) scale(0.65)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(86 517) scale(0.68)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g><g transform="translate(314 517) scale(0.68)"><g fill="#cbb17e" stroke="#a17d4b" stroke-width="1"><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-10" rx="7.5" ry="12" transform="rotate(288)"/><circle r="4" fill="#5e3126"/></g></g></svg><div class="cover-nameplate"><div class="antique-title">The Power<br>to Change</div></div></div>
   </div>
   <div class="caption"><span id="status" aria-live="polite">An open book · The story begins</span><span>~15-second conclusion</span></div>
  </section>
@@ -181,7 +192,7 @@ h2{font:600 23px/1.2 "Cormorant Garamond",Georgia,serif;margin:0 0 6px}
  <div class="progress" aria-hidden="true"><div class="progress-fill" id="progress"></div></div>
  <section class="below">
   <div><h2>What this mockup tests</h2>
-   <p>An aged-paper literary page, four short ink-written lines, a glowing public-domain historical quotation, and a deep-navy leather book closing to reveal <em>The Power to Change</em>. The final nine endings would share the book structure but have different writing and character-specific page ornaments.</p>
+   <p>An aged-paper literary page, four short ink-written lines, a glowing public-domain historical quotation, and a burgundy floral antique book closing to reveal <em>The Power to Change</em>. The final nine endings would share the book structure but have different writing and character-specific page ornaments.</p>
    <p class="disclaimer"><strong>Review draft, not a final game scene.</strong> This page doesn't replace any game ending, journal, or historical material. The original prose above is provisional, and the historical quote comes from Frances Ellen Watkins Harper's 1866 speech.</p>
   </div>
   <div><h2>Audio and accessibility</h2>
@@ -200,6 +211,7 @@ h2{font:600 23px/1.2 "Cormorant Garamond",Georgia,serif;margin:0 0 6px}
  const source=document.getElementById("source");
  const book=document.getElementById("book");
  const leftLeaf=document.querySelector(".left-leaf");
+ const antiqueCover=document.getElementById("antiqueCover");
  const status=document.getElementById("status");
  const progress=document.getElementById("progress");
  const pauseBtn=document.getElementById("pause");
@@ -210,21 +222,24 @@ h2{font:600 23px/1.2 "Cormorant Garamond",Georgia,serif;margin:0 0 6px}
  const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
  const pct=(t,a,b)=>clamp((t-a)/(b-a),0,1);
  function animate(t){
-  if(prefersReduced)t=duration;
   lines.forEach(el=>{const p=pct(t,+el.dataset.start,+el.dataset.end);el.style.clipPath="inset(0 "+(100-100*p)+"% 0 0)"});
   quote.style.clipPath="inset(0 "+(100-100*pct(t,7.1,9.2))+"% 0 0)";
   const shine=smooth(pct(t,8.5,10.1));
   quote.parentElement.style.textShadow="0 0 "+(18*shine)+"px rgba(203,159,71,"+(.67*shine)+"), 0 0 "+(35*shine)+"px rgba(242,213,142,"+(.32*shine)+")";
   quote.parentElement.style.color=shine>.3?"#946c32":"#765435";
   source.style.opacity=String(pct(t,9,9.8));
-  const fold=smooth(pct(t,10.9,13.6));
-  book.style.setProperty("--fold",fold.toFixed(4));
-  book.style.transform="translateX("+(-25*fold)+"%) scale("+(1+.075*fold)+")";
-  leftLeaf.style.transform="rotateY("+(-180*fold)+"deg)";
+  const fold=smooth(pct(t,10.7,14.15));
+  const reveal=smooth(pct(t,12.2,13.75));
+  book.style.transform="translateX("+(-25*fold)+"%) scale("+(1+.045*fold)+")";
+  book.style.opacity=String(1-smooth(pct(t,12.15,13.55)));
+  leftLeaf.style.transform="rotateY("+(-160*fold)+"deg)";
+  antiqueCover.style.opacity=String(reveal);
+  antiqueCover.style.transform="translate(-50%,-50%) scale("+(0.93+.07*reveal)+")";
+  antiqueCover.setAttribute("aria-hidden",reveal>.90?"false":"true");
   progress.style.width=(t/duration*100)+"%";
   if(t<7.1)status.textContent="Ink settles onto the page";
   else if(t<10.9)status.textContent="The final words linger";
-  else if(t<13.6)status.textContent="The book closes";
+  else if(t<14.15)status.textContent="The book closes";
   else status.textContent="The Power to Change";
   if(prefersReduced){status.textContent="Reduced motion — complete ending";progress.style.width="100%";}
  }
@@ -246,7 +261,7 @@ h2{font:600 23px/1.2 "Cormorant Garamond",Georgia,serif;margin:0 0 6px}
   lastTime=0;playing=true;pauseBtn.textContent="Pause";cancelAnimationFrame(raf);raf=requestAnimationFrame(frame);
  }
  function rewind(){stopVoice();elapsed=0;lastTime=0;animate(0);play()}
- function toggle(){if(prefersReduced){if(elapsed>=13.6){elapsed=10.5;pauseBtn.textContent="Close the book";}else{elapsed=duration;pauseBtn.textContent="Read the page";}animate(elapsed);return;}
+ function toggle(){if(prefersReduced){if(elapsed>=14.15){elapsed=10.5;pauseBtn.textContent="Close the book";}else{elapsed=duration;pauseBtn.textContent="Read the page";}animate(elapsed);return;}
   if(playing){playing=false;cancelAnimationFrame(raf);pauseBtn.textContent="Continue";stopVoice();}
   else play();
  }
