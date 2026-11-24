@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>381 Days — Poetic Book Ending Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Great+Vibes&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#48382c;--gold:#b69755;--dark:#18273f}
+*{box-sizing:border-box}
+html{min-height:100%;background:#d8cfbb}
+body{min-height:100vh;margin:0;background:radial-gradient(ellipse at 50% 30%,#f2ead8 0%,#e5dcc8 40%,#c2b7a5 100%);font:16px/1.5 Georgia,serif;color:#392f2a}
+button,a{font:inherit}
+button{cursor:pointer}
+button:focus-visible,a:focus-visible{outline:3px solid #8b5a32;outline-offset:3px}
+.shell{max-width:1200px;padding:clamp(14px,3vw,32px);margin:auto}
+.heading{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:20px}
+.eyebrow{font:700 11px/1.4 Arial,sans-serif;letter-spacing:.17em;text-transform:uppercase;color:#877160}
+h1{font:600 clamp(24px,3vw,38px)/1.2 "Cormorant Garamond",Georgia,serif;margin:4px 0}
+.status-tag{font:12px/1.5 Arial,sans-serif;background:#f7f0e1;border:1px solid #c9b79d;border-radius:25px;padding:7px 14px}
+.theater{border:1px solid #6e5f51;border-radius:13px;background:radial-gradient(ellipse at 50% 43%,#584d45,#26252a 75%);padding:clamp(7px,1.4vw,14px);box-shadow:0 18px 35px #483b3280}
+.stage{position:relative;aspect-ratio:16/9;width:100%;overflow:hidden;background:radial-gradient(ellipse at 65% 70%,#6c5b4e,#332d30 55%,#28232a);isolation:isolate;display:flex;align-items:center;justify-content:center}
+.stage:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 45% -17%,#bdab8754,transparent 65%);pointer-events:none;z-index:0}
+.stage:after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 45px #09070b9c;pointer-events:none;z-index:8}
+.book{--fold:0;position:relative;width:min(86%,1010px);height:78%;display:grid;grid-template-columns:1fr 1fr;isolation:isolate;transform-style:preserve-3d;perspective:1300px;transform:translateX(calc(var(--fold) * -25%)) scale(calc(1 + var(--fold) * .075));will-change:transform;filter:drop-shadow(5px 18px 18px #0b0d1480)}
+.left-leaf,.right-leaf{position:relative;width:100%;height:100%;background:#f6e9d0}
+.left-leaf{transform-origin:right center;transform:rotateY(calc(var(--fold) * -180deg));transform-style:preserve-3d;z-index:3;box-shadow:inset -12px 0 22px #6453462c}
+.right-leaf{z-index:1;background:linear-gradient(98deg,#e7d5b7 0%,#faf1de 9%,#f2e4cc 73%,#e3d1af 100%);border:2px solid #c4a77c;box-shadow:inset 8px 0 20px #59432d48}
+.inner-face,.cover-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden}
+.inner-face{background:linear-gradient(105deg,#ddc5a2,#f7ebd4 17%,#f4e6ca 75%,#dbc4a2);border:2px solid #c4a77c}
+.inner-face:after,.right-leaf:after{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent 0 4px,#74573206 5px 6px);mix-blend-mode:multiply;pointer-events:none}
+.cover-face{transform:rotateY(180deg);background:radial-gradient(ellipse at 44% 47%,#344865 0%,#20314c 58%,#142239 100%);border:6px solid #132035;box-shadow:inset 0 0 0 2px #b89a55,inset 0 0 0 13px #21354e,inset 0 0 0 15px #ab8b4f}
+.cover-face:after{content:"";position:absolute;inset:0;opacity:.34;mix-blend-mode:screen;background-image:repeating-linear-gradient(90deg,#f6ead511 0 1px,transparent 1px 4px)}
+.spine{position:absolute;right:0;top:0;bottom:0;width:8px;background:linear-gradient(90deg,#c6af86,#806c53,#f3e7d0);z-index:6}
+.page-side{position:absolute;inset:7%;border:1px solid #b5976559;display:flex;align-items:center;flex-direction:column;justify-content:center;text-align:center;color:#7e6a53}
+.floral{width:76%;max-height:90px;margin:6px auto;color:#7f7857;opacity:.84}
+.motif{position:relative;margin:8px auto;width:80%;height:27%;display:grid;place-items:center}
+.motif svg{width:90%;height:100%;max-height:140px}
+.warm-flourish{font:italic 22px/1.2 "Cormorant Garamond",Georgia,serif;letter-spacing:.12em;color:#8f7654}
+.stamp{font:600 clamp(11px,1.2vw,17px)/1.3 "Cormorant Garamond",serif;letter-spacing:.14em;margin:10px 0;color:#8f7355}
+.page-side .rule{width:42%;border-top:1px solid #af936d;margin:12px auto}
+.page-side .monogram{font:500 clamp(27px,3.1vw,46px)/1 "Cormorant Garamond",serif;color:#826d4b}
+.right-inner{position:absolute;inset:6%;border:1px solid #c8ac835d;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:clamp(8px,2.7vw,35px);text-align:center;z-index:2;color:var(--ink)}
+.right-inner:before,.right-inner:after{content:"❧";font-size:clamp(17px,2.4vw,34px);color:#9c8764;line-height:1}
+.right-inner:after{transform:rotate(180deg)}
+.role-label{font:600 clamp(8px,.87vw,12px)/1.3 "Cormorant Garamond",serif;letter-spacing:.23em;text-transform:uppercase;color:#8b6d54;margin:8px 0 4px}
+.ending-name{font:600 clamp(17px,2.3vw,31px)/1.1 "Cormorant Garamond",Georgia,serif;letter-spacing:.045em;color:#503b2d;margin:0 0 clamp(8px,1.5vw,18px)}
+.divider{display:flex;gap:8px;align-items:center;justify-content:center;width:45%;color:#947751;margin:0 auto 12px;font-size:13px}
+.divider:before,.divider:after{content:"";height:1px;flex:1;background:#b09b74}
+.story{font:500 clamp(10px,1.48vw,21px)/1.33 "Cormorant Garamond",Georgia,serif;letter-spacing:.018em;color:#4a3d2e;margin:0 auto;max-width:23em}
+.story span{display:block;margin:.15em 0;white-space:normal;overflow:hidden}
+.ink{display:inline-block;max-width:100%;clip-path:inset(0 100% 0 0);will-change:clip-path}
+.quote-wrap{margin:clamp(6px,1.15vw,13px) 0 1px;width:100%}
+.quote{font:400 clamp(20px,3.05vw,40px)/1.15 "Great Vibes","Brush Script MT",cursive;color:#765435;max-width:100%;overflow:visible;letter-spacing:.02em;text-shadow:0 0 0 transparent}
+.quote span{display:inline-block;max-width:100%;clip-path:inset(0 100% 0 0)}
+.source{font:italic clamp(9px,.98vw,13px)/1.2 "Cormorant Garamond",serif;letter-spacing:.035em;color:#7a6550;margin-top:4px;opacity:0}
+.cover-layout{position:absolute;inset:9%;border:1px solid #af9157;display:flex;align-items:center;justify-content:space-between;flex-direction:column;text-align:center;color:#eddaac;padding:clamp(12px,2vw,26px)}
+.cover-border{position:absolute;inset:4%;border:1px solid #987847;pointer-events:none}
+.cover-ornament{width:87%;height:24%;opacity:.85}
+.cover-title{font:600 clamp(25px,4vw,61px)/.99 "Cormorant Garamond",serif;letter-spacing:.055em;color:#f0dbac;text-shadow:0 1px 2px #020f24,0 0 15px #d6b46c4a;max-width:98%}
+.cover-small{font:600 clamp(9px,1vw,14px)/1.5 "Cormorant Garamond",serif;letter-spacing:.2em;text-transform:uppercase;color:#c9ad72}
+.cover-foil{position:absolute;inset:0;pointer-events:none;background:linear-gradient(100deg,transparent 12%,#edd59c0a 43%,#f9e6b93b 49%,transparent 62%);opacity:.1}
+.light-halo{position:absolute;z-index:0;bottom:5%;left:8%;width:78%;height:32%;background:radial-gradient(ellipse,#f3b67027,transparent 73%);filter:blur(14px);opacity:.3}
+.caption{padding:7px 4px;color:#e7d8c3;display:flex;justify-content:space-between;gap:10px;align-items:center;font:12px/1.4 Arial,sans-serif}
+.controls{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;margin:14px 0 8px}
+.controls button{border:1px solid #8f785e;background:#f8f1e5;color:#463729;border-radius:6px;padding:9px 13px;font:600 13px/1.3 Arial,sans-serif;min-height:37px}
+.controls button.primary{background:#304661;color:#fff0d3;border-color:#233147}
+.controls button:hover{filter:brightness(.96)}
+.controls button:disabled{opacity:.55;cursor:default}
+.progress{margin:0 auto;max-width:400px;height:3px;border-radius:2px;background:#d4c5ad;overflow:hidden}
+.progress-fill{height:100%;width:0;background:#8f7050}
+.below{display:grid;grid-template-columns:minmax(0,1fr) minmax(200px,.8fr);gap:23px;margin:22px 0}
+h2{font:600 23px/1.2 "Cormorant Garamond",Georgia,serif;margin:0 0 6px}
+.below p{font:14px/1.7 Georgia,serif;margin:3px 0 10px}
+.below .disclaimer{border-left:3px solid #9b7956;padding-left:13px}
+.below a{color:#65442d}
+.sr-only{position:absolute;clip:rect(0,0,0,0);height:1px;width:1px;overflow:hidden;white-space:nowrap}
+@media(max-width:750px){
+ .stage{aspect-ratio:5/4}
+ .book{height:77%;width:93%}
+ .page-side .monogram{font-size:23px}
+ .right-inner{inset:4%;padding:6px}
+ .right-inner:before,.right-inner:after{font-size:16px}
+ .role-label{font-size:7px;margin:0}
+ .ending-name{font-size:clamp(15px,3.1vw,24px);margin-bottom:3px}
+ .divider{margin-bottom:5px}
+ .story{font-size:clamp(9.1px,2vw,15px);line-height:1.26}
+ .quote{font-size:clamp(18px,4.4vw,31px)}
+ .source{font-size:9px}
+ .cover-title{font-size:clamp(23px,6vw,39px)}
+ .stamp{font-size:11px}.warm-flourish{font-size:15px}
+ .below{grid-template-columns:1fr}
+}
+@media(max-width:470px){
+ .stage{aspect-ratio:4/5}
+ .book{height:72%;width:92%}
+ .page-side{inset:4%}
+ .page-side .floral{max-height:45px}
+ .page-side .motif{height:19%}
+ .page-side .stamp{font-size:8px}
+ .right-inner{padding:3px}
+ .right-inner:before,.right-inner:after{font-size:14px}
+ .ending-name{font-size:17px}
+ .story{font-size:clamp(11px,2.6vw,14px);line-height:1.26}
+ .quote{font-size:clamp(20px,5.6vw,30px);line-height:1.1}
+ .quote-wrap{margin-top:4px}
+ .source{font-size:8px}
+ .divider{margin:0 auto 4px}
+}
+@media(prefers-reduced-motion:reduce){.book,.left-leaf,.ink,.quote,.progress-fill{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<main class="shell">
+ <header class="heading">
+  <div><div class="eyebrow">The Power to Change · Design prototype 01</div><h1>An ending worth keeping</h1></div>
+  <div class="status-tag">Standalone mockup · Not in the game yet</div>
+ </header>
+ <section class="theater" aria-label="Interactive animated conclusion prototype">
+  <div class="stage">
+   <div class="light-halo"></div>
+   <div class="book" id="book">
+    <div class="left-leaf">
+      <div class="inner-face"><div class="page-side">
+       <svg class="floral" viewBox="0 0 300 120" role="img" aria-label="Decorative ivy wreath" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M35 87C82 22 130 38 150 68C170 38 218 22 265 87M45 87Q145 120 255 87"/>
+        <g fill="currentColor" stroke="none"><ellipse cx="68" cy="59" rx="8" ry="16" transform="rotate(-51 68 59)"/><ellipse cx="85" cy="42" rx="7" ry="14" transform="rotate(-29 85 42)"/><ellipse cx="121" cy="47" rx="6" ry="13" transform="rotate(35 121 47)"/><ellipse cx="232" cy="59" rx="8" ry="16" transform="rotate(51 232 59)"/><ellipse cx="215" cy="42" rx="7" ry="14" transform="rotate(29 215 42)"/><ellipse cx="179" cy="47" rx="6" ry="13" transform="rotate(-35 179 47)"/></g>
+       </svg>
+       <div class="warm-flourish">A story of ordinary courage</div>
+       <div class="rule"></div>
+       <div class="motif">
+        <svg viewBox="0 0 320 150" fill="none" stroke="#8b7b5c" stroke-width="2.5" role="img" aria-label="Delicate line drawing of a 1950s bus">
+         <path d="M24 105V56Q25 38 41 38H269Q292 40 293 61V108H24Z"/><path d="M28 82H291"/><path d="M47 47H98V79H42Z M109 47H160V79H109Z M171 47H222V79H171Z M233 47H276V79H233Z"/><path d="M24 102H294"/><circle cx="75" cy="109" r="16"/><circle cx="247" cy="109" r="16"/><circle cx="75" cy="109" r="7"/><circle cx="247" cy="109" r="7"/><path d="M137 40H191V33H137Z M0 130H320" stroke-dasharray="3 9"/>
+        </svg>
+       </div>
+       <div class="rule"></div><div class="stamp">MONTGOMERY · 1956</div>
+       <div class="monogram">❦</div>
+      </div></div>
+      <div class="cover-face"><div class="cover-border"></div><div class="cover-layout">
+        <svg class="cover-ornament" viewBox="0 0 300 110" fill="none" stroke="#c7a668" stroke-width="2" aria-hidden="true">
+         <path d="M13 86C60 29 117 24 150 64C183 24 240 29 287 86M46 82Q150 106 254 82"/><path d="M150 65L150 17M139 28L150 16 161 28"/>
+         <g fill="#bc9e64" stroke="none"><ellipse cx="70" cy="52" rx="8" ry="15" transform="rotate(-43 70 52)"/><ellipse cx="104" cy="45" rx="7" ry="12" transform="rotate(32 104 45)"/><ellipse cx="230" cy="52" rx="8" ry="15" transform="rotate(43 230 52)"/><ellipse cx="196" cy="45" rx="7" ry="12" transform="rotate(-32 196 45)"/></g>
+        </svg>
+        <div class="cover-title">The Power<br>to Change</div>
+        <div class="cover-small">A story of choice and consequence</div>
+        <svg class="cover-ornament" viewBox="0 0 300 110" fill="none" stroke="#c7a668" stroke-width="2" aria-hidden="true" style="transform:rotate(180deg)">
+         <path d="M13 86C60 29 117 24 150 64C183 24 240 29 287 86M46 82Q150 106 254 82"/>
+         <circle cx="150" cy="64" r="10"/><path d="M150 38V13M113 40L102 27M187 40L198 27"/>
+        </svg>
+       </div><div class="cover-foil"></div></div>
+      <div class="spine"></div>
+    </div>
+    <div class="right-leaf">
+     <div class="right-inner">
+      <div class="role-label">Evelyn Brooks · A personal ending</div>
+      <h2 class="ending-name">Finding Her Footing</h2><div class="divider">✦</div>
+      <p class="story" id="story">
+       <span><span class="ink" data-start="0.7" data-end="2.5">The buses began to change.</span></span>
+       <span><span class="ink" data-start="2.4" data-end="4.1">At home, the work of living went on.</span></span>
+       <span><span class="ink" data-start="4.0" data-end="5.7">Evelyn and Ruth faced tomorrow together,</span></span>
+       <span><span class="ink" data-start="5.5" data-end="7.0">with questions, courage, and hope.</span></span>
+      </p>
+      <div class="quote-wrap"><div class="quote" id="quote"><span data-start="7.1" data-end="9.2">“We are all bound up together<br>in one great bundle of humanity.”</span></div>
+       <div class="source" id="source">— Frances Ellen Watkins Harper, 1866</div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="caption"><span id="status" aria-live="polite">An open book · The story begins</span><span>~15-second conclusion</span></div>
+ </section>
+ <div class="controls" role="group" aria-label="Animation playback controls">
+  <button type="button" id="replay" class="primary">↻ Replay ending</button>
+  <button type="button" id="pause">Pause</button>
+  <button type="button" id="skip">Skip to closed book</button>
+  <button type="button" id="listen">Hear temporary browser narration</button>
+ </div>
+ <div class="progress" aria-hidden="true"><div class="progress-fill" id="progress"></div></div>
+ <section class="below">
+  <div><h2>What this mockup tests</h2>
+   <p>An aged-paper literary page, four short ink-written lines, a glowing public-domain historical quotation, and a deep-navy leather book closing to reveal <em>The Power to Change</em>. The final nine endings would share the book structure but have different writing and character-specific page ornaments.</p>
+   <p class="disclaimer"><strong>Review draft, not a final game scene.</strong> This page doesn't replace any game ending, journal, or historical material. The original prose above is provisional, and the historical quote comes from Frances Ellen Watkins Harper's 1866 speech.</p>
+  </div>
+  <div><h2>Audio and accessibility</h2>
+   <p>The animation plays silently by default, so it cannot surprise visitors with sound. “Hear temporary browser narration” lets you test the rhythm with your device's built-in speech voice; this is <strong>not</strong> a selected narrator or a finished recording. The finished game can use an approved narrator and matching subtitles. Pause, replay, and skip are available.</p>
+   <p><a href="https://constitutioncenter.org/the-constitution/historic-document-library/detail/frances-ellen-watkins-harper-we-are-all-bound-up-together-1866" target="_blank" rel="noopener noreferrer">Historical quote source: National Constitution Center</a></p>
+   <p><a href="../game.html">← Return to the playable game</a></p>
+  </div>
+ </section>
+</main>
+<script>
+(()=>{
+ "use strict";
+ const duration=15;
+ const lines=Array.from(document.querySelectorAll(".ink"));
+ const quote=document.querySelector(".quote span");
+ const source=document.getElementById("source");
+ const book=document.getElementById("book");
+ const status=document.getElementById("status");
+ const progress=document.getElementById("progress");
+ const pauseBtn=document.getElementById("pause");
+ const narrationBtn=document.getElementById("listen");
+ let elapsed=0,playing=true,lastTime=0,raf=0,said=false;
+ const prefersReduced=window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches||false;
+ const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+ const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+ const pct=(t,a,b)=>clamp((t-a)/(b-a),0,1);
+ function animate(t){
+  if(prefersReduced)t=duration;
+  lines.forEach(el=>{const p=pct(t,+el.dataset.start,+el.dataset.end);el.style.clipPath="inset(0 "+(100-100*p)+"% 0 0)"});
+  quote.style.clipPath="inset(0 "+(100-100*pct(t,7.1,9.2))+"% 0 0)";
+  const shine=smooth(pct(t,8.5,10.1));
+  quote.parentElement.style.textShadow="0 0 "+(18*shine)+"px rgba(203,159,71,"+(.67*shine)+"), 0 0 "+(35*shine)+"px rgba(242,213,142,"+(.32*shine)+")";
+  quote.parentElement.style.color=shine>.3?"#946c32":"#765435";
+  source.style.opacity=String(pct(t,9,9.8));
+  const fold=smooth(pct(t,10.9,13.6));
+  book.style.setProperty("--fold",fold.toFixed(4));
+  progress.style.width=(t/duration*100)+"%";
+  if(t<7.1)status.textContent="Ink settles onto the page";
+  else if(t<10.9)status.textContent="The final words linger";
+  else if(t<13.6)status.textContent="The book closes";
+  else status.textContent="The Power to Change";
+  if(prefersReduced){status.textContent="Reduced motion — complete ending";progress.style.width="100%";}
+ }
+ function stopVoice(){
+  if("speechSynthesis" in window){try{window.speechSynthesis.cancel()}catch(e){}}
+  said=false;
+ }
+ function frame(now){
+  if(!playing)return;
+  if(lastTime){elapsed+=(now-lastTime)/1000;}
+  lastTime=now;
+  if(elapsed>=duration){elapsed=duration;playing=false;pauseBtn.textContent="Play";lastTime=0;}
+  animate(elapsed);
+  if(playing)raf=requestAnimationFrame(frame);
+ }
+ function play(){
+  if(prefersReduced){elapsed=duration;animate(duration);playing=false;pauseBtn.textContent="Replay without motion";return;}
+  if(elapsed>=duration)elapsed=0;
+  lastTime=0;playing=true;pauseBtn.textContent="Pause";cancelAnimationFrame(raf);raf=requestAnimationFrame(frame);
+ }
+ function rewind(){stopVoice();elapsed=0;lastTime=0;animate(0);play()}
+ function toggle(){if(prefersReduced){rewind();return;}
+  if(playing){playing=false;cancelAnimationFrame(raf);pauseBtn.textContent="Continue";stopVoice();}
+  else play();
+ }
+ function finish(){stopVoice();playing=false;cancelAnimationFrame(raf);lastTime=0;elapsed=duration;animate(duration);pauseBtn.textContent="Replay"}
+ function temporaryVoice(){
+  if(!("speechSynthesis" in window)){narrationBtn.textContent="Narration unavailable on this device";narrationBtn.disabled=true;return;}
+  rewind();
+  const speech=new SpeechSynthesisUtterance("The buses began to change. At home, the work of living went on. Evelyn and Ruth faced tomorrow together, with questions, courage, and hope. We are all bound up together in one great bundle of humanity. Frances Ellen Watkins Harper, eighteen sixty-six.");
+  speech.lang="en-US";speech.rate=1.12;speech.pitch=.94;speech.volume=.83;
+  try{window.speechSynthesis.speak(speech);said=true}catch(e){narrationBtn.textContent="Browser narration unavailable";}
+ }
+ pauseBtn.addEventListener("click",toggle);
+ document.getElementById("replay").addEventListener("click",rewind);
+ document.getElementById("skip").addEventListener("click",finish);
+ narrationBtn.addEventListener("click",temporaryVoice);
+ document.addEventListener("visibilitychange",()=>{if(document.hidden&&playing){playing=false;cancelAnimationFrame(raf);pauseBtn.textContent="Continue";stopVoice();}});
+ document.addEventListener("keydown",e=>{if(e.code==="Space"&&!["BUTTON","INPUT"].includes(document.activeElement?.tagName)){e.preventDefault();toggle();}});
+ animate(0);
+ if(!prefersReduced)raf=requestAnimationFrame(frame);else finish();
+})();
+</script>
+</body>
+</html>
