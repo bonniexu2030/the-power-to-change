@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#e9e0d0">
+<title>381 Days — Evelyn & Ruth cinematic motion preview</title>
+<style>
+:root{color-scheme:light;--paper:#efe6d5;--ink:#382f29;--accent:#825d4d;--border:#bda88b}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:radial-gradient(ellipse at top left,#f9f2e7,transparent 65%),#ddd0b9;font:16px/1.55 Georgia,"Times New Roman",serif}
+a{color:#72503e}
+.page{max-width:1180px;margin:auto;padding:clamp(12px,3vw,35px)}
+.top{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:17px}
+.overline{font:700 11px/1.4 system-ui,sans-serif;letter-spacing:.19em;text-transform:uppercase;color:#806d5d}
+h1{font-size:clamp(24px,3vw,35px);line-height:1.16;margin:5px 0}p{margin:.3em 0}
+.prototype{font-size:13px;background:#f9f4e8;border:1px solid #c4ac8d;border-radius:20px;padding:8px 14px}
+.player{border:1px solid #998976;box-shadow:0 14px 40px #3b2e2544;background:#292b30;padding:clamp(6px,1.2vw,12px);border-radius:13px}
+.screen{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;isolation:isolate;background:#9ca0a0;--gold:0}
+.scene,.scene svg{position:absolute;inset:0;width:100%;height:100%}
+.street{z-index:1;transform:scale(1.04);transition:filter 2.5s ease,transform 8s ease;filter:saturate(.75) brightness(.8)}
+.sky{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(110deg,#68707975 0%,transparent 45%,#edc68a55 100%);opacity:.86;transition:opacity 4.5s ease}
+.earlylight{position:absolute;inset:0;z-index:5;background:radial-gradient(ellipse at 85% 26%,#ffe5b988 0%,#f6c67d3a 32%,transparent 70%);opacity:0;transition:opacity 5s ease;pointer-events:none}
+.grain{position:absolute;inset:0;z-index:11;pointer-events:none;opacity:.17;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.44' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.30'/%3E%3C/svg%3E")}
+.grain:after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 130px #292a2b8a}
+.bus{position:absolute;z-index:4;right:5%;bottom:26%;width:14%;height:20%;transform:translateX(80%) scale(.38);transform-origin:center bottom;opacity:.45;transition:transform 7s ease,opacity 2s ease,filter 3s ease;filter:blur(2px) grayscale(.35)}
+.bus svg{display:block;overflow:visible}
+.person{position:absolute;z-index:6;bottom:-12%;width:31%;height:94%;object-fit:cover;object-position:center top;border-radius:30% 30% 2% 2%;-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 66%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 66%,transparent 100%);filter:drop-shadow(0 12px 20px #2b272680) contrast(1.03);transition:transform 2.7s ease,left 2.7s ease,bottom 2.7s ease,width 2.7s ease,opacity 2.2s ease,filter 3s ease}
+.evelyn{left:17%;transform:translate(9%,1%) scale(1.16) rotate(-2deg)}
+.ruth{left:37%;z-index:7;transform:translate(-14%,1%) scale(1.12) rotate(3deg)}
+.envwindow{position:absolute;inset:0;z-index:2;opacity:0;transition:opacity 2.8s ease}
+.envwindow svg{width:100%;height:100%}
+.interior{position:absolute;inset:0;z-index:9;background:radial-gradient(ellipse at 60% 15%,#f7d7a6aa,transparent 60%),linear-gradient(130deg,#656961,#a89478 70%,#b19b75);opacity:0;pointer-events:none;transition:opacity 2.5s ease}
+.interior svg{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.inside-people{position:absolute;inset:0;z-index:2}
+.inside-people img{position:absolute;top:17%;height:76%;width:32%;object-fit:cover;object-position:top center;border-radius:27% 27% 2% 2%;-webkit-mask-image:linear-gradient(#000 0 70%,transparent 97%);mask-image:linear-gradient(#000 0 70%,transparent 97%)}
+.inside-people .i-ruth{left:36%;z-index:2}.inside-people .i-evelyn{left:15%}
+.seat-front{position:absolute;bottom:-5%;left:6%;width:75%;height:35%;z-index:3;background:linear-gradient(160deg,#6c5e50,#483d39 67%,#3c3331);border-radius:22% 23% 0 0;border-top:13px solid #b7a383;box-shadow:0 -6px 8px #3e312b35}
+.rail{position:absolute;z-index:4;left:9%;top:8%;bottom:0;border-left:8px solid #c7ad7e}
+.rail2{left:89%}
+.scene[data-shot="0"] .bus{transform:translateX(82%) scale(.28)}
+.scene[data-shot="1"] .bus{transform:translateX(-24%) scale(.54);opacity:.78}
+.scene[data-shot="2"] .bus{transform:translateX(-126%) scale(.93);opacity:.98;filter:blur(0)}
+.scene[data-shot="1"] .earlylight{opacity:.35}
+.scene[data-shot="2"] .earlylight{opacity:.95}
+.scene[data-shot="1"] .sky{opacity:.42}
+.scene[data-shot="2"] .sky{opacity:.08}
+.scene[data-shot="1"] .street{transform:scale(1.08) translateX(-1%)}
+.scene[data-shot="2"] .street{transform:scale(1.11) translateX(-2%);filter:saturate(1.04) brightness(1.1)}
+.scene[data-shot="1"] .evelyn{left:12%;transform:translateX(-2%) scale(1.02)}
+.scene[data-shot="1"] .ruth{left:35%;transform:translateX(12%) scale(1.11)}
+.scene[data-shot="2"] .evelyn{left:9%;transform:translate(-3%,2%) scale(1.05)}
+.scene[data-shot="2"] .ruth{left:44%;transform:translate(12%,-2%) scale(1.18)}
+.scene[data-shot="3"] .interior{opacity:1}
+.scene[data-shot="3"] .earlylight{opacity:.93}
+.scene[data-shot="3"] .bus{opacity:0}
+.scene[data-shot="3"] .person{opacity:0}
+.scene[data-shot="3"] .street{filter:brightness(1.14)}
+.wisp{position:absolute;z-index:5;pointer-events:none;width:13%;height:5%;left:-25%;bottom:41%;opacity:.25;filter:blur(6px);background:#f2d8a5a6;animation:drift 16s linear infinite}
+.wisp.two{bottom:52%;animation-delay:-10s;opacity:.2;width:7%;height:3%}
+@keyframes drift{to{transform:translateX(1130%)}}
+.frame{position:absolute;inset:0;border:clamp(9px,2vw,21px) solid #202426;box-shadow:inset 0 0 70px #0009;z-index:12;pointer-events:none}
+.frame:before,.frame:after{content:"";position:absolute;left:0;right:0;height:11px;background:#202426}
+.frame:before{top:0}.frame:after{bottom:0}
+.controls{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:13px 4px 1px;color:#f3ede2}
+.controls button{font:600 13px/1.4 system-ui,sans-serif;border:1px solid #ae9d8d;background:#e9ddc7;color:#322a25;border-radius:8px;padding:9px 13px;cursor:pointer}
+.controls button[disabled]{opacity:.42;cursor:default}
+.controls button:focus-visible{outline:3px solid #f1bb7c;outline-offset:2px}
+.controls .ghost{background:#393d40;color:#f5ead9}
+.state{font:12px/1.4 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#e4d5bc;flex:1;text-align:center;min-width:130px}
+.info{padding:17px 1px 2px;display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,.75fr);gap:22px}
+h2{font-size:17px;margin:0 0 5px} .info p{font-size:14px;line-height:1.65}
+.note{border-left:3px solid #a87d56;padding-left:12px;color:#5e5145;font-size:13px}
+.pref{display:flex;align-items:center;gap:7px}
+.pref input{accent-color:#765344}
+@media(max-width:720px){.page{padding:9px}.prototype{font-size:11px}.info{grid-template-columns:1fr}.controls{justify-content:center}.state{order:-1;flex-basis:100%;padding-bottom:5px}.person{height:100%;bottom:-18%;width:40%}.evelyn{left:9%}.ruth{left:35%}.scene[data-shot="1"] .evelyn{left:3%}.scene[data-shot="2"] .evelyn{left:3%}.scene[data-shot="2"] .ruth{left:42%}.inside-people img{height:88%;width:42%;top:15%}.inside-people .i-ruth{left:35%}.inside-people .i-evelyn{left:7%}}
+@media(prefers-reduced-motion:reduce){.scene *{animation:none!important;transition-duration:.01ms!important}}
+body.reduce .scene *{animation:none!important;transition-duration:.01ms!important}
+</style>
+</head>
+<body>
+<div class="page">
+<header class="top">
+ <div><div class="overline">The Power to Change · 381 Days · private-style review page</div><h1>Evelyn & Ruth — motion study</h1></div>
+ <div class="prototype">Illustrated animation preview · Not yet part of gameplay</div>
+</header>
+<section class="player" aria-label="Animated cinematic preview of Evelyn and Ruth">
+ <div class="screen" id="screen" role="img" aria-label="A painterly animated 1950s neighborhood and bus scene, with Evelyn and Ruth sharing a hopeful moment.">
+ <div class="scene" id="scene" data-shot="0">
+  <svg class="street" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+   <defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#8f989d"/><stop offset=".63" stop-color="#bcc0bc"/><stop offset="1" stop-color="#e5d9c2"/></linearGradient><linearGradient id="road" x2=".25" y2="1"><stop stop-color="#878883"/><stop offset="1" stop-color="#736d61"/></linearGradient><linearGradient id="wall"><stop stop-color="#968f85"/><stop offset=".5" stop-color="#b7aea3"/><stop offset="1" stop-color="#827e78"/></linearGradient><radialGradient id="haze"><stop stop-color="#f4cd9c" stop-opacity=".8"/><stop offset="1" stop-color="#f7ead3" stop-opacity="0"/></radialGradient></defs>
+   <rect width="1200" height="675" fill="url(#sky)"/>
+   <path d="M0 288Q280 242 620 284T1200 263L1200 390 0 420Z" fill="#a7a49b"/>
+   <path d="M720 340L1200 293 1200 675 0 675Z" fill="url(#road)"/>
+   <path d="M720 340L1200 293 1200 322 758 365 340 675 0 675 0 627Z" fill="#bcb4a3"/>
+   <path d="M752 350L1200 318" stroke="#ded0b6" stroke-width="4"/><path d="M910 485L1200 420" stroke="#e6d9bd" stroke-width="3" stroke-dasharray="44 28"/>
+   <g fill="url(#wall)" stroke="#766e64" stroke-width="3">
+    <path d="M0 228L155 155 310 226 310 473 0 535Z"/><path d="M320 263L438 196 571 252 571 406 320 477Z"/><path d="M563 286L653 234 731 284 731 373 563 416Z"/>
+   </g>
+   <path d="M-18 228L155 119 328 231" fill="none" stroke="#544f4c" stroke-width="27"/><path d="M307 266L438 174 589 260" fill="none" stroke="#635d54" stroke-width="19"/><path d="M555 290L654 221 748 287" fill="none" stroke="#6b6057" stroke-width="13"/>
+   <g fill="#7a756d" stroke="#5c574f" stroke-width="5"><rect x="46" y="289" width="74" height="91"/><rect x="186" y="281" width="65" height="91"/><rect x="346" y="299" width="47" height="58"/><rect x="486" y="283" width="49" height="59"/><rect x="615" y="297" width="32" height="46"/></g>
+   <g fill="#cfc2ac"><rect x="55" y="298" width="56" height="73"/><rect x="193" y="289" width="50" height="75"/><rect x="352" y="304" width="36" height="48"/><rect x="491" y="289" width="36" height="48"/></g>
+   <g stroke="#4e4a43" stroke-width="7"><path d="M0 446L292 413"/><path d="M320 430L548 398"/><path d="M575 391L706 374"/></g>
+   <g fill="#736c5d"><path d="M0 448L300 417 310 454 0 492Z"/><path d="M328 431L567 407 565 430 328 462Z"/></g>
+   <g fill="none" stroke="#555548" stroke-linecap="round"><path d="M840 338L830 129" stroke-width="9"/><path d="M923 326L920 182" stroke-width="5"/><path d="M830 145L1200 155" stroke-width="3"/><path d="M830 146L0 115" stroke-width="2"/></g>
+   <g stroke="#6d6e62" fill="none" stroke-width="11" opacity=".68"><path d="M665 366L660 190"/><path d="M655 248q-72-92-120-102m120 85q61-108 126-119m-120 114q-99 5-163-41"/><path d="M785 344L790 216m0 51q50-67 95-74m-95 75q-50-66-78-82"/></g>
+   <g fill="#707260" opacity=".47"><ellipse cx="637" cy="198" rx="65" ry="47"/><ellipse cx="711" cy="175" rx="81" ry="48"/><ellipse cx="788" cy="194" rx="43" ry="37"/></g>
+   <g fill="#66645c" opacity=".65"><path d="M870 379l12-55 13 55m-19-23h21"/><path d="M1051 358l8-31 9 31m-13-18h13"/></g>
+   <path d="M0 592L1200 422" stroke="#c3b29a" stroke-width="3" opacity=".75"/>
+   <ellipse cx="1036" cy="201" rx="220" ry="140" fill="url(#haze)" opacity=".35"/>
+  </svg>
+  <div class="sky"></div><div class="wisp"></div><div class="wisp two"></div>
+  <div class="bus">
+    <svg viewBox="0 0 310 175" aria-hidden="true">
+      <path fill="#494e49" d="M24 127V47Q29 16 66 13h175q28 3 39 32l10 82-9 17H18Z" stroke="#4b4139" stroke-width="7"/>
+      <path fill="#b5a18a" d="M26 106V48Q33 20 66 20h176q22 0 31 25l10 60Z"/>
+      <g fill="#586570" stroke="#c2b6a1" stroke-width="4"><path d="M45 43h61v45H36Z"/><path d="M117 43h56v45h-56Z"/><path d="M184 43h64l12 45h-76Z"/></g>
+      <rect x="25" y="107" width="263" height="22" fill="#847458"/>
+      <g fill="#242b2d"><circle cx="72" cy="139" r="22"/><circle cx="240" cy="139" r="22"/></g><g fill="#b4a389"><circle cx="72" cy="139" r="9"/><circle cx="240" cy="139" r="9"/></g>
+      <circle cx="39" cy="115" r="10" fill="#f2dca8"/><circle cx="275" cy="115" r="10" fill="#f2dca8"/>
+      <rect x="113" y="25" width="86" height="14" rx="2" fill="#423e34"/>
+    </svg>
+  </div>
+  <img class="person evelyn" id="evelyn" alt="" draggable="false">
+  <img class="person ruth" id="ruth" alt="" draggable="false">
+  <div class="earlylight"></div>
+  <div class="interior">
+   <svg viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs><linearGradient id="innerWall"><stop stop-color="#554b41"/><stop offset=".55" stop-color="#c7a986"/><stop offset="1" stop-color="#666258"/></linearGradient></defs>
+    <rect width="1200" height="675" fill="url(#innerWall)"/>
+    <path d="M0 0H1200L1050 88H100Z" fill="#4d514d"/>
+    <path d="M725 114L1180 98 1180 431 725 365Z" fill="#bcb8a5" stroke="#5d574d" stroke-width="17"/>
+    <path d="M741 131L1163 115 1162 350 743 338Z" fill="#bdc2b9"/>
+    <path d="M742 270L1160 240 1160 340 743 340Z" fill="#c4bfae"/>
+    <path d="M742 322l412-35" stroke="#999989" stroke-width="12"/>
+    <path d="M760 195L1140 166" stroke="#a6acaa" stroke-width="5"/>
+    <path d="M885 124v232M1018 123v236" stroke="#5b574d" stroke-width="10"/>
+    <rect x="0" y="0" width="66" height="675" fill="#4b4a43"/>
+    <path d="M73 110H723V675H73Z" fill="#827968" opacity=".23"/>
+   </svg>
+   <div class="inside-people"><img class="i-evelyn" id="inside-evelyn" alt=""><img class="i-ruth" id="inside-ruth" alt=""><div class="seat-front"></div><div class="rail"></div><div class="rail rail2"></div></div>
+  </div>
+  <div class="grain"></div>
+ </div>
+ <div class="frame"></div>
+ </div>
+ <div class="controls" role="group" aria-label="Cinematic playback controls">
+  <button type="button" id="back" class="ghost">← Previous</button>
+  <button type="button" id="toggle">Pause</button>
+  <div id="status" class="state" aria-live="polite">1 / 4 · The embrace</div>
+  <button type="button" id="next" class="ghost">Next →</button>
+  <button type="button" id="replay" class="ghost">↻ Replay</button>
+ </div>
+</section>
+<section class="info">
+<div><h2>Animation study — what you're reviewing</h2>
+<p>This four-stage, silent preview studies the approved emotional arc: a short reassuring embrace, Ruth's anticipation as the bus approaches, Evelyn's unobserved proud glance, then a dissolve to both mother and daughter seated together inside. The lighting moves from muted December gray to gentle warmth. You can pause, replay, or step through each shot.</p>
+<p class="note"><strong>Not the final keyframe paintings:</strong> this lightweight preview uses the original approved portrait files and a temporary layered illustrated street/bus environment to test motion and pacing. The hug and facial expressions will be more natural once the reviewed painted keyframes are implemented. There is no voice-over, score, or unnecessary on-screen dialogue here.</p>
+</div>
+<div><h2>Review and accessibility</h2><p class="pref"><input type="checkbox" id="reduced"> Reduce movement / instant transitions</p>
+<p>The completed cinematic will still respect the game's <em>ride / wait / neighbors</em> branches. This prototype illustrates the <strong>ride</strong> choice only—Evelyn and Ruth both end up seated on the integrated bus.</p>
+<p><a href="../game.html">← Back to the playable game</a></p>
+</div>
+</section>
+</div>
+<script src="../artwork/portraits.js"></script>
+<script>
+(()=>{
+  'use strict';
+  const art=window.PTCArtwork?.portraits||{};
+  for(const [id,who] of [['evelyn','evelyn'],['ruth','ruth'],['inside-evelyn','evelyn'],['inside-ruth','ruth']]){
+    const node=document.getElementById(id);
+    if(art[who])node.src=art[who];
+  }
+  const scene=document.getElementById('scene'),status=document.getElementById('status');
+  const titles=['The embrace','The approaching bus','The unseen glance','Together inside'];
+  const next=document.getElementById('next'),back=document.getElementById('back'),toggle=document.getElementById('toggle');
+  const reduce=document.getElementById('reduced');
+  let shot=0,playing=false,timer=null;
+  function stop(){if(timer)clearTimeout(timer);timer=null;playing=false;toggle.textContent='Play';}
+  function render(){scene.dataset.shot=String(shot);status.textContent=(shot+1)+' / 4 · '+titles[shot];back.disabled=shot===0;next.disabled=shot===3;}
+  function advance(){if(shot<3){shot++;render();}else stop();}
+  function schedule(){if(!playing)return;timer=setTimeout(()=>{advance();if(playing&&shot<3)schedule();else stop();},shot===2?6200:5100);}
+  function play(){stop();if(shot===3)shot=0;render();playing=true;toggle.textContent='Pause';schedule();}
+  toggle.addEventListener('click',()=>playing?stop():play());
+  next.addEventListener('click',()=>{stop();advance();});
+  back.addEventListener('click',()=>{stop();shot=Math.max(0,shot-1);render();});
+  document.getElementById('replay').addEventListener('click',()=>{shot=0;play();});
+  reduce.addEventListener('change',()=>{document.body.classList.toggle('reduce',reduce.checked)});
+  if(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches){reduce.checked=true;document.body.classList.add('reduce');}
+  document.addEventListener('keydown',e=>{if(['INPUT','BUTTON'].includes(document.activeElement?.tagName))return; if(e.key==='ArrowRight')next.click();if(e.key==='ArrowLeft')back.click();});
+  render();if(!reduce.checked)play();
+})();
+</script>
+</body>
+</html>
