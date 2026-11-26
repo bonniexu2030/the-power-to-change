@@ -238,6 +238,27 @@
 
 /* Approved artwork, shared portrait gallery and role-card portraits. */
 .role-art .role-card-portrait{display:block;position:absolute;inset:0;top:0;right:0;bottom:0;left:0;margin:0;padding:0;border:0;width:100%;height:100%;object-fit:cover;object-position:50% 6%;filter:saturate(.91);z-index:2;}
+
+/* Character selection: the photo gets more room, not the description.
+   Original desktop art was 161px. We add 59px of photo and 59px to the
+   total card so the description section retains its previous height. */
+@media(min-width:901px){
+  .role-slot .role-card{min-height:434px}
+  .role-card .role-art{height:220px;flex:0 0 220px}
+}
+/* Medium-width cards originally had 136px art and the same text panel. */
+@media(min-width:671px) and (max-width:900px){
+  .role-slot .role-card{min-height:434px}
+  .role-card .role-art{height:195px;flex:0 0 195px}
+}
+/* On narrow displays, stack portrait, unchanged description, then action
+   in that order, rather than placing the text beside an enlarged photo. */
+@media(max-width:670px){
+  .role-slot .role-card{display:flex;flex-direction:column;min-height:0}
+  .role-card .role-art{height:215px;min-height:215px;width:100%;flex:0 0 215px;grid-row:auto}
+  .role-card .role-body{min-height:162px;flex:1 0 auto}
+}
+
 /* Fill each role's art panel edge-to-edge. Headroom comes from object-position,
    never from moving the image downward or revealing the colored card background. */
 .role-art:has(.role-card-portrait)::before{display:none;}
