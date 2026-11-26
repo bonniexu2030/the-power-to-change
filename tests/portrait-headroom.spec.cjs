@@ -18,6 +18,38 @@ test.beforeEach(async({page})=>{
  await page.route('https://fonts.googleapis.com/**',route=>route.abort());
  await page.route('https://fonts.gstatic.com/**',route=>route.abort());
 });
+// Portraits are taller, while the descriptive text block keeps its former
+// space and stays below the image at desktop, tablet, and phone widths.
+for(const [width,height,expectedArt,minBody] of [[1360,900,220,165],[800,900,195,185],[390,844,215,160]]){
+ test('larger photo above same-size description at '+width+'px',async({page})=>{
+  await page.setViewportSize({width,height});
+  await page.goto(base+'game.html',{waitUntil:'domcontentloaded'});
+  await page.evaluate(()=>localStorage.setItem('power-to-change-381-days-tutorial-v1','seen'));
+  await page.locator('#cover-actions button').first().click();
+  await expect(page.locator('.role-slot .role-card')).toHaveCount(3);
+  const frames=await page.locator('.role-slot .role-card').evaluateAll(cards=>cards.map(card=>{
+   const photo=card.querySelector('.role-art').getBoundingClientRect();
+   const description=card.querySelector('.role-body').getBoundingClientRect();
+   const action=card.querySelector('.role-select').getBoundingClientRect();
+   const image=card.querySelector('img.role-card-portrait').getBoundingClientRect();
+   return {photoHeight:Math.round(photo.height),bodyHeight:Math.round(description.height),
+    photoToBodyGap:Math.round(description.top-photo.bottom),
+    bodyToActionGap:Math.round(action.top-description.bottom),
+    imageTopGap:Math.round(image.top-photo.top),imageBottomGap:Math.round(photo.bottom-image.bottom)};
+  }));
+  console.log('LARGER_ROLE_ART '+width+' '+JSON.stringify(frames));
+  for(const frame of frames){
+   expect(frame.photoHeight,'portrait increased without widening card').toBe(expectedArt);
+   expect(frame.bodyHeight,'description height must stay comparable to earlier card').toBeGreaterThanOrEqual(minBody);
+   expect(Math.abs(frame.photoToBodyGap),'description directly under picture').toBeLessThanOrEqual(1);
+   expect(Math.abs(frame.bodyToActionGap),'action after description').toBeLessThanOrEqual(1);
+   expect(Math.abs(frame.imageTopGap),'no stripe above portrait').toBeLessThanOrEqual(1);
+   expect(Math.abs(frame.imageBottomGap),'image fills photo area').toBeLessThanOrEqual(1);
+  }
+  expect(new Set(frames.map(x=>x.photoHeight)).size).toBe(1);
+ });
+}
+
 for(const viewport of [{width:1360,height:900},{width:390,height:844}]){
  test('role selection photos fully cover top edge with no gray stripe '+viewport.width,async({page})=>{
   await page.setViewportSize(viewport);
