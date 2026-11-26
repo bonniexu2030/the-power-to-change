@@ -13,11 +13,13 @@ const legacy=[
  'vn-marcus-david-ch3.html','vn-marcus-david-ch4.html','vn-marcus-david-ch5.html',
  'vn-daniel-bennett-ch1.html','vn-daniel-sarah-ch3.html'
 ];
-test('three character-selection art cards keep full top of portrait with consistent headroom',()=>{
+test('three character-selection portrait images fill their card edges with no gray top stripe',()=>{
  const css=read('game.css');
- assert.match(css,/\.role-art \.role-card-portrait\{[^}]+object-fit:cover;object-position:50% 0%/);
- assert.match(css,/top:10px;[^}]+height:calc\(100% - 10px\)/);
- assert.match(css,/@media\(max-width:670px\)\{\.role-art \.role-card-portrait\{top:8px;height:calc\(100% - 8px\)\}\}/);
+ assert.match(css,/\.role-art \.role-card-portrait\{[^}]+inset:0;top:0;right:0;bottom:0;left:0;[^}]+width:100%;height:100%;object-fit:cover;object-position:50% 6%/);
+ assert.doesNotMatch(css,/\.role-art \.role-card-portrait\{[^}]*top:10px/);
+ assert.doesNotMatch(css,/\.role-art \.role-card-portrait\{top:8px/);
+ assert.match(css,/\.role-art:has\(\.role-card-portrait\)::before\{display:none;\}/);
+ assert.match(read('game.html'),/game\.css\?v=20261125-portrait-no-stripe-v1/,'Chrome must fetch the updated CSS instead of the prior version');
  const game=read('game.js');
  assert.ok(game.includes("for(const [id,role] of Object.entries(game))"));
  assert.ok(game.includes("img.src=portraitSource"));
@@ -50,7 +52,7 @@ test('new illustrated player matches revised crop and lower placement without sh
 });
 test('real game uses cache-busted stylesheet and every real illustrated route',()=>{
  const h=read('game.html'),js=read('game.js');
- assert.match(h,/game\.css\?v=20261124-portrait-headroom-v1/);
+ assert.match(h,/game\.css\?v=20261125-portrait-no-stripe-v1/);
  assert.match(h,/game\.js\?v=20261124-portrait-headroom-v1/);
  assert.match(js,/v:'20261124-portrait-headroom-v1'/);
  for(const id of ['evelyn-5','marcus-1','marcus-2','marcus-3','marcus-4','marcus-5','daniel-1','daniel-3-talk'])

@@ -19,7 +19,7 @@ test.beforeEach(async({page})=>{
  await page.route('https://fonts.gstatic.com/**',route=>route.abort());
 });
 for(const viewport of [{width:1360,height:900},{width:390,height:844}]){
- test('role selection portraits have visible top margin and equal dimensions '+viewport.width,async({page})=>{
+ test('role selection photos fully cover top edge with no gray stripe '+viewport.width,async({page})=>{
   await page.setViewportSize(viewport);
   await page.goto(base+'game.html',{waitUntil:'domcontentloaded'});
   await page.evaluate(()=>localStorage.setItem('power-to-change-381-days-tutorial-v1','seen'));
@@ -31,15 +31,17 @@ for(const viewport of [{width:1360,height:900},{width:390,height:844}]){
    const css=getComputedStyle(el);
    return {name:el.alt,naturalWidth:el.naturalWidth,naturalHeight:el.naturalHeight,topMargin:Math.round(image.top-art.top),
     bottomGap:Math.round(art.bottom-image.bottom),width:Math.round(image.width),height:Math.round(image.height),
-    pos:css.objectPosition,fit:css.objectFit};
+    pos:css.objectPosition,fit:css.objectFit,top:css.top,marginTop:css.marginTop};
   }));
   console.log('CARD_FRAMING '+viewport.width+' '+JSON.stringify(frames));
   for(const frame of frames){
    expect(frame.naturalWidth,frame.name+' image loaded').toBeGreaterThan(0);
    expect(frame.naturalHeight,frame.name+' image loaded').toBeGreaterThan(0);
-   expect(frame.topMargin,frame.name+' top breathing room').toBeGreaterThanOrEqual(7);
-   expect(frame.bottomGap,frame.name+' image fills lower area').toBeGreaterThanOrEqual(-1);
-   expect(frame.pos,frame.name+' crop keeps full hair').toBe('50% 0%');
+   expect(Math.abs(frame.topMargin),frame.name+' starts flush with card top (no stripe)').toBeLessThanOrEqual(1);
+   expect(frame.top,frame.name+' image top style').toBe('0px');
+   expect(frame.marginTop,frame.name+' image margin').toBe('0px');
+   expect(Math.abs(frame.bottomGap),frame.name+' image fills lower area').toBeLessThanOrEqual(1);
+   expect(frame.pos,frame.name+' crop retains slight headroom').toBe('50% 6%');
    expect(frame.fit).toBe('cover');
   }
   expect(new Set(frames.map(f=>f.topMargin)).size).toBe(1);
