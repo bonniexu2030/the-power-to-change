@@ -237,10 +237,9 @@
 
 
 /* Approved artwork, shared portrait gallery and role-card portraits. */
-.role-art .role-card-portrait{display:block;position:absolute;inset:0;top:10px;width:100%;height:calc(100% - 10px);object-fit:cover;object-position:50% 0%;filter:saturate(.91);z-index:2;}
+.role-art .role-card-portrait{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 6%;filter:saturate(.91);z-index:2;}
 /* Archive portrait cards: consistent top-of-image crop protects hair and faces,
    while a slim paper-colored top mat gives all three sitters visible headroom. */
-@media(max-width:670px){.role-art .role-card-portrait{top:8px;height:calc(100% - 8px)}}
 .role-art:has(.role-card-portrait) .role-shape{display:none;}
 .cast-dialog{box-sizing:border-box;width:min(1160px,96vw);max-width:1160px;max-height:92dvh;margin:auto;padding:0;overflow:auto;border:7px solid #c5ab86;background:#efe3cf;color:#473a30;box-shadow:0 30px 90px #201c17a8;}
 .cast-dialog::backdrop{background:#1b1a17c9;backdrop-filter:blur(4px)}
