@@ -19,11 +19,22 @@ test('three character-selection portrait images fill their card edges with no gr
  assert.doesNotMatch(css,/\.role-art \.role-card-portrait\{[^}]*top:10px/);
  assert.doesNotMatch(css,/\.role-art \.role-card-portrait\{top:8px/);
  assert.match(css,/\.role-art:has\(\.role-card-portrait\)::before\{display:none;\}/);
- assert.match(read('game.html'),/game\.css\?v=20261125-portrait-no-stripe-v1/,'Chrome must fetch the updated CSS instead of the prior version');
+ assert.match(read('game.html'),/game\.css\?v=20261125-taller-role-portraits-v1/,'Chrome must fetch taller-picture CSS instead of prior version');
  const game=read('game.js');
  assert.ok(game.includes("for(const [id,role] of Object.entries(game))"));
  assert.ok(game.includes("img.src=portraitSource"));
  assert.ok(game.includes("img.alt='Portrait of '+role.name"));
+});
+test('character pictures grow without reducing the description and stack before text on mobile',()=>{
+ const css=read('game.css');
+ const html=read('game.html');
+ assert.match(css,/@media\(min-width:901px\)\{[\s\S]*?\.role-slot \.role-card\{min-height:434px\}[\s\S]*?\.role-card \.role-art\{height:220px;flex:0 0 220px\}/);
+ assert.match(css,/@media\(min-width:671px\) and \(max-width:900px\)\{[\s\S]*?\.role-slot \.role-card\{min-height:434px\}[\s\S]*?\.role-card \.role-art\{height:195px;flex:0 0 195px\}/);
+ assert.match(css,/@media\(max-width:670px\)\{[\s\S]*?\.role-slot \.role-card\{display:flex;flex-direction:column;min-height:0\}[\s\S]*?\.role-card \.role-art\{height:215px;min-height:215px;width:100%;flex:0 0 215px;grid-row:auto\}[\s\S]*?\.role-card \.role-body\{min-height:162px;flex:1 0 auto\}/);
+ assert.match(html,/game\.css\?v=20261125-taller-role-portraits-v1/);
+ const i=css.indexOf('/* Character selection: the photo gets more room');
+ assert.ok(i>0,'new portrait-size rules included');
+ assert.ok(css.slice(i).includes('Headroom comes from object-position'),'no crop regression');
 });
 test('all eight legacy illustrated conversations share lower picture frames and top-first crop',()=>{
  for(const f of legacy){
@@ -52,7 +63,7 @@ test('new illustrated player matches revised crop and lower placement without sh
 });
 test('real game uses cache-busted stylesheet and every real illustrated route',()=>{
  const h=read('game.html'),js=read('game.js');
- assert.match(h,/game\.css\?v=20261125-portrait-no-stripe-v1/);
+ assert.match(h,/game\.css\?v=20261125-taller-role-portraits-v1/);
  assert.match(h,/game\.js\?v=20261124-portrait-headroom-v1/);
  assert.match(js,/v:'20261124-portrait-headroom-v1'/);
  for(const id of ['evelyn-5','marcus-1','marcus-2','marcus-3','marcus-4','marcus-5','daniel-1','daniel-3-talk'])
