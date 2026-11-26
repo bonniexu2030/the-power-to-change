@@ -52,7 +52,7 @@ test('new illustrated player matches revised crop and lower placement without sh
 });
 test('real game uses cache-busted stylesheet and every real illustrated route',()=>{
  const h=read('game.html'),js=read('game.js');
- assert.match(h,/game\.css\?v=20261124-portrait-headroom-v1/);
+ assert.match(h,/game\.css\?v=20261125-portrait-no-stripe-v1/);
  assert.match(h,/game\.js\?v=20261124-portrait-headroom-v1/);
  assert.match(js,/v:'20261124-portrait-headroom-v1'/);
  for(const id of ['evelyn-5','marcus-1','marcus-2','marcus-3','marcus-4','marcus-5','daniel-1','daniel-3-talk'])
